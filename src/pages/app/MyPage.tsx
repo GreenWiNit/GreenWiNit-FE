@@ -36,7 +36,7 @@ function MyPage() {
       <div className="felx flex-col overflow-y-auto pb-40">
         {cardItems.map((cardItem) => {
           return (
-            <Card className="mt-6 h-fit w-[343px] rounded-[16px] bg-white p-0 shadow-lg">
+            <Card className="mt-6 h-fit rounded-2xl bg-white p-0 shadow-lg">
               <CardContent className="flex flex-col">
                 <div className="flex w-full flex-row items-center justify-center p-[16px] font-bold">
                   {cardItem.title}
