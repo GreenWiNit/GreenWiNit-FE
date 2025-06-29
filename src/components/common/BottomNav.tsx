@@ -1,21 +1,46 @@
+import BottomNavigationMui from '@mui/material/BottomNavigation'
+import BottomNavigationAction from '@mui/material/BottomNavigationAction'
+import { useState } from 'react'
+
 function BottomNavigation() {
-  const bottomNavigationItems = [
-    { icon: '/icons/home.svg', label: '홈' },
-    { icon: '/icons/share.svg', label: '정보공유' },
-    { icon: '/icons/shop.svg', label: '포인트상점' },
-    { icon: '/icons/person.svg', label: '마이페이지' },
-  ]
+  const [value, setValue] = useState(0)
+
   return (
-    <div className="absolute bottom-0 flex h-[77px] w-full flex-row items-center justify-center gap-[14px] bg-white shadow-xl">
-      {bottomNavigationItems.map((item) => {
-        return (
-          <a className="flex h-[56px] w-[75.25px] flex-col items-center justify-center gap-1">
-            <img src={item.icon} />
-            <span className="text-[14px] text-[#202020]">{item.label}</span>
-          </a>
-        )
-      })}
-    </div>
+    <BottomNavigationMui
+      showLabels
+      value={value}
+      onChange={(_event, newValue) => {
+        setValue(newValue)
+      }}
+      sx={{
+        '.Mui-selected': { color: 'black' },
+        '& .MuiBottomNavigationAction-label': {
+          fontSize: '0.875rem',
+          marginTop: '0.25rem',
+        },
+      }}
+    >
+      <BottomNavigationAction
+        sx={{ paddingTop: '4px' }}
+        icon={<img src="/icons/home.svg" />}
+        label="홈"
+      />
+      <BottomNavigationAction
+        sx={{ paddingTop: '4px' }}
+        icon={<img src="/icons/share.svg" />}
+        label="정보공유"
+      />
+      <BottomNavigationAction
+        sx={{ paddingTop: '4px' }}
+        icon={<img src="/icons/shop.svg" />}
+        label="포인트상점"
+      />
+      <BottomNavigationAction
+        sx={{ paddingTop: '4px' }}
+        icon={<img src="/icons/person.svg" />}
+        label="마이페이지"
+      />
+    </BottomNavigationMui>
   )
 }
 

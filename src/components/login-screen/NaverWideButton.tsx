@@ -10,7 +10,7 @@ const NaverWideButton = (props: NaverWideButtonProps) => {
     <button
       {...props}
       className={cn(
-        'relative flex h-[50px] w-full cursor-pointer items-center justify-center rounded-[10px] !bg-[#03C75A] pl-5',
+        'relative flex h-[50px] w-full items-center justify-center rounded-[10px] !bg-[#03C75A] pl-5',
       )}
     >
       <img src="/img/naver.png" alt="네이버로그인" width={30} className="absolute left-3" />

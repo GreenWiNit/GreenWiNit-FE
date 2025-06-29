@@ -75,7 +75,9 @@ export function LoginForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit">로그인</Button>
+            <Button type="submit" variant="admin">
+              로그인
+            </Button>
           </form>
         </Form>
       </CardContent>

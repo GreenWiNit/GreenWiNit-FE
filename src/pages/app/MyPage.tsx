@@ -1,4 +1,5 @@
 import BottomNavigation from '@/components/common/BottomNav'
+import PageContainer from '@/components/common/PageContainer'
 import { Card, CardAction, CardContent } from '@/components/ui/card'
 
 function MyPage() {
@@ -29,14 +30,14 @@ function MyPage() {
   ]
 
   return (
-    <div className="h-full w-full overflow-y-auto bg-[#F5F9F7]">
+    <PageContainer>
       <div className="flex h-[48px] w-full items-center justify-center bg-white py-8">
         <span className="text-[24px] font-bold text-black">마이페이지</span>
       </div>
       <div className="felx flex-col overflow-y-auto pb-40">
         {cardItems.map((cardItem) => {
           return (
-            <Card className="mt-6 h-fit w-[343px] rounded-[16px] bg-white p-0 shadow-lg">
+            <Card className="mt-6 h-fit rounded-2xl bg-white p-0 shadow-lg">
               <CardContent className="flex flex-col">
                 <div className="flex w-full flex-row items-center justify-center p-[16px] font-bold">
                   {cardItem.title}
@@ -66,9 +67,8 @@ function MyPage() {
           )
         })}
       </div>
-
       <BottomNavigation />
-    </div>
+    </PageContainer>
   )
 }
 

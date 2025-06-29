@@ -10,7 +10,7 @@ const KakaoWideButton = (props: KakaoWideButtonProps) => {
     <button
       {...props}
       className={cn(
-        'relative flex h-[50px] w-full cursor-pointer items-center justify-center rounded-[10px] !bg-[#FEE500] pl-5',
+        'relative flex h-[50px] w-full items-center justify-center rounded-[10px] !bg-[#FEE500] pl-5',
       )}
     >
       <img src="/img/kakao.png" alt="카카오로그인" width={20} className="absolute left-5" />

@@ -10,7 +10,7 @@ const GoogleWideButton = (props: GoogleWideButtonProps) => {
     <button
       {...props}
       className={cn(
-        'gsi-material-button relative flex h-[50px] w-full cursor-pointer items-center justify-center rounded-[10px] !bg-black',
+        'gsi-material-button relative flex h-[50px] w-full items-center justify-center rounded-[10px] !bg-black',
       )}
     >
       <div className="gsi-material-button-state"></div>
