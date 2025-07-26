@@ -21,7 +21,7 @@ const Challenges = () => {
   const filteredChallenges = challenges?.filter((c) => c.type === tabToType)
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex flex-1 flex-col">
       <Tab tab={tab} setTab={setTab} />
       <div className="flex h-0 w-full flex-[1_1_auto] flex-col p-4 pt-8">
         <div className="flex flex-row items-center gap-1">

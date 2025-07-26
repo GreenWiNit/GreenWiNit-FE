@@ -13,7 +13,7 @@ function Login() {
   const [params] = useSearchParams()
   const redirectTo = params.get('redirect')
 
-  const processLogin = (oAuthToken: string) => {
+  const processLoginMocked = (oAuthToken: string) => {
     usersApi
       .login({ oAuthToken })
       .then((res) => {
@@ -29,13 +29,17 @@ function Login() {
       })
   }
 
+  const processGoogleLogin = () => {
+    window.location.href = 'https://api.greenwinit.store/oauth2/authorization/google'
+  }
+
   return (
     <div className="relative flex w-full flex-1 flex-col items-center justify-start gap-12">
       <HeaderSectionMiddle />
       <div className="absolute bottom-[10vh] flex w-full flex-col items-center justify-center gap-4 p-12">
-        <KakaoWideButton onClick={() => processLogin('ok-this-is-valid-oAuth-token')} />
-        <GoogleWideButton onClick={() => processLogin('not-ok-this-is-invalid-oAuth-token')} />
-        <NaverWideButton onClick={() => processLogin('ok-this-is-valid-oAuth-token')} />
+        <KakaoWideButton onClick={() => processLoginMocked('ok-this-is-valid-oAuth-token')} />
+        <GoogleWideButton onClick={processGoogleLogin} />
+        <NaverWideButton onClick={() => processLoginMocked('ok-this-is-valid-oAuth-token')} />
         <p className="text-light-gray mt-4 text-center text-sm">
           간편하게 로그인하고
           <br />
