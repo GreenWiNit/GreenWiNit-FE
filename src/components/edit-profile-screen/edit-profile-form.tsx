@@ -42,7 +42,7 @@ function EditProfileForm() {
     setShowConfirmModal(true)
   }
 
-  const updateNickname = async () => {
+  const updateUserProfile = async () => {
     if (!pendingData?.nickname || !pendingData.profileImage) return
 
     await usersApi.putUserProfile(pendingData.nickname, pendingData.profileImage)
@@ -93,7 +93,7 @@ function EditProfileForm() {
           isOpen={showConfirmModal}
           setIsOpen={setShowConfirmModal}
           description={`회원정보를\n 수정하시겠습니까?`}
-          onConfirm={updateNickname}
+          onConfirm={updateUserProfile}
         />
       )}
     </Fragment>
