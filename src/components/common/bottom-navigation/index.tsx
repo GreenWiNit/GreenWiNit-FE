@@ -65,7 +65,12 @@ function BottomNavigation() {
               <div className="relative mb-1 h-6 w-6 transition-all duration-50 group-hover:opacity-80">
                 {item.icon({ isActive })}
               </div>
-              <span className="relative text-sm leading-tight font-medium transition-all duration-50 group-hover:opacity-80">
+              <span
+                className={cn(
+                  'relative text-sm leading-tight font-medium transition-all duration-50 group-hover:opacity-80',
+                  isActive ? 'font-bold' : 'font-normal',
+                )}
+              >
                 {item.label}
               </span>
             </button>
