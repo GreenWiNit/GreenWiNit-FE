@@ -44,9 +44,13 @@ function EditProfileForm() {
   }
 
   const updateNickname = async () => {
-    if (!pendingData?.nickname || !pendingData.profileImage) return
+    if (!pendingData?.nickname) return
 
-    await usersApi.putUserProfile(pendingData.nickname, pendingData.profileImage)
+    const res = await usersApi.putUserProfile(pendingData.nickname, pendingData.profileImage ?? '')
+    if (res.success) {
+      setShowConfirmModal(false)
+      window.location.reload()
+    }
   }
 
   return (
