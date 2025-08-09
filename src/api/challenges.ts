@@ -52,21 +52,7 @@ export const challengesApi = {
     const response = await fetch(
       `${API_URL}/my/challenges/${challengeType === 'individual' ? 'personal' : 'team'}?${stringify({ cursor })}`,
     )
-    return response.json() as Promise<{
-      success: true
-      message: string
-      result:
-        | {
-            hasNext: boolean
-            nextCursor: number | null
-            content: Challenge[]
-          }
-        | {
-            success: false
-            message: string
-            content: null
-          }
-    }>
+    return response.json() as Promise<JoinedChallengesMineReponse>
   },
   getChallengeDetail: async (id: number) => {
     const response = await fetch(`${API_URL}/challenges/${id}`)
@@ -167,6 +153,38 @@ export const challengesApi = {
       body: JSON.stringify(body),
     })
   },
+  getCertifiedChallengesMine: async ({
+    cursor,
+    challengeType,
+  }: {
+    cursor?: number | null
+    challengeType: 'individual' | 'team'
+  }) => {
+    const response = await fetch(
+      `${API_URL}/my/challenges/certifications/${challengeType === 'individual' ? 'personal' : 'team'}?${String({ cursor })}`,
+    )
+    return response.json() as Promise<GetChallengeCertRes>
+  },
+  getCertifiedChallengeDetails: async (certId: number) => {
+    const response = await fetch(`${API_URL}/my/challenges/certifications/${certId}`)
+    return response.json() as Promise<GetCertChallengeDetailsRes>
+  },
+  postChallengeCertify: async (challengeId: number, body: PostChallengeCertifyRequestBody) => {
+    const response = await fetch(`${API_URL}/challenges/${challengeId}/certifications`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    return response.json() as Promise<PostChallengeCertRes>
+  },
+}
+
+type BaseResponse<T> = {
+  success: boolean
+  message: string
+  result?: T
 }
 
 export interface Challenge {
@@ -223,6 +241,12 @@ export interface ChallengeDetailResponse {
    */
   type?: 'PERSONAL' | 'TEAM'
 }
+
+export type JoinedChallengesMineReponse = BaseResponse<{
+  hasNext: boolean
+  nextCursor: number | null
+  content: Challenge[]
+}>
 
 export interface ChallengeTeamsElement {
   id: number
@@ -287,6 +311,38 @@ export interface TeamDetailResponse {
   isParticipant: boolean
 }
 
+export type CertifiedChallenges = {
+  id: number
+  memberId: number
+  memberNickname: string
+  memberEmail: string
+  certificationImageUrl: string
+  challengeId: number
+  challengeTitle: string
+  challengeCode: string // 'CH-P-20250109-143521-A3FV'
+  certificationReview: string
+  certifiedDate: string
+  status: 'PENDING' | 'PAID' | 'REJECTED'
+}
+
+type PostChallengeCertRes = BaseResponse<{
+  certificationId: number
+}>
+
+export type GetCertChallengeDetailsRes = BaseResponse<CertifiedChallenges & { certifiedAt: string }>
+
+export type GetChallengeCertRes = BaseResponse<{
+  hasNext: boolean
+  nextCursor: number
+  content: CertifiedChallenges[]
+}>
+
+interface PostChallengeCertifyRequestBody {
+  certificationDate: string
+  certificationImageUrl: string
+  certificationReview: string
+}
+
 export const CHALLENGE_ROOT_QUERY_KEY = 'challenges'
 const challengesKey = createQueryKeys(CHALLENGE_ROOT_QUERY_KEY, {
   list: ({
@@ -303,6 +359,15 @@ const challengesKey = createQueryKeys(CHALLENGE_ROOT_QUERY_KEY, {
     cursor?: number | null
     challengeType: 'individual' | 'team'
   }) => ['list', 'my-joined', { challengeType, cursor: cursor ?? undefined }] as const,
+  certifiedDetail: ({ certId }: { certId: number }) =>
+    ['my-certified', 'details', { certId }] as const,
+  listCertifiedMine: ({
+    cursor,
+    challengeType,
+  }: {
+    cursor?: number | null
+    challengeType: 'individual' | 'team'
+  }) => ['list', 'my-certified', { challengeType, cursor: cursor ?? undefined }] as const,
   detail: (id: number | undefined) => ['detail', id] as const,
   team: (challengeId: number | undefined, teamId: number | undefined) =>
     [challengeId, 'teams', teamId] as const,

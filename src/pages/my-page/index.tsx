@@ -63,7 +63,7 @@ function MyPage() {
   ]
 
   return (
-    <MyPageLayout title="마이페이지">
+    <MyPageLayout title="마이페이지" showBottomNavigation={true}>
       <div className="flex flex-col gap-10 px-[13px] py-[33px]">
         <UserCard />
         {CARD_ITEMS.map((el, i) => {

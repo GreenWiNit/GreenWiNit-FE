@@ -23,7 +23,7 @@ import MyPoints from '@/pages/my-page/my-points'
 import WithDraw from '@/pages/my-page/withdraw'
 import EditProfile from '@/pages/my-page/edit-profile'
 import CertifiedChallenges from '@/pages/my-page/certifed-challenges'
-import CertifiedChallengesDetail from '@/pages/my-page/certified-challenges-detail'
+import CertifiedChallengeDetails from '@/pages/my-page/certified-challenge-details'
 import NotFound from '@/pages/404'
 import './App.css'
 import PointShop from './pages/point-shop'
@@ -89,7 +89,7 @@ function App() {
                   <Route path="/my-page/challenges/certified" element={<CertifiedChallenges />} />
                   <Route
                     path="/my-page/challenges/certify/:challengeId"
-                    element={<CertifiedChallengesDetail />}
+                    element={<CertifiedChallengeDetails />}
                   />
                   <Route path="/posts" element={<Posts />} />
                   <Route path="/posts/:postId" element={<PostDetail />} />

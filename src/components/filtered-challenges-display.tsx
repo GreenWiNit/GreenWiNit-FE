@@ -1,36 +1,22 @@
-import Challenge from '@/components/common/challenge'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { challengesApi, challengesQueryKeys } from '@/api/challenges'
+import { CertifiedChallenges, Challenge as ChallengeType } from '@/api/challenges'
 import { ChallengeTypeSwitch } from '@/components/challenge-type-switch'
+import { Dispatch, SetStateAction } from 'react'
+import Challenge from '@/components/common/challenge'
 
-function FilteredChallengesDisplay() {
-  const navigate = useNavigate()
-  const [challengeType, setChallengeType] = useState<0 | 1>(0)
-  const challengeTypeString = challengeType === 0 ? 'individual' : 'team'
-  const { data: challenges } = useQuery({
-    queryKey: challengesQueryKeys.challenges.listJoinedMine({
-      challengeType: challengeTypeString,
-    }).queryKey,
-    queryFn: () =>
-      challengesApi.getJoinedChallengesMine({
-        challengeType: challengeTypeString,
-        cursor: null,
-      }),
-  })
-  const filteredChallenges =
-    challenges?.result?.content?.filter((c) => {
-      const isTeam = c.type?.toLowerCase() === 'team'
-      const isIndividual = c.type?.toLowerCase() === 'individual'
+interface FilteredChallengesDisplayProps {
+  challengeType: 0 | 1 // 0 == personal,  1 == team
+  setChallengeType: Dispatch<SetStateAction<0 | 1>>
+  challenges: ChallengeType[] | CertifiedChallenges[]
+  handleNavigate: (challengeId: number, teamId?: number) => void
+}
 
-      return (
-        (challengeTypeString === 'team' && isTeam) ||
-        (challengeTypeString === 'individual' && isIndividual)
-      )
-    }) ?? []
-
+function FilteredChallengesDisplay({
+  challengeType,
+  setChallengeType,
+  challenges,
+  handleNavigate,
+}: FilteredChallengesDisplayProps) {
   return (
     <section className="flex w-full flex-1 flex-col gap-4 p-4">
       <div className="flex w-fit flex-row items-center justify-center rounded-xl border bg-gray-200">
@@ -42,14 +28,18 @@ function FilteredChallengesDisplay() {
         </ChallengeTypeSwitch>
       </div>
       <div className="flex h-full flex-row items-start justify-start">
-        {filteredChallenges?.length ? (
+        {challenges?.length ? (
           <Carousel className="w-full">
             <CarouselContent className="-ml-4 items-start justify-start">
-              {filteredChallenges.map((challenge) => (
+              {challenges.map((challenge) => (
                 <CarouselItem key={challenge.id} className="max-w-[200px] pb-1 pl-4">
                   <Challenge
                     challenge={challenge}
-                    onClick={() => navigate(`/my-page/challenges/certify/:challengeId`)}
+                    onClick={
+                      challengeType === 0
+                        ? () => handleNavigate(challenge.id)
+                        : () => handleNavigate(challenge.id, 0) //@TODO challenge.teamId 생기면 0이 대체될 예정
+                    }
                   />
                 </CarouselItem>
               ))}
