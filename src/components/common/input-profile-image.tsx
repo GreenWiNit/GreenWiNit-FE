@@ -43,6 +43,7 @@ function InputProfileImage({
         className="absolute right-0 bottom-0"
       />
       <InputImage
+        ref={fileInputRef}
         purpose="profile"
         localFileName={source}
         onChange={onChange}
