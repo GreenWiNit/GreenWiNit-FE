@@ -32,7 +32,7 @@ const InputNickname = forwardRef<HTMLInputElement, InputNicknameProps>(
 
       const res = await usersApi.checkNicknameDuplicate(nickname)
 
-      if ('nickname' in res) {
+      if ('nickname' in res && res.available) {
         setIsNicknameDuplicated(true)
         toast.success('사용 가능한 닉네임입니다.')
       } else {
