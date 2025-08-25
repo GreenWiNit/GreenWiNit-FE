@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      allowedHosts: ['db6803daed2d.ngrok-free.app'],
+      allowedHosts: [],
       proxy: {
         [env.VITE_API_URL]: {
           target: env.API_PROXY_TO,
