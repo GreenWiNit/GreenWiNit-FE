@@ -7,7 +7,7 @@
   "name": "greenwinit",
   "compatibility_date": "2025-08-23",
   "assets": {
-    "directory": "./dist/",
+    "directory": "dist",
     // SPA default
     "not_found_handling": "single-page-application",
     "html_handling": "none"
