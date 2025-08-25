@@ -23,9 +23,7 @@ export const Route = createRootRoute({
   notFoundComponent: () => {
     return <NotFound />
   },
-  errorComponent: ({ error: _error }) => {
-    return <InternalServerError />
-  },
+  errorComponent: InternalServerError,
 })
 
 const RootElement = () => {

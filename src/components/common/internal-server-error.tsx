@@ -1,9 +1,15 @@
 import { Button as OriginalButton } from '@/components/common/button'
 import { cn } from '@/lib/utils'
-import { ComponentProps } from 'react'
-import { useLocation, useNavigate, useRouter } from '@tanstack/react-router'
+import { ComponentProps, Fragment } from 'react'
+import { ErrorComponentProps, useLocation, useNavigate, useRouter } from '@tanstack/react-router'
 
-export default function InternalServerError() {
+type InternalServerErrorProps<TError> = TError extends unknown
+  ? object
+  : ErrorComponentProps<TError>
+
+function InternalServerError<TError>(props: InternalServerErrorProps<TError>) {
+  const error = 'error' in props ? props.error : undefined
+
   const isInRouter = useIsInRouter()
 
   return (
@@ -14,6 +20,12 @@ export default function InternalServerError() {
         서비스 이용에 불편을 드려 죄송합니다.
         <br />
         잠시 후 다시 이용해주세요.
+        {error && error instanceof Error && (
+          <Fragment>
+            <br />
+            <p>{error.message}</p>
+          </Fragment>
+        )}
       </p>
       <div className="flex w-full flex-row justify-center gap-4">
         {isInRouter ? <InternalServerErrorInRouter /> : <InternalServerErrorWithoutRouter />}
@@ -60,3 +72,5 @@ const InternalServerErrorInRouter = () => {
 const Button = ({ ...props }: ComponentProps<typeof OriginalButton>) => {
   return <OriginalButton {...props} className={cn('h-fit max-w-40', props.className)} />
 }
+
+export default InternalServerError
