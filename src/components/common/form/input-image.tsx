@@ -38,6 +38,7 @@ function InputImage({
     <input
       type="file"
       accept="image/*"
+      capture="environment" // 모바일에서 카메라 촬영 옵션 노출을 위해 추가
       onChange={handleFileChange}
       {...omit(restProps, ['localFileName'])}
       className={cn(restProps.className, 'cursor-pointer')}
