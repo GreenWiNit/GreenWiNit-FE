@@ -5,7 +5,6 @@ import InputProfileImage from '@/components/common/input-profile-image'
 import PageLayOut from '@/components/common/page-layout'
 import InputNickname from '@/components/edit-profile-screen/nickname-checkt-input/input-nickname'
 import { Button } from '@/components/common/button'
-import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { authStore } from '@/store/auth-store'
@@ -22,20 +21,16 @@ export const Route = createFileRoute('/signup')({
 })
 
 function Signup() {
-  // @TODO change to form state
-  const [isNicknameDuplicated, setIsNicknameDuplicated] = useState(false)
-  // @TODO change to form state
-  const [hasTriedDuplicateCheck, setHasTriedDuplicateCheck] = useState(false)
   const search = Route.useSearch()
   const tempToken = search?.tempToken
   const setAccessToken = authStore((s) => s.setAccessToken)
   const navigate = useNavigate()
 
   if (!tempToken) {
-    throw new Error('Invalid tempToken')
+    throw new Error('비정상적인 접근입니다. Invalid Token value')
   }
 
-  const { control, handleSubmit } = useForm<FormState>({
+  const { control, handleSubmit, setValue, watch } = useForm<FormState>({
     defaultValues: {
       profileImage: null,
       nickname: null,
@@ -43,7 +38,8 @@ function Signup() {
   })
 
   const onSubmit: SubmitHandler<FormState> = async (data) => {
-    if (!data.nickname) {
+    const { nickname, profileImage, isNicknameDuplicated, hasTriedDuplicateCheck } = data
+    if (!nickname) {
       toast.error('닉네임을 입력해주세요.')
       return
     }
@@ -64,8 +60,8 @@ function Signup() {
     await usersApi
       .signup({
         tempToken,
-        nickname: data.nickname,
-        profileImageUrl: data.profileImage,
+        nickname,
+        profileImageUrl: profileImage,
       })
       .then((res) => {
         if (res.success && typeof res.result.accessToken === 'string') {
@@ -113,17 +109,21 @@ function Signup() {
                   onChange={(e) => {
                     field.onChange(e)
                     // 입력 바뀌면 중복확인 다시 하도록 유도
-                    setHasTriedDuplicateCheck(false)
+                    setValue('hasTriedDuplicateCheck', false)
                   }}
-                  setIsNicknameDuplicated={setIsNicknameDuplicated}
-                  setHasTriedDuplicateCheck={setHasTriedDuplicateCheck}
+                  setIsNicknameDuplicated={(value) => setValue('isNicknameDuplicated', value)}
+                  setHasTriedDuplicateCheck={(value) => setValue('hasTriedDuplicateCheck', value)}
                 />
               )}
             />
             <Button
               type="submit"
               className="mt-auto"
-              variant={!hasTriedDuplicateCheck || isNicknameDuplicated ? 'disabled' : undefined}
+              variant={
+                !watch('hasTriedDuplicateCheck') || watch('isNicknameDuplicated')
+                  ? 'disabled'
+                  : undefined
+              }
             >
               제출
             </Button>
@@ -137,6 +137,8 @@ function Signup() {
 interface FormState {
   profileImage: string | null
   nickname: string | null
+  isNicknameDuplicated: boolean
+  hasTriedDuplicateCheck: boolean
 }
 
 export default Signup
