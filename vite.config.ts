@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 import { defineConfig, loadEnv } from 'vite'
 import svgr from 'vite-plugin-svgr'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { cloudflare } from '@cloudflare/vite-plugin'
 
 // https://vite.dev/config/
@@ -20,7 +21,8 @@ export default defineConfig(({ mode }) => {
       react(),
       svgr(),
       tailwindcss(),
-      cloudflare(),
+      // @TODO toggle int when migrate to worker
+      // cloudflare(),
     ],
     resolve: {
       alias: {
