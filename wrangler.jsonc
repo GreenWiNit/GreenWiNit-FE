@@ -1,7 +1,23 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
 {
+  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "greenwinit",
-  "compatibility_date": "2024-01-01",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_date": "2025-08-23",
+  "assets": {
+    "directory": "dist",
+    // SPA default
+    "not_found_handling": "single-page-application",
+    "html_handling": "none"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "env": {
     "preview": {
       "build": {

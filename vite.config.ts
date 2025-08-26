@@ -5,6 +5,8 @@ import react from '@vitejs/plugin-react'
 import { defineConfig, loadEnv } from 'vite'
 import svgr from 'vite-plugin-svgr'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { cloudflare } from '@cloudflare/vite-plugin'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -19,6 +21,8 @@ export default defineConfig(({ mode }) => {
       react(),
       svgr(),
       tailwindcss(),
+      // @TODO toggle int when migrate to worker
+      // cloudflare(),
     ],
     resolve: {
       alias: {
@@ -26,7 +30,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      allowedHosts: ['db6803daed2d.ngrok-free.app'],
+      allowedHosts: [],
       proxy: {
         [env.VITE_API_URL]: {
           target: env.API_PROXY_TO,

@@ -10,6 +10,8 @@
     "lint": "eslint .",
     "preview": "npm run build && wrangler pages dev",
     "deploy": "npm run build && wrangler pages deploy",
+    "preview:worker": "npm run build && wrangler dev",
+    "deploy:worker": "npm run build && wrangler deploy",
     "cf-typegen": "wrangler types",
     "format": "prettier . --write",
     "prepare": "husky"
@@ -51,6 +53,7 @@
     "zustand": "^5.0.5"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.11.7",
     "@eslint/js": "^9.29.0",
     "@redux-devtools/extension": "^3.3.0",
     "@tailwindcss/vite": "^4.1.10",
@@ -76,7 +79,7 @@
     "typescript-eslint": "^8.34.1",
     "vite": "^6.3.5",
     "vite-plugin-svgr": "^4.3.0",
-    "wrangler": "^4.20.0"
+    "wrangler": "^4.32.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
