@@ -23,13 +23,40 @@ const TimeWheel = <T extends string | number>({
   const [touchStartY, setTouchStartY] = useState<number | null>(null)
   const [touchStartTime, setTouchStartTime] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const isWheeling = useRef(false)
+  const wheelingSpeed = useRef(0)
+
+  const startAt = (clientY: number) => {
+    setTouchStartY(clientY)
+    setTouchStartTime(Date.now())
+  }
+
+  const finishAt = (clientY: number, multiplier = 1) => {
+    handleSwipe(clientY, multiplier)
+  }
+
+  const initDraggingSpeed = () => {
+    // @TODO 실제로는 css 애니메이션 처리가 완료되었을 때 처리해야함
+    setTimeout(() => {
+      if (!isWheeling.current) {
+        wheelingSpeed.current = 0
+      }
+    }, 500)
+  }
+
+  const handleMouseFinish = (e: React.MouseEvent) => {
+    if (isWheeling.current) {
+      finishAt(e.clientY, 1)
+    }
+    isWheeling.current = false
+    initDraggingSpeed()
+  }
 
   // 터치 시작
   const handleTouchStart = (e: React.TouchEvent) => {
     const touch = e.targetTouches[0]
     if (touch) {
-      setTouchStartY(touch.clientY)
-      setTouchStartTime(Date.now())
+      startAt(touch.clientY)
     }
   }
 
@@ -37,12 +64,17 @@ const TimeWheel = <T extends string | number>({
   const handleTouchEnd = (e: React.TouchEvent) => {
     const touch = e.changedTouches[0]
     if (touch) {
-      handleSwipe(touch.clientY)
+      finishAt(touch.clientY, 2)
     }
   }
 
-  // 스와이프 처리
-  const handleSwipe = (touchEndY: number) => {
+  /**
+   * 스와이프 처리
+   *
+   * @param touchEndY 터치 종료 위치
+   * @param multiplier 모바일은 2, PC-크롬은 1이 적당한듯
+   */
+  const handleSwipe = (touchEndY: number, multiplier = 1) => {
     if (!touchStartY || !touchStartTime) return
 
     const distance = touchStartY - touchEndY
@@ -50,15 +82,19 @@ const TimeWheel = <T extends string | number>({
     const minSwipeDistance = 20
 
     if (Math.abs(distance) > minSwipeDistance) {
+      const currentSpeed = Math.abs(distance) / duration
       // 속도 계산 (px/ms)
-      const velocity = Math.abs(distance) / duration
+      const velocity = wheelingSpeed.current
+        ? wheelingSpeed.current * 2 + currentSpeed
+        : currentSpeed
+      wheelingSpeed.current = velocity
 
       // 가속도 기반 스와이프 배수 계산
       // 기본값: 30px당 1개, 속도가 빠를수록 배수 증가
       const ITEM_HEIGHT_FONT_SIZE = 24
-      const ITEM_HEIGHT_APPLYIED = ITEM_HEIGHT_FONT_SIZE * 2
-      const baseMultiplier = Math.max(1, Math.floor(Math.abs(distance) / ITEM_HEIGHT_APPLYIED))
-      const velocityMultiplier = Math.min(3, Math.floor(velocity * 1.5))
+      const ITEM_HEIGHT_APPLYIED = ITEM_HEIGHT_FONT_SIZE * multiplier
+      const baseMultiplier = Math.max(1, Math.abs(distance) / ITEM_HEIGHT_APPLYIED)
+      const velocityMultiplier = Math.min(1, velocity * 1.5)
       const swipeMultiplier = baseMultiplier * velocityMultiplier
 
       if (onTouchChange) {
@@ -93,32 +129,22 @@ const TimeWheel = <T extends string | number>({
     // 터치 상태 초기화
     setTouchStartY(null)
     setTouchStartTime(null)
+    initDraggingSpeed()
   }
 
   return (
     <div
       ref={containerRef}
-      className="relative h-24 w-12 overflow-hidden rounded-lg sm:h-32 md:h-36 md:w-16"
+      className="relative h-24 w-12 overflow-hidden rounded-lg"
       onWheel={onWheel}
-      onPointerDown={(e) => {
-        if (e.pointerType !== 'mouse') return
-        e.currentTarget.setPointerCapture(e.pointerId)
-        setTouchStartY(e.clientY)
-        setTouchStartTime(Date.now())
-      }}
-      onPointerUp={(e) => {
-        if (e.pointerType !== 'mouse') return
-        handleSwipe(e.clientY)
-        if (e.currentTarget.hasPointerCapture && e.currentTarget.hasPointerCapture(e.pointerId)) {
-          e.currentTarget.releasePointerCapture(e.pointerId)
-        }
-      }}
-      onPointerCancel={() => {
-        setTouchStartY(null)
-        setTouchStartTime(null)
-      }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
+      onMouseDown={(e) => {
+        isWheeling.current = true
+        startAt(e.clientY)
+      }}
+      onMouseUp={handleMouseFinish}
+      onMouseLeave={handleMouseFinish}
     >
       <div className="flex h-full transform flex-col items-center justify-center transition-transform duration-300 ease-out">
         {items.map((item, index) => {
