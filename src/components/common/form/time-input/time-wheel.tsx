@@ -100,6 +100,23 @@ const TimeWheel = <T extends string | number>({
       ref={containerRef}
       className="relative h-24 w-12 overflow-hidden rounded-lg sm:h-32 md:h-36 md:w-16"
       onWheel={onWheel}
+      onPointerDown={(e) => {
+        if (e.pointerType !== 'mouse') return
+        e.currentTarget.setPointerCapture(e.pointerId)
+        setTouchStartY(e.clientY)
+        setTouchStartTime(Date.now())
+      }}
+      onPointerUp={(e) => {
+        if (e.pointerType !== 'mouse') return
+        handleSwipe(e.clientY)
+        if (e.currentTarget.hasPointerCapture && e.currentTarget.hasPointerCapture(e.pointerId)) {
+          e.currentTarget.releasePointerCapture(e.pointerId)
+        }
+      }}
+      onPointerCancel={() => {
+        setTouchStartY(null)
+        setTouchStartTime(null)
+      }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
