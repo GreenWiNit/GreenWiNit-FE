@@ -1,7 +1,7 @@
 export async function throwResponseStatusThenChaining(response: Response) {
   const body = await response.clone().json()
   if (response.ok) {
-    if ('success' in body) {
+    if (body && typeof body === 'object' && 'success' in body) {
       // success가 있는데 falsy하면 throw하기 위해 아래쪽으로 흐름을 가짐
       if (body.success) {
         return response
@@ -16,6 +16,14 @@ export async function throwResponseStatusThenChaining(response: Response) {
     .clone()
     .json()
     .then((body) => {
-      throw new Error(body.message || `HTTP ${response.status}: ${response.statusText}`)
+      if (
+        body &&
+        typeof body === 'object' &&
+        'message' in body &&
+        typeof body.message === 'string'
+      ) {
+        throw new Error(body.message)
+      }
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
     })
 }
