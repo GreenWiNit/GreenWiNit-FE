@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap 위치
+Sitemap: https://www.greenwinit.store
+# 실제 도메인으로 변경하세요 (예: https://greenwinit.com/sitemap.xml)
+
+# 크롤링 지연 (초)
+Crawl-delay: 1
