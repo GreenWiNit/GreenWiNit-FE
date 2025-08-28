@@ -25,12 +25,27 @@ const TimeWheel = <T extends string | number>({
   const containerRef = useRef<HTMLDivElement>(null)
   const isDragging = useRef(false)
 
+  const startAt = (clientY: number) => {
+    setTouchStartY(clientY)
+    setTouchStartTime(Date.now())
+  }
+
+  const finishAt = (clientY: number, multiplier = 1) => {
+    handleSwipe(clientY, multiplier)
+  }
+
+  const handleMouseFinish = (e: React.MouseEvent) => {
+    if (isDragging.current) {
+      finishAt(e.clientY, 1)
+    }
+    isDragging.current = false
+  }
+
   // 터치 시작
   const handleTouchStart = (e: React.TouchEvent) => {
     const touch = e.targetTouches[0]
     if (touch) {
-      setTouchStartY(touch.clientY)
-      setTouchStartTime(Date.now())
+      startAt(touch.clientY)
     }
   }
 
@@ -38,7 +53,7 @@ const TimeWheel = <T extends string | number>({
   const handleTouchEnd = (e: React.TouchEvent) => {
     const touch = e.changedTouches[0]
     if (touch) {
-      handleSwipe(touch.clientY)
+      finishAt(touch.clientY, 2)
     }
   }
 
@@ -53,7 +68,6 @@ const TimeWheel = <T extends string | number>({
 
     const distance = touchStartY - touchEndY
     const duration = Date.now() - touchStartTime
-    console.log('duration', duration)
     const minSwipeDistance = 20
 
     if (Math.abs(distance) > minSwipeDistance) {
@@ -110,25 +124,11 @@ const TimeWheel = <T extends string | number>({
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onMouseDown={(e) => {
-        console.log('ok dragging start', e.clientY)
         isDragging.current = true
-        setTouchStartY(e.clientY)
-        setTouchStartTime(Date.now())
+        startAt(e.clientY)
       }}
-      onMouseUp={(e) => {
-        if (isDragging.current) {
-          console.log('ok dragging done')
-          handleSwipe(e.clientY)
-        }
-        isDragging.current = false
-      }}
-      onMouseLeave={(e) => {
-        if (isDragging.current) {
-          console.log('ok dragging done (leave)')
-          handleSwipe(e.clientY)
-        }
-        isDragging.current = false
-      }}
+      onMouseUp={handleMouseFinish}
+      onMouseLeave={handleMouseFinish}
     >
       <div className="flex h-full transform flex-col items-center justify-center transition-transform duration-300 ease-out">
         {items.map((item, index) => {
