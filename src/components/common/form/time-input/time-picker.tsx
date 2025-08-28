@@ -33,8 +33,6 @@ const TimePicker = ({ value, onChange }: TimePickerProps) => {
   }, [selectedHour, selectedMinute, selectedAMPM])
 
   const handleWheel = (e: React.WheelEvent, type: 'hour' | 'minute' | 'ampm') => {
-    e.preventDefault()
-
     if (type === 'hour') {
       const newHour = e.deltaY < 0 ? (selectedHour - 1 + 12) % 12 : (selectedHour + 1) % 12
       setSelectedHour(newHour)
