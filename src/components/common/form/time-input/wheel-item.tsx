@@ -24,7 +24,7 @@ const WheelItem = <T extends string | number>({
   return (
     <div
       className={cn(
-        'wheel-item absolute flex h-12 transform-gpu cursor-pointer items-center justify-center text-lg transition-all duration-300 ease-out',
+        'wheel-item absolute flex h-12 transform-gpu cursor-pointer items-center justify-center text-lg transition-all duration-300 ease-out select-none',
         isSelected ? 'z-10 text-2xl font-medium' : 'text-gray-400',
       )}
       style={
