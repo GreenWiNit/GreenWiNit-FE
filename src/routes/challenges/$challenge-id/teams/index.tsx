@@ -59,7 +59,7 @@ function ChallengesTeam() {
           ) : (
             <div className="flex flex-1 flex-col">
               <div className="flex flex-1 items-center justify-center">
-                <span className="text-bold text-lg text-[#c0c0c0]">
+                <span className="text-lg font-bold text-[#c0c0c0]">
                   팀을 선택하거나 등록해주세요.
                 </span>
               </div>

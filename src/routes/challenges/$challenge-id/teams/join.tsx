@@ -47,7 +47,7 @@ function JoinTeam() {
             ) : (
               <div className="flex flex-1 flex-col">
                 <div className="flex flex-1 items-center justify-center">
-                  <p className="text-bold text-lg text-[#c0c0c0]">
+                  <p className="text-lg font-bold text-[#c0c0c0]">
                     아직 등록된 팀이 없습니다.
                     <br />
                     [홈] - [참여 챌린지]에서
