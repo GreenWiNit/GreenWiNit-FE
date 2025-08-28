@@ -23,7 +23,8 @@ const TimeWheel = <T extends string | number>({
   const [touchStartY, setTouchStartY] = useState<number | null>(null)
   const [touchStartTime, setTouchStartTime] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const isDragging = useRef(false)
+  const isWheeling = useRef(false)
+  const wheelingSpeed = useRef(0)
 
   const startAt = (clientY: number) => {
     setTouchStartY(clientY)
@@ -34,11 +35,21 @@ const TimeWheel = <T extends string | number>({
     handleSwipe(clientY, multiplier)
   }
 
+  const initDraggingSpeed = () => {
+    // @TODO 실제로는 css 애니메이션 처리가 완료되었을 때 처리해야함
+    setTimeout(() => {
+      if (!isWheeling.current) {
+        wheelingSpeed.current = 0
+      }
+    }, 500)
+  }
+
   const handleMouseFinish = (e: React.MouseEvent) => {
-    if (isDragging.current) {
+    if (isWheeling.current) {
       finishAt(e.clientY, 1)
     }
-    isDragging.current = false
+    isWheeling.current = false
+    initDraggingSpeed()
   }
 
   // 터치 시작
@@ -71,15 +82,19 @@ const TimeWheel = <T extends string | number>({
     const minSwipeDistance = 20
 
     if (Math.abs(distance) > minSwipeDistance) {
+      const currentSpeed = Math.abs(distance) / duration
       // 속도 계산 (px/ms)
-      const velocity = Math.abs(distance) / duration
+      const velocity = wheelingSpeed.current
+        ? wheelingSpeed.current * 2 + currentSpeed
+        : currentSpeed
+      wheelingSpeed.current = velocity
 
       // 가속도 기반 스와이프 배수 계산
       // 기본값: 30px당 1개, 속도가 빠를수록 배수 증가
       const ITEM_HEIGHT_FONT_SIZE = 24
       const ITEM_HEIGHT_APPLYIED = ITEM_HEIGHT_FONT_SIZE * multiplier
       const baseMultiplier = Math.max(1, Math.abs(distance) / ITEM_HEIGHT_APPLYIED)
-      const velocityMultiplier = Math.min(3, velocity * 1.5)
+      const velocityMultiplier = Math.min(1, velocity * 1.5)
       const swipeMultiplier = baseMultiplier * velocityMultiplier
 
       if (onTouchChange) {
@@ -114,6 +129,7 @@ const TimeWheel = <T extends string | number>({
     // 터치 상태 초기화
     setTouchStartY(null)
     setTouchStartTime(null)
+    initDraggingSpeed()
   }
 
   return (
@@ -124,7 +140,7 @@ const TimeWheel = <T extends string | number>({
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onMouseDown={(e) => {
-        isDragging.current = true
+        isWheeling.current = true
         startAt(e.clientY)
       }}
       onMouseUp={handleMouseFinish}
