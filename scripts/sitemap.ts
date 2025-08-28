@@ -15,9 +15,13 @@ export const sitemap: Sitemap<TRoutes> = {
   routes: {
     '/': {
       priority: 1,
-      changeFrequency: 'weekly',
+      changeFrequency: 'daily',
     },
     '/404': {
+      priority: 0.1,
+      changeFrequency: 'never',
+    },
+    '/500': {
       priority: 0.1,
       changeFrequency: 'never',
     },
@@ -30,6 +34,26 @@ export const sitemap: Sitemap<TRoutes> = {
         priority: 0.8,
         changeFrequency: 'daily',
       }))
+    },
+    '/login': {
+      priority: 0.1,
+      changeFrequency: 'monthly',
+    },
+    '/my-page': {
+      priority: 0.1,
+      changeFrequency: 'monthly',
+    },
+    '/point-shop': {
+      priority: 0.1,
+      changeFrequency: 'monthly',
+    },
+    '/terms': {
+      priority: 0.1,
+      changeFrequency: 'monthly',
+    },
+    '/signup': {
+      priority: 0.1,
+      changeFrequency: 'monthly',
     },
   },
 }
