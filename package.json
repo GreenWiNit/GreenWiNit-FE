@@ -5,14 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "build:staging": "tsc -b && vite build --mode staging",
+    "build": "tsc -b && vite build && npm run copy-sitemap",
+    "build:staging": "tsc -b && vite build --mode staging && npm run copy-sitemap",
     "lint": "eslint .",
     "preview": "npm run build && wrangler pages dev",
     "deploy": "npm run build && wrangler pages deploy",
     "preview:worker": "npm run build && wrangler dev",
     "deploy:worker": "npm run build && wrangler deploy",
     "cf-typegen": "wrangler types",
+    "copy-sitemap": "tsx scripts/copy-sitemap.ts",
     "format": "prettier . --write",
     "prepare": "husky"
   },
