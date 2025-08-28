@@ -100,21 +100,22 @@ const TimeWheel = <T extends string | number>({
       ref={containerRef}
       className="relative h-24 w-12 overflow-hidden rounded-lg sm:h-32 md:h-36 md:w-16"
       onWheel={onWheel}
-      onMouseDown={(e) => {
-        // 데스크톱 드래그 시작을 터치 시작 로직과 동일하게 취급
+      onPointerDown={(e) => {
+        if (e.pointerType !== 'mouse') return
+        e.currentTarget.setPointerCapture(e.pointerId)
         setTouchStartY(e.clientY)
         setTouchStartTime(Date.now())
-        e.preventDefault()
       }}
-      onMouseUp={(e) => {
-        // 드래그 종료 시 스와이프 처리
+      onPointerUp={(e) => {
+        if (e.pointerType !== 'mouse') return
         handleSwipe(e.clientY)
-      }}
-      onMouseLeave={(e) => {
-        // 드래그 중 영역을 벗어난 경우도 종료로 처리
-        if (touchStartY != null) {
-          handleSwipe(e.clientY)
+        if (e.currentTarget.hasPointerCapture && e.currentTarget.hasPointerCapture(e.pointerId)) {
+          e.currentTarget.releasePointerCapture(e.pointerId)
         }
+      }}
+      onPointerCancel={() => {
+        setTouchStartY(null)
+        setTouchStartTime(null)
       }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
