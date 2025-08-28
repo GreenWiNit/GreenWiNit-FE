@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2022",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "useDefineForClassFields": true,
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
@@ -17,5 +22,5 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "scripts", "global"]
 }
