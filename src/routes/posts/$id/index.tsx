@@ -45,7 +45,9 @@ function PostDetail() {
           </div>
           <div className="flex flex-col text-start">
             <p className="border-b-2 px-4 pt-4 text-2xl font-bold text-black">소개</p>
-            <p className="text-tertiary p-4 wrap-anywhere whitespace-break-spaces">{post.content}</p>
+            <p className="text-tertiary p-4 wrap-anywhere whitespace-break-spaces">
+              {post.content}
+            </p>
           </div>
         </PageLayOut.BodySection>
       </PageLayOut.ScrollableContent>
