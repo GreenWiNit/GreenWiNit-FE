@@ -7,6 +7,8 @@ import svgr from 'vite-plugin-svgr'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { cloudflare } from '@cloudflare/vite-plugin'
+import { generateSitemap } from 'tanstack-router-sitemap'
+import { sitemap } from './scripts/sitemap.ts'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -21,6 +23,7 @@ export default defineConfig(({ mode }) => {
       react(),
       svgr(),
       tailwindcss(),
+      generateSitemap(sitemap),
       // @TODO toggle int when migrate to worker
       // cloudflare(),
     ],
@@ -48,6 +51,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
+      outDir: 'dist',
       rollupOptions: {
         output: {
           manualChunks(id) {

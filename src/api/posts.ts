@@ -1,5 +1,5 @@
-import { API_URL } from '@/constant/network'
-import { throwResponseStatusThenChaining } from '@/lib/network'
+import { API_URL } from '../constant/network'
+import { throwResponseStatusThenChaining } from '../lib/network'
 import { createQueryKeys } from '@lukemorales/query-key-factory'
 
 export interface PostElement {

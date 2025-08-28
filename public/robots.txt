@@ -1,0 +1,13 @@
+# 모든 검색 엔진 크롤러에 대한 규칙
+User-agent: *
+Allow: /
+# 크롤링 지연 설정 (초)
+Crawl-delay: 1
+
+# 사이트맵 위치
+Sitemap: https://www.greenwinit.store/sitemap.xml
+
+# 엔진별 설정
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5

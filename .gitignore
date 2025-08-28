@@ -13,6 +13,9 @@ dist-ssr
 *.tsbuildinfo
 *.local
 
+# tanstack-router-sitemap에서 dist 아래가 아닌, public 아래에 파일을 둠
+public/sitemap.xml
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
