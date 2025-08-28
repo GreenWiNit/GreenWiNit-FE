@@ -42,8 +42,13 @@ const TimeWheel = <T extends string | number>({
     }
   }
 
-  // 스와이프 처리
-  const handleSwipe = (touchEndY: number) => {
+  /**
+   * 스와이프 처리
+   *
+   * @param touchEndY 터치 종료 위치
+   * @param multiplier 모바일은 2, PC-크롬은 1이 적당한듯
+   */
+  const handleSwipe = (touchEndY: number, multiplier = 1) => {
     if (!touchStartY || !touchStartTime) return
 
     const distance = touchStartY - touchEndY
@@ -58,9 +63,9 @@ const TimeWheel = <T extends string | number>({
       // 가속도 기반 스와이프 배수 계산
       // 기본값: 30px당 1개, 속도가 빠를수록 배수 증가
       const ITEM_HEIGHT_FONT_SIZE = 24
-      const ITEM_HEIGHT_APPLYIED = ITEM_HEIGHT_FONT_SIZE * 2
-      const baseMultiplier = Math.max(1, Math.floor(Math.abs(distance) / ITEM_HEIGHT_APPLYIED))
-      const velocityMultiplier = Math.min(3, Math.floor(velocity * 1.5))
+      const ITEM_HEIGHT_APPLYIED = ITEM_HEIGHT_FONT_SIZE * multiplier
+      const baseMultiplier = Math.max(1, Math.abs(distance) / ITEM_HEIGHT_APPLYIED)
+      const velocityMultiplier = Math.min(3, velocity * 1.5)
       const swipeMultiplier = baseMultiplier * velocityMultiplier
 
       if (onTouchChange) {
@@ -100,7 +105,7 @@ const TimeWheel = <T extends string | number>({
   return (
     <div
       ref={containerRef}
-      className="relative h-24 w-12 overflow-hidden rounded-lg sm:h-32 md:h-36 md:w-16"
+      className="relative h-24 w-12 overflow-hidden rounded-lg"
       onWheel={onWheel}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
