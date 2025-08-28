@@ -23,6 +23,7 @@ const TimeWheel = <T extends string | number>({
   const [touchStartY, setTouchStartY] = useState<number | null>(null)
   const [touchStartTime, setTouchStartTime] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const isDragging = useRef(false)
 
   // 터치 시작
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -47,6 +48,7 @@ const TimeWheel = <T extends string | number>({
 
     const distance = touchStartY - touchEndY
     const duration = Date.now() - touchStartTime
+    console.log('duration', duration)
     const minSwipeDistance = 20
 
     if (Math.abs(distance) > minSwipeDistance) {
@@ -100,25 +102,28 @@ const TimeWheel = <T extends string | number>({
       ref={containerRef}
       className="relative h-24 w-12 overflow-hidden rounded-lg sm:h-32 md:h-36 md:w-16"
       onWheel={onWheel}
-      onPointerDown={(e) => {
-        if (e.pointerType !== 'mouse') return
-        e.currentTarget.setPointerCapture(e.pointerId)
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onMouseDown={(e) => {
+        console.log('ok dragging start', e.clientY)
+        isDragging.current = true
         setTouchStartY(e.clientY)
         setTouchStartTime(Date.now())
       }}
-      onPointerUp={(e) => {
-        if (e.pointerType !== 'mouse') return
-        handleSwipe(e.clientY)
-        if (e.currentTarget.hasPointerCapture && e.currentTarget.hasPointerCapture(e.pointerId)) {
-          e.currentTarget.releasePointerCapture(e.pointerId)
+      onMouseUp={(e) => {
+        if (isDragging.current) {
+          console.log('ok dragging done')
+          handleSwipe(e.clientY)
         }
+        isDragging.current = false
       }}
-      onPointerCancel={() => {
-        setTouchStartY(null)
-        setTouchStartTime(null)
+      onMouseLeave={(e) => {
+        if (isDragging.current) {
+          console.log('ok dragging done (leave)')
+          handleSwipe(e.clientY)
+        }
+        isDragging.current = false
       }}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
       <div className="flex h-full transform flex-col items-center justify-center transition-transform duration-300 ease-out">
         {items.map((item, index) => {
