@@ -1,15 +1,14 @@
 import { useState } from 'react'
-import Tab from '@/components/home-screen/challenges/tab'
 import { TabProps } from '@/components/home-screen/challenges/type'
 import { useChallenges } from '@/hooks/challenge/use-challenges'
 import Challenge from '@/components/common/challenge'
 import { useNavigate } from '@tanstack/react-router'
-import { Info as InfoOutlineIcon } from 'lucide-react'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/shadcn/tooltip'
 import useIsLoggedIn from '@/hooks/use-is-logged-in'
 import WarnNotLoggedIn from '../../common/warn-not-logged-in'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/shadcn/carousel'
 import { cn } from '@/lib/utils'
+import ChallengeTab from '@/components/common/challenges/challenge-tab'
+import InfoButton from './info-button'
 
 const Challenges = () => {
   const [tab, setTab] = useState<TabProps['tab']>('individual')
@@ -22,26 +21,17 @@ const Challenges = () => {
 
   return (
     <div className="flex h-full flex-col">
-      <Tab tab={tab} setTab={setTab} />
+      <ChallengeTab tab={tab} setTab={setTab} />
       <div className="flex h-0 w-full flex-[1_1_auto] flex-col p-4 pt-8">
         <div className="flex flex-row items-center gap-1">
           <span className="text-title-smaller text-xl font-bold">{`${tab === 'individual' ? '개인' : '팀'} 챌린지`}</span>
-          <Tooltip onOpenChange={setShowTooltip} open={showTooltip}>
-            <TooltipTrigger asChild>
-              <InfoOutlineIcon
-                className="text-mountain_meadow"
-                onClick={() => {
-                  setShowTooltip((prev) => !prev)
-                }}
-              />
-            </TooltipTrigger>
-            <TooltipContent className="p-4 shadow-xl">
-              <p className="text-center">
-                원하는 챌린지에 참여 후<br />
-                [참여 챌린지]에서 인증해주세요!
-              </p>
-            </TooltipContent>
-          </Tooltip>
+          <InfoButton
+            isOpen={showTooltip}
+            onOpenChange={setShowTooltip}
+            onClick={() => setShowTooltip((prev) => !prev)}
+            text={`원하는 챌린지에 참여 후
+                  [참여 챌린지]에서 인증해주세요!`}
+          />
         </div>
         <Carousel className="mt-4">
           <CarouselContent className={cn('-ml-4', 'max-w-[200px]')}>

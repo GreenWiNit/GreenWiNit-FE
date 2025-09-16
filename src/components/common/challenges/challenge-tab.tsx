@@ -1,8 +1,8 @@
 import { cn } from '@/lib/utils'
 import { cva, VariantProps } from 'class-variance-authority'
-import { TabProps } from './type'
+import { TabProps } from '../../home-screen/challenges/type'
 
-const Tab = ({ tab, setTab }: TabProps) => {
+const ChallengeTab = ({ tab, setTab }: TabProps) => {
   return (
     <div className="mt-4 flex w-full flex-row">
       <TabItem isActive={tab === 'individual'} onClick={() => setTab('individual')}>
@@ -33,4 +33,4 @@ const TabItem = ({ className, isActive, ...restProps }: TabItemProps) => {
   return <button {...restProps} className={cn(tabItemVariants({ isActive }), className)} />
 }
 
-export default Tab
+export default ChallengeTab
