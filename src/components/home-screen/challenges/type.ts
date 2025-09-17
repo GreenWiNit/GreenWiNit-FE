@@ -6,8 +6,5 @@ export interface TabProps {
 }
 
 export interface InfoButtonProps {
-  onOpenChange: (open: boolean) => void
-  isOpen: boolean
-  onClick: () => void
   text: string
 }

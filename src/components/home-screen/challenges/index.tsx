@@ -9,6 +9,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/shadcn/car
 import { cn } from '@/lib/utils'
 import ChallengeTab from '@/components/common/challenges/challenge-tab'
 import InfoButton from './info-button'
+import SuggestChallenge from './suggest_challenge'
 
 const Challenges = () => {
   const [tab, setTab] = useState<TabProps['tab']>('individual')
@@ -17,18 +18,15 @@ const Challenges = () => {
   const isLoggedIn = useIsLoggedIn()
   const [isWarnNotLoggedInDialogOpen, setIsWarnNotLoggedInDialogOpen] = useState(false)
   const filteredChallenges = challenges
-  const [showTooltip, setShowTooltip] = useState(false)
 
   return (
     <div className="flex h-full flex-col">
+      <SuggestChallenge />
       <ChallengeTab tab={tab} setTab={setTab} />
       <div className="flex h-0 w-full flex-[1_1_auto] flex-col p-4 pt-8">
         <div className="flex flex-row items-center gap-1">
           <span className="text-title-smaller text-xl font-bold">{`${tab === 'individual' ? '개인' : '팀'} 챌린지`}</span>
           <InfoButton
-            isOpen={showTooltip}
-            onOpenChange={setShowTooltip}
-            onClick={() => setShowTooltip((prev) => !prev)}
             text={`원하는 챌린지에 참여 후
                   [참여 챌린지]에서 인증해주세요!`}
           />
