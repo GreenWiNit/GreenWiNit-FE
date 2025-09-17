@@ -16,7 +16,7 @@ const InfoButton = ({ text }: InfoButtonProps) => {
       <Tooltip onOpenChange={setShowTooltip} open={showTooltip}>
         <TooltipTrigger asChild>
           <InfoOutlineIcon
-            className="text-mountain_meadow"
+            className="text-mountain_meadow size-6"
             onClick={() => setShowTooltip((prev) => !prev)}
           />
         </TooltipTrigger>

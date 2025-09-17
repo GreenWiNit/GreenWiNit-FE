@@ -29,8 +29,7 @@ const Slider = () => {
 
   return (
     <div className="flex">
-      {/* 슬라이더 컨테이너 */}
-      <div className="relative h-80 overflow-hidden">
+      <div className="relative h-full overflow-hidden">
         <div
           className="flex h-full transition-transform duration-300 ease-in-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -39,7 +38,7 @@ const Slider = () => {
             <div key={challenge.id} className="relative mt-4 w-full flex-shrink-0">
               <img src={challenge.challengeImage} className="rounded-lg border-2" />
               <div className="mb-4 flex items-start justify-between">
-                <div className="bg-opacity-30 absolute top-36 right-2 rounded-[12px] border-2 bg-white px-2 text-xs">
+                <div className="bg-opacity-30 absolute top-4/5 right-2 rounded-lg border-2 bg-white px-2 text-xs">
                   {currentIndex + 1} / {latestChallenges.length}
                 </div>
               </div>
@@ -61,7 +60,7 @@ const SuggestChallenge = () => {
 
   return (
     <div className="flex h-full flex-col px-4 py-0">
-      <div className="flex w-full flex-row items-center">
+      <div className="flex w-full flex-row items-center gap-2">
         <h3 className="text-lg font-bold">맞춤 추천 챌린지</h3>
         <InfoButton text={suggestString} />
         <Button
