@@ -4,6 +4,7 @@ import PostIcon from './post.svg?react'
 import HomeIcon from './home.svg?react'
 import ShopIcon from './shop.svg?react'
 import MyPageIcon from './my-page.svg?react'
+import ChallengeIcon from './challenge.svg?react'
 import { cn } from '@/lib/utils'
 
 interface BottomNavigationProps {
@@ -54,7 +55,7 @@ function BottomNavigation({ containerClassName }: BottomNavigationProps) {
         {NAV_ITEMS.map((item) => {
           const isActive =
             item.moveTo === '/'
-              ? location.pathname === item.moveTo || location.pathname.startsWith('/challenges')
+              ? location.pathname === item.moveTo
               : location.pathname.startsWith(item.moveTo)
 
           return (
@@ -98,6 +99,16 @@ const NAV_ITEMS = [
     label: '홈',
     moveTo: '/',
   } satisfies NavItem,
+  {
+    icon: (props: { isActive: boolean }) => (
+      <ChallengeIcon
+        {...props}
+        className={cn(props.isActive ? 'text-mountain_meadow' : 'text-[#737373]')}
+      />
+    ),
+    label: '챌린지',
+    moveTo: '/challenges',
+  },
   {
     icon: (props: { isActive: boolean }) => (
       <PostIcon

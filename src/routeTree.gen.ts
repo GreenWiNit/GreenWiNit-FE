@@ -18,6 +18,7 @@ import { Route as TermsIndexRouteImport } from './routes/terms/index'
 import { Route as PostsIndexRouteImport } from './routes/posts/index'
 import { Route as PointShopIndexRouteImport } from './routes/point-shop/index'
 import { Route as MyPageIndexRouteImport } from './routes/my-page/index'
+import { Route as ChallengesIndexRouteImport } from './routes/challenges/index'
 import { Route as MyPageWithdrawRouteImport } from './routes/my-page/withdraw'
 import { Route as MyPageMyPointsRouteImport } from './routes/my-page/my-points'
 import { Route as MyPageEditProfileRouteImport } from './routes/my-page/edit-profile'
@@ -80,6 +81,11 @@ const PointShopIndexRoute = PointShopIndexRouteImport.update({
 const MyPageIndexRoute = MyPageIndexRouteImport.update({
   id: '/my-page/',
   path: '/my-page/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChallengesIndexRoute = ChallengesIndexRouteImport.update({
+  id: '/challenges/',
+  path: '/challenges/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MyPageWithdrawRoute = MyPageWithdrawRouteImport.update({
@@ -195,6 +201,7 @@ export interface FileRoutesByFullPath {
   '/my-page/edit-profile': typeof MyPageEditProfileRoute
   '/my-page/my-points': typeof MyPageMyPointsRoute
   '/my-page/withdraw': typeof MyPageWithdrawRoute
+  '/challenges': typeof ChallengesIndexRoute
   '/my-page': typeof MyPageIndexRoute
   '/point-shop': typeof PointShopIndexRoute
   '/posts': typeof PostsIndexRoute
@@ -224,6 +231,7 @@ export interface FileRoutesByTo {
   '/my-page/edit-profile': typeof MyPageEditProfileRoute
   '/my-page/my-points': typeof MyPageMyPointsRoute
   '/my-page/withdraw': typeof MyPageWithdrawRoute
+  '/challenges': typeof ChallengesIndexRoute
   '/my-page': typeof MyPageIndexRoute
   '/point-shop': typeof PointShopIndexRoute
   '/posts': typeof PostsIndexRoute
@@ -254,6 +262,7 @@ export interface FileRoutesById {
   '/my-page/edit-profile': typeof MyPageEditProfileRoute
   '/my-page/my-points': typeof MyPageMyPointsRoute
   '/my-page/withdraw': typeof MyPageWithdrawRoute
+  '/challenges/': typeof ChallengesIndexRoute
   '/my-page/': typeof MyPageIndexRoute
   '/point-shop/': typeof PointShopIndexRoute
   '/posts/': typeof PostsIndexRoute
@@ -285,6 +294,7 @@ export interface FileRouteTypes {
     | '/my-page/edit-profile'
     | '/my-page/my-points'
     | '/my-page/withdraw'
+    | '/challenges'
     | '/my-page'
     | '/point-shop'
     | '/posts'
@@ -314,6 +324,7 @@ export interface FileRouteTypes {
     | '/my-page/edit-profile'
     | '/my-page/my-points'
     | '/my-page/withdraw'
+    | '/challenges'
     | '/my-page'
     | '/point-shop'
     | '/posts'
@@ -343,6 +354,7 @@ export interface FileRouteTypes {
     | '/my-page/edit-profile'
     | '/my-page/my-points'
     | '/my-page/withdraw'
+    | '/challenges/'
     | '/my-page/'
     | '/point-shop/'
     | '/posts/'
@@ -373,6 +385,7 @@ export interface RootRouteChildren {
   MyPageEditProfileRoute: typeof MyPageEditProfileRoute
   MyPageMyPointsRoute: typeof MyPageMyPointsRoute
   MyPageWithdrawRoute: typeof MyPageWithdrawRoute
+  ChallengesIndexRoute: typeof ChallengesIndexRoute
   MyPageIndexRoute: typeof MyPageIndexRoute
   PointShopIndexRoute: typeof PointShopIndexRoute
   PostsIndexRoute: typeof PostsIndexRoute
@@ -457,6 +470,13 @@ declare module '@tanstack/react-router' {
       path: '/my-page'
       fullPath: '/my-page'
       preLoaderRoute: typeof MyPageIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/challenges/': {
+      id: '/challenges/'
+      path: '/challenges'
+      fullPath: '/challenges'
+      preLoaderRoute: typeof ChallengesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/my-page/withdraw': {
@@ -597,6 +617,7 @@ const rootRouteChildren: RootRouteChildren = {
   MyPageEditProfileRoute: MyPageEditProfileRoute,
   MyPageMyPointsRoute: MyPageMyPointsRoute,
   MyPageWithdrawRoute: MyPageWithdrawRoute,
+  ChallengesIndexRoute: ChallengesIndexRoute,
   MyPageIndexRoute: MyPageIndexRoute,
   PointShopIndexRoute: PointShopIndexRoute,
   PostsIndexRoute: PostsIndexRoute,
