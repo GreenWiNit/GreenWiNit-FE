@@ -73,12 +73,18 @@ const Slider = () => {
 }
 
 const SuggestChallenge = () => {
+  const navigate = useNavigate()
+
   const suggestString = `
           AI가 사용자 맞춤형
           챌린지를 추천해줘요!
           미설정 시, 최신 등록된 챌린지를
           보여줘요.
         `
+
+  const handleButtonClick = () => {
+    navigate({ to: '/challenges/recommend/report' })
+  }
 
   return (
     <div className="flex h-full flex-col px-4 py-0">
@@ -88,6 +94,7 @@ const SuggestChallenge = () => {
         <Button
           className="flex-end bg-mountain_meadow-500 ml-12 justify-end font-bold text-white"
           variant="default"
+          onClick={handleButtonClick}
         >
           AI분석 바로가기
         </Button>
