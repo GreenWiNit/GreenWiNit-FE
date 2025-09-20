@@ -35,13 +35,11 @@ function Home() {
   const setAccessToken = authStore((state) => state.setAccessToken)
 
   useEffect(() => {
-    // URL에서 accessToken 쿼리 파라미터 확인
     const accessToken = search?.accessToken
     const refreshToken = search?.refreshToken
 
     if (accessToken) {
       setAccessToken(accessToken)
-      // 쿼리 파라미터 제거
       navigate({ to: '/' })
     }
     if (refreshToken) {

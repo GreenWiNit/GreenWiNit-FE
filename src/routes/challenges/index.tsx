@@ -12,6 +12,14 @@ import { useState } from 'react'
 
 export const Route = createFileRoute('/challenges/')({
   component: RouteComponent,
+  validateSearch: (search: Record<string, unknown>) => {
+    const tab = search['tab'] as string
+    const validTab: ChallengeType = ['individual', 'team'].includes(tab)
+      ? (tab as ChallengeType)
+      : 'individual'
+
+    return { tab: validTab }
+  },
 })
 
 const ChallengeTab = ({ onTabChange, activeTab }: ChallengeTabProps) => {
@@ -41,16 +49,16 @@ const ChallengeTab = ({ onTabChange, activeTab }: ChallengeTabProps) => {
 }
 
 function RouteComponent() {
-  const [selectedTab, setSelectedTab] = useState<ChallengeType>('individual')
   const [searchQuery, setSearchQuery] = useState('')
-  const navigate = useNavigate()
-  const { data: challenges } = useChallenges({ challengeType: selectedTab })
+  const navigate = useNavigate({ from: Route.fullPath })
+  const { tab } = Route.useSearch()
+  const { data: challenges } = useChallenges({ challengeType: tab as ChallengeType })
 
   const handleTabChange = (newTab: ChallengeType) => {
-    if (newTab !== selectedTab) {
-      setSearchQuery('')
-      setSelectedTab(newTab)
-    }
+    navigate({
+      search: { tab: newTab },
+    })
+    setSearchQuery('')
   }
 
   const handleMyChallenge = () => {
@@ -67,14 +75,15 @@ function RouteComponent() {
         <PageLayOut.HeaderSection>
           <PageTitle>챌린지</PageTitle>
         </PageLayOut.HeaderSection>
-        <ChallengeTab onTabChange={handleTabChange} activeTab={selectedTab} />
+        <ChallengeTab onTabChange={handleTabChange} activeTab={tab} />
         <div className="m-2 flex justify-between gap-2 rounded-3xl border border-gray-400 py-2 pr-2 pl-4">
           <input
-            placeholder=""
+            placeholder="검색 기능은 지금 개발중에 있어요!"
             type="text"
             className="w-full outline-0"
             onChange={(e) => setSearchQuery(e.target.value)}
             value={searchQuery}
+            disabled={true}
           />
           <Search color="gray" />
         </div>
@@ -86,7 +95,8 @@ function RouteComponent() {
               onClick={() => {
                 navigate({
                   to: `/challenges/${challenge.id}/detail`,
-                  search: { challengeType: selectedTab },
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  search: { challengeType: tab } as any,
                 })
               }}
             />
