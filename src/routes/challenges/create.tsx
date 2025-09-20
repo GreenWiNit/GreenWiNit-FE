@@ -4,7 +4,7 @@ import PageTitle from '@/components/common/page-title'
 import { Button } from '@/components/shadcn/button'
 import { Input } from '@/components/shadcn/input'
 import { Label } from '@radix-ui/react-label'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { ChevronLeft } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -21,7 +21,6 @@ interface FormData {
 }
 
 function RouteComponent() {
-  const navigate = useNavigate()
   const { control, register, handleSubmit, watch } = useForm<FormData>({
     defaultValues: {
       type: 'individual',
@@ -34,7 +33,7 @@ function RouteComponent() {
   const selectedType = watch('type')
 
   const handleBackButton = () => {
-    navigate({ to: '/challenges' })
+    window.history.back()
   }
 
   const onSubmit = (data: FormData) => {
