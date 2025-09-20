@@ -58,8 +58,7 @@ function RouteComponent() {
   }
 
   const handleAddChallenge = () => {
-    console.log('챌린지 생성 페이지로 이동')
-    // navigate({to: "/challenges/create"})
+    navigate({ to: '/challenges/create' })
   }
 
   return (

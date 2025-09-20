@@ -22,6 +22,7 @@ import { Route as ChallengesIndexRouteImport } from './routes/challenges/index'
 import { Route as MyPageWithdrawRouteImport } from './routes/my-page/withdraw'
 import { Route as MyPageMyPointsRouteImport } from './routes/my-page/my-points'
 import { Route as MyPageEditProfileRouteImport } from './routes/my-page/edit-profile'
+import { Route as ChallengesCreateRouteImport } from './routes/challenges/create'
 import { Route as PostsIdIndexRouteImport } from './routes/posts/$id/index'
 import { Route as MyPageChallengesCertifiedRouteImport } from './routes/my-page/challenges/certified'
 import { Route as ChallengesChallengeIdDetailRouteImport } from './routes/challenges/$challenge-id/detail'
@@ -101,6 +102,11 @@ const MyPageMyPointsRoute = MyPageMyPointsRouteImport.update({
 const MyPageEditProfileRoute = MyPageEditProfileRouteImport.update({
   id: '/my-page/edit-profile',
   path: '/my-page/edit-profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChallengesCreateRoute = ChallengesCreateRouteImport.update({
+  id: '/challenges/create',
+  path: '/challenges/create',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PostsIdIndexRoute = PostsIdIndexRouteImport.update({
@@ -198,6 +204,7 @@ export interface FileRoutesByFullPath {
   '/500': typeof R500Route
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/challenges/create': typeof ChallengesCreateRoute
   '/my-page/edit-profile': typeof MyPageEditProfileRoute
   '/my-page/my-points': typeof MyPageMyPointsRoute
   '/my-page/withdraw': typeof MyPageWithdrawRoute
@@ -228,6 +235,7 @@ export interface FileRoutesByTo {
   '/500': typeof R500Route
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/challenges/create': typeof ChallengesCreateRoute
   '/my-page/edit-profile': typeof MyPageEditProfileRoute
   '/my-page/my-points': typeof MyPageMyPointsRoute
   '/my-page/withdraw': typeof MyPageWithdrawRoute
@@ -259,6 +267,7 @@ export interface FileRoutesById {
   '/500': typeof R500Route
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/challenges/create': typeof ChallengesCreateRoute
   '/my-page/edit-profile': typeof MyPageEditProfileRoute
   '/my-page/my-points': typeof MyPageMyPointsRoute
   '/my-page/withdraw': typeof MyPageWithdrawRoute
@@ -291,6 +300,7 @@ export interface FileRouteTypes {
     | '/500'
     | '/login'
     | '/signup'
+    | '/challenges/create'
     | '/my-page/edit-profile'
     | '/my-page/my-points'
     | '/my-page/withdraw'
@@ -321,6 +331,7 @@ export interface FileRouteTypes {
     | '/500'
     | '/login'
     | '/signup'
+    | '/challenges/create'
     | '/my-page/edit-profile'
     | '/my-page/my-points'
     | '/my-page/withdraw'
@@ -351,6 +362,7 @@ export interface FileRouteTypes {
     | '/500'
     | '/login'
     | '/signup'
+    | '/challenges/create'
     | '/my-page/edit-profile'
     | '/my-page/my-points'
     | '/my-page/withdraw'
@@ -382,6 +394,7 @@ export interface RootRouteChildren {
   R500Route: typeof R500Route
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
+  ChallengesCreateRoute: typeof ChallengesCreateRoute
   MyPageEditProfileRoute: typeof MyPageEditProfileRoute
   MyPageMyPointsRoute: typeof MyPageMyPointsRoute
   MyPageWithdrawRoute: typeof MyPageWithdrawRoute
@@ -500,6 +513,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MyPageEditProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/challenges/create': {
+      id: '/challenges/create'
+      path: '/challenges/create'
+      fullPath: '/challenges/create'
+      preLoaderRoute: typeof ChallengesCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/posts/$id/': {
       id: '/posts/$id/'
       path: '/posts/$id'
@@ -614,6 +634,7 @@ const rootRouteChildren: RootRouteChildren = {
   R500Route: R500Route,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
+  ChallengesCreateRoute: ChallengesCreateRoute,
   MyPageEditProfileRoute: MyPageEditProfileRoute,
   MyPageMyPointsRoute: MyPageMyPointsRoute,
   MyPageWithdrawRoute: MyPageWithdrawRoute,
