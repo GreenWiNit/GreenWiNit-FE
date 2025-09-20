@@ -5,7 +5,6 @@ import {
 } from '@/api/challenges'
 import { cn } from '@/lib/utils'
 import { MouseEventHandler } from 'react'
-import dayjs from 'dayjs'
 import { DEFAULT_CHALLENGE_IMAGE } from '@/constant/challenge'
 import CertifiedStatus from '@/components/common/certified-status'
 
@@ -22,10 +21,7 @@ const Challenge = ({ challenge, onClick, className }: ChallengeProps) => {
   const view = {
     title: challenge.challengeName,
     image: challenge.challengeImage,
-    subText:
-      'certifiedDate' in challenge
-        ? dayjs(challenge.certifiedDate).format('YY.MM.DD')
-        : `${challenge.currentParticipant}명 / ${dayjs(challenge.beginDate).format('YY.MM.DD')} ~ ${dayjs(challenge.endDate).format('MM.DD')}`,
+    subText: 'currentParticipant' in challenge && `${challenge.currentParticipant}명 참여 중`,
     certifiedStatus: 'certifiedDate' in challenge ? challenge.certificationStatus : null,
   }
 

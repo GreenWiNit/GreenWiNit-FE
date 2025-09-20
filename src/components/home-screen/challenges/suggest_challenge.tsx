@@ -2,12 +2,18 @@ import { Button } from '@/components/shadcn/button'
 import InfoButton from './info-button'
 import { useChallenges } from '@/hooks/challenge/use-challenges'
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from '@tanstack/react-router'
+import useIsLoggedIn from '@/hooks/use-is-logged-in'
+import WarnNotLoggedIn from '@/components/common/warn-not-logged-in'
 
 const Slider = () => {
   const { data: teamChallenges } = useChallenges({ challengeType: 'individual' })
   const { data: individualChallenges } = useChallenges({ challengeType: 'team' })
 
+  const navigate = useNavigate()
+  const isLoggedIn = useIsLoggedIn()
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isWarnNotLoggedInDialogOpen, setIsWarnNotLoggedInDialogOpen] = useState(false)
 
   const latestChallenges = useMemo(() => {
     const allChallenges = [...(teamChallenges ?? []), ...(individualChallenges ?? [])]
@@ -35,10 +41,22 @@ const Slider = () => {
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {latestChallenges.map((challenge) => (
-            <div key={challenge.id} className="relative mt-4 w-full flex-shrink-0">
+            <div
+              key={challenge.id}
+              className="relative mt-4 w-full flex-shrink-0"
+              onClick={() => {
+                if (!isLoggedIn) {
+                  setIsWarnNotLoggedInDialogOpen(true)
+                  return
+                }
+                navigate({
+                  to: `/challenges/${challenge.id}/detail`,
+                })
+              }}
+            >
               <img src={challenge.challengeImage} className="rounded-lg border-2" />
-              <div className="mb-4 flex items-start justify-between">
-                <div className="bg-opacity-30 absolute top-4/5 right-2 rounded-lg border-2 bg-white px-2 text-xs">
+              <div className="flex items-start justify-between">
+                <div className="bg-opacity-30 absolute top-5/6 right-2 rounded-lg border-2 bg-white px-2 text-xs">
                   {currentIndex + 1} / {latestChallenges.length}
                 </div>
               </div>
@@ -46,6 +64,10 @@ const Slider = () => {
           ))}
         </div>
       </div>
+      <WarnNotLoggedIn
+        isOpen={isWarnNotLoggedInDialogOpen}
+        onOpenChange={setIsWarnNotLoggedInDialogOpen}
+      />
     </div>
   )
 }
@@ -61,7 +83,7 @@ const SuggestChallenge = () => {
   return (
     <div className="flex h-full flex-col px-4 py-0">
       <div className="flex w-full flex-row items-center gap-2">
-        <h3 className="text-lg font-bold">맞춤 추천 챌린지</h3>
+        <h3 className="text-lg font-bold whitespace-nowrap">맞춤 추천 챌린지</h3>
         <InfoButton text={suggestString} />
         <Button
           className="flex-end bg-mountain_meadow-500 ml-12 justify-end font-bold text-white"

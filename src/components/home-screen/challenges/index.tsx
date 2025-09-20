@@ -17,7 +17,8 @@ const ChallengePreview = ({ category, challenges }: ChallengePreviewProps) => {
 
   const handleViewButtonClick = (category: 'individual' | 'team') => {
     navigate({
-      to: `/challenges/${category}`,
+      to: `/challenges`,
+      search: { tab: category },
     })
   }
 
