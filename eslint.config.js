@@ -52,6 +52,8 @@ export default tseslint.config(
         },
       ],
       '@typescript-eslint/no-deprecated': 'error',
+      'react/prop-types': 'off',
+      'react/require-default-props': 'off',
     },
   },
   {

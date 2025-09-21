@@ -52,10 +52,10 @@ function Login() {
       const moveToBase =
         import.meta.env.VITE_OAUTH_BASE_URL ??
         (import.meta.env.MODE === 'staging'
-          ? 'https://staging-api.greenwinit.store'
+          ? 'https://staging-api.greenwinit.com'
           : import.meta.env.MODE === 'production'
-            ? 'https://api.greenwinit.store'
-            : 'https://api.greenwinit.store')
+            ? 'https://api.greenwinit.com'
+            : 'https://api.greenwinit.com')
       const moveTo = `${moveToBase}/oauth2/authorization/${provider}`
       window.location.replace(moveTo)
     }

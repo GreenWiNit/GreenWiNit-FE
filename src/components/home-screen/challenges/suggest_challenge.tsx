@@ -14,6 +14,7 @@ const Slider = () => {
   const isLoggedIn = useIsLoggedIn()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isWarnNotLoggedInDialogOpen, setIsWarnNotLoggedInDialogOpen] = useState(false)
+  const isLoading = !teamChallenges || !individualChallenges
 
   const latestChallenges = useMemo(() => {
     const allChallenges = [...(teamChallenges ?? []), ...(individualChallenges ?? [])]
@@ -32,6 +33,18 @@ const Slider = () => {
 
     return () => clearInterval(interval)
   }, [latestChallenges.length])
+
+  const SkeletonSlide = () => (
+    <div className="mt-4 flex w-full animate-pulse rounded-lg border-2 bg-gray-200">
+      <div className="flex h-48 w-full items-center justify-center text-center">
+        <p className="text-ring text-center">추천 챌린지가 준비중이에요.</p>
+      </div>
+    </div>
+  )
+
+  if (isLoading || latestChallenges.length === 0) {
+    return <SkeletonSlide />
+  }
 
   return (
     <div className="flex">
@@ -73,12 +86,18 @@ const Slider = () => {
 }
 
 const SuggestChallenge = () => {
+  const navigate = useNavigate()
+
   const suggestString = `
           AI가 사용자 맞춤형
           챌린지를 추천해줘요!
           미설정 시, 최신 등록된 챌린지를
           보여줘요.
         `
+
+  const handleButtonClick = () => {
+    navigate({ to: '/challenges/recommend/analyze' })
+  }
 
   return (
     <div className="flex h-full flex-col px-4 py-0">
@@ -88,6 +107,7 @@ const SuggestChallenge = () => {
         <Button
           className="flex-end bg-mountain_meadow-500 ml-12 justify-end font-bold text-white"
           variant="default"
+          onClick={handleButtonClick}
         >
           AI분석 바로가기
         </Button>

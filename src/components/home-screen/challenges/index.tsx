@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils'
 import SuggestChallenge from './suggest_challenge'
 import { ChevronRight } from 'lucide-react'
 
-const ChallengePreview = ({ category, challenges }: ChallengePreviewProps) => {
+export const ChallengePreview = ({ category, challenges }: ChallengePreviewProps) => {
   const navigate = useNavigate()
   const isLoggedIn = useIsLoggedIn()
   const [isWarnNotLoggedInDialogOpen, setIsWarnNotLoggedInDialogOpen] = useState(false)

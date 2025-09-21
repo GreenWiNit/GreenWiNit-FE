@@ -40,7 +40,7 @@ function MyPage() {
           title: '1:1문의',
           action: () =>
             window.open(
-              'https://docs.google.com/forms/d/e/1FAIpQLSf3XdNHHpF30JI33iR-wj9p2DRzPe6qeEPhXQ29LWXyXHS7rg/viewform',
+              'https://docs.google.com/forms/d/e/1FAIpQLSeeklgAO-RZjT5SAEqZV8FLIt8xArmyH1I4E1N0ePBVxCSQ1w/viewform?usp=sharing&ouid=113015203715321552511',
               '_blank',
             ),
         },
@@ -48,7 +48,7 @@ function MyPage() {
           title: 'FAQ',
           action: () =>
             window.open(
-              'https://www.notion.so/FAQ-243adf41302d80f895cbdd4b2947b9fa?source=copy_link',
+              'https://www.notion.so/FAQ-2758079d7940808b8c2ae932d2b4848c?source=copy_link',
               '_blank',
             ),
         },
