@@ -22,6 +22,14 @@ function RouteComponent() {
 
   if (!currentStepConfig) {
     navigate({ to: '/500' })
+    return null
+  }
+
+  const currentStepData = surveyData[currentStepConfig.id] || []
+  const isCurrentStepEmpty = currentStepData.length === 0
+
+  if (!currentStepConfig) {
+    navigate({ to: '/500' })
     return
   }
 
@@ -83,6 +91,7 @@ function RouteComponent() {
           <Button
             onClick={handleNext}
             className="bg-mountain_meadow-500 rounded-3xl px-4 py-2 text-white"
+            disabled={isCurrentStepEmpty}
           >
             {currentStep === totalStep - 1 ? '결과보기' : '다음'}
           </Button>

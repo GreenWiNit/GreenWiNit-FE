@@ -1,9 +1,13 @@
 import { SurveyStepConfig } from '@/types/servey'
-import { JSX, useState } from 'react'
+import { JSX, useEffect, useState } from 'react'
 import ScaleSelector from './scale-selector'
 
 export const SurveyStep: React.FC<SurveyStepProps> = ({ stepConfig, data, onUpdate }) => {
   const [selectedData, setSelectedData] = useState<(number | string)[]>(data || [])
+
+  useEffect(() => {
+    setSelectedData(data || [])
+  }, [data])
 
   const handleSingleChange = (value: number | string): void => {
     const updatedData = [value]
@@ -15,14 +19,17 @@ export const SurveyStep: React.FC<SurveyStepProps> = ({ stepConfig, data, onUpda
     switch (stepConfig.type) {
       case 'checkbox':
         return (
-          <div className="flex flex-col gap-4">
+          <div className="mb-6 flex flex-col gap-4">
             {stepConfig.options?.map((option) => (
-              <label key={option.id} className="flex cursor-pointer items-start gap-3">
+              <label
+                key={option.id}
+                className="flex cursor-pointer items-start gap-2 whitespace-nowrap"
+              >
                 <input
                   type="checkbox"
                   checked={selectedData.includes(option.id)}
                   onChange={() => handleSingleChange(option.id)}
-                  className="mt-1 h-4 w-4 text-green-500"
+                  className="mt-1 h-4 w-4 flex-shrink-0"
                 />
                 <span className="text-sm leading-relaxed text-gray-700">{option.text}</span>
               </label>

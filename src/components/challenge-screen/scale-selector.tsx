@@ -1,7 +1,7 @@
-import { SurveyScaleConfig } from '@/types/servey'
+import { SurveyStepConfig } from '@/types/servey'
 
 interface ScaleSelectorProps {
-  stepConfig: SurveyScaleConfig
+  stepConfig: SurveyStepConfig
   selectedNumber: number[]
   onSelectionChange: (number: number) => void
 }
@@ -12,7 +12,9 @@ const ScaleSelector = ({ stepConfig, selectedNumber, onSelectionChange }: ScaleS
   }
 
   const { scaleConfig } = stepConfig
-  const { min, max, step } = scaleConfig
+  const min = scaleConfig?.min ?? 1
+  const max = scaleConfig?.max ?? 10
+  const step = scaleConfig?.step ?? 1
   const selectedValue = selectedNumber[0] || null
 
   const scaleNumbers = Array.from(

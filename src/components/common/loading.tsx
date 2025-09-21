@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils'
 interface SpinnerProps {
   className?: string
   size?: 'sm' | 'md' | 'lg' | 'xl'
+  text?: string
 }
 
 const GradientSpinner = ({ className, size = 'md' }: SpinnerProps) => {
@@ -19,11 +20,11 @@ const GradientSpinner = ({ className, size = 'md' }: SpinnerProps) => {
   )
 }
 
-function Loading({ className = '', size = 'md' }: SpinnerProps) {
+function Loading({ className = '', size = 'md', text = '로딩 중...' }: SpinnerProps) {
   return (
-    <div className="cn-loading flex h-full w-full flex-col items-center justify-center gap-4 p-4">
-      <GradientSpinner className={className} size={size} />
-      <p className="font-bold">로딩 중...</p>
+    <div className="cn-loading flex h-full w-full flex-col items-center justify-center gap-4 p-4 whitespace-pre-line">
+      <GradientSpinner className={className} size={size} text={text} />
+      <p className="font-bold">{text}</p>
     </div>
   )
 }
