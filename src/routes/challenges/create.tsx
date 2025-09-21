@@ -3,6 +3,7 @@ import PageLayOut from '@/components/common/page-layout'
 import PageTitle from '@/components/common/page-title'
 import { Button } from '@/components/shadcn/button'
 import { Input } from '@/components/shadcn/input'
+import { cn } from '@/lib/utils'
 import { Label } from '@radix-ui/react-label'
 import { createFileRoute } from '@tanstack/react-router'
 import { ChevronLeft } from 'lucide-react'
@@ -22,6 +23,7 @@ interface FormData {
 
 function RouteComponent() {
   const { control, register, handleSubmit, watch } = useForm<FormData>({
+    mode: 'onChange', // 실시간 검증
     defaultValues: {
       type: 'individual',
       title: '',
@@ -31,6 +33,7 @@ function RouteComponent() {
   })
 
   const selectedType = watch('type')
+  const watchedValues = watch() // 모든 필드 값 표시
 
   const handleBackButton = () => {
     window.history.back()
@@ -38,7 +41,16 @@ function RouteComponent() {
 
   const onSubmit = (data: FormData) => {
     console.log(data)
-    toast.success('폼이 성공적으로 제출되었습니다.')
+    toast.error(`개발 중 입니다 빠른 시일 내에 찾아뵐게요!`)
+  }
+
+  const isFormValid = () => {
+    return (
+      watchedValues.type &&
+      watchedValues.title?.trim() &&
+      watchedValues.approach?.trim() &&
+      watchedValues.thumbnail
+    )
   }
 
   return (
@@ -91,7 +103,7 @@ function RouteComponent() {
         <Label>
           참여방법 <span className="text-red-500">*</span>
         </Label>
-        <Input {...register('title', { required: '참여 방법을 입력해주세요.' })} />
+        <Input {...register('approach', { required: '참여 방법을 입력해주세요.' })} />
         <Label>
           소개 이미지 <span className="text-red-500">*</span>
         </Label>
@@ -104,7 +116,12 @@ function RouteComponent() {
       <div className="m-4">
         <Button
           onClick={handleSubmit(onSubmit)}
-          className="bg-mountain_meadow-500 w-full p-6 text-white hover:bg-green-600"
+          className={cn(
+            'w-full p-6 text-white',
+            isFormValid()
+              ? 'bg-mountain_meadow-500 hover:bg-green-600'
+              : 'cursor-not-allowed bg-gray-300',
+          )}
         >
           등록하기
         </Button>

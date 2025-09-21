@@ -27,9 +27,9 @@ const ProductList = () => {
 
   if (!products || products.length === 0) {
     return (
-      <div className="flex w-full flex-col items-center justify-center gap-4">
+      <div className="flex h-full w-full flex-col items-center justify-center gap-4">
         <CircleAlert size={32} color="gray" />
-        <p>불러올 상품 정보가 없습니다.</p>
+        <p>상품이 준비 중입니다.</p>
       </div>
     )
   }

@@ -5,7 +5,7 @@ Allow: /
 Crawl-delay: 1
 
 # 사이트맵 위치
-Sitemap: https://www.greenwinit.store/sitemap.xml
+Sitemap: https://www.greenwinit.com/sitemap.xml
 
 # 엔진별 설정
 User-agent: Googlebot
