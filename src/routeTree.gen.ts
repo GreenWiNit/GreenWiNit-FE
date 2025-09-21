@@ -25,7 +25,9 @@ import { Route as MyPageEditProfileRouteImport } from './routes/my-page/edit-pro
 import { Route as ChallengesCreateRouteImport } from './routes/challenges/create'
 import { Route as PostsIdIndexRouteImport } from './routes/posts/$id/index'
 import { Route as MyPageChallengesCertifiedRouteImport } from './routes/my-page/challenges/certified'
+import { Route as ChallengesRecommendSurveyRouteImport } from './routes/challenges/recommend/survey'
 import { Route as ChallengesRecommendReportRouteImport } from './routes/challenges/recommend/report'
+import { Route as ChallengesRecommendAnalyzeRouteImport } from './routes/challenges/recommend/analyze'
 import { Route as ChallengesChallengeIdDetailRouteImport } from './routes/challenges/$challenge-id/detail'
 import { Route as ChallengesChallengeIdTeamsIndexRouteImport } from './routes/challenges/$challenge-id/teams/index'
 import { Route as PointShopProductsPointProductIdEnrollAddressRouteImport } from './routes/point-shop/products/$point-product-id/enroll-address'
@@ -121,10 +123,22 @@ const MyPageChallengesCertifiedRoute =
     path: '/my-page/challenges/certified',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ChallengesRecommendSurveyRoute =
+  ChallengesRecommendSurveyRouteImport.update({
+    id: '/challenges/recommend/survey',
+    path: '/challenges/recommend/survey',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ChallengesRecommendReportRoute =
   ChallengesRecommendReportRouteImport.update({
     id: '/challenges/recommend/report',
     path: '/challenges/recommend/report',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ChallengesRecommendAnalyzeRoute =
+  ChallengesRecommendAnalyzeRouteImport.update({
+    id: '/challenges/recommend/analyze',
+    path: '/challenges/recommend/analyze',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ChallengesChallengeIdDetailRoute =
@@ -221,7 +235,9 @@ export interface FileRoutesByFullPath {
   '/posts': typeof PostsIndexRoute
   '/terms': typeof TermsIndexRoute
   '/challenges/$challenge-id/detail': typeof ChallengesChallengeIdDetailRoute
+  '/challenges/recommend/analyze': typeof ChallengesRecommendAnalyzeRoute
   '/challenges/recommend/report': typeof ChallengesRecommendReportRoute
+  '/challenges/recommend/survey': typeof ChallengesRecommendSurveyRoute
   '/my-page/challenges/certified': typeof MyPageChallengesCertifiedRoute
   '/posts/$id': typeof PostsIdIndexRoute
   '/challenges/$challenge-id/submit/individual': typeof ChallengesChallengeIdSubmitIndividualRoute
@@ -253,7 +269,9 @@ export interface FileRoutesByTo {
   '/posts': typeof PostsIndexRoute
   '/terms': typeof TermsIndexRoute
   '/challenges/$challenge-id/detail': typeof ChallengesChallengeIdDetailRoute
+  '/challenges/recommend/analyze': typeof ChallengesRecommendAnalyzeRoute
   '/challenges/recommend/report': typeof ChallengesRecommendReportRoute
+  '/challenges/recommend/survey': typeof ChallengesRecommendSurveyRoute
   '/my-page/challenges/certified': typeof MyPageChallengesCertifiedRoute
   '/posts/$id': typeof PostsIdIndexRoute
   '/challenges/$challenge-id/submit/individual': typeof ChallengesChallengeIdSubmitIndividualRoute
@@ -286,7 +304,9 @@ export interface FileRoutesById {
   '/posts/': typeof PostsIndexRoute
   '/terms/': typeof TermsIndexRoute
   '/challenges/$challenge-id/detail': typeof ChallengesChallengeIdDetailRoute
+  '/challenges/recommend/analyze': typeof ChallengesRecommendAnalyzeRoute
   '/challenges/recommend/report': typeof ChallengesRecommendReportRoute
+  '/challenges/recommend/survey': typeof ChallengesRecommendSurveyRoute
   '/my-page/challenges/certified': typeof MyPageChallengesCertifiedRoute
   '/posts/$id/': typeof PostsIdIndexRoute
   '/challenges/$challenge-id/submit/individual': typeof ChallengesChallengeIdSubmitIndividualRoute
@@ -320,7 +340,9 @@ export interface FileRouteTypes {
     | '/posts'
     | '/terms'
     | '/challenges/$challenge-id/detail'
+    | '/challenges/recommend/analyze'
     | '/challenges/recommend/report'
+    | '/challenges/recommend/survey'
     | '/my-page/challenges/certified'
     | '/posts/$id'
     | '/challenges/$challenge-id/submit/individual'
@@ -352,7 +374,9 @@ export interface FileRouteTypes {
     | '/posts'
     | '/terms'
     | '/challenges/$challenge-id/detail'
+    | '/challenges/recommend/analyze'
     | '/challenges/recommend/report'
+    | '/challenges/recommend/survey'
     | '/my-page/challenges/certified'
     | '/posts/$id'
     | '/challenges/$challenge-id/submit/individual'
@@ -384,7 +408,9 @@ export interface FileRouteTypes {
     | '/posts/'
     | '/terms/'
     | '/challenges/$challenge-id/detail'
+    | '/challenges/recommend/analyze'
     | '/challenges/recommend/report'
+    | '/challenges/recommend/survey'
     | '/my-page/challenges/certified'
     | '/posts/$id/'
     | '/challenges/$challenge-id/submit/individual'
@@ -417,7 +443,9 @@ export interface RootRouteChildren {
   PostsIndexRoute: typeof PostsIndexRoute
   TermsIndexRoute: typeof TermsIndexRoute
   ChallengesChallengeIdDetailRoute: typeof ChallengesChallengeIdDetailRoute
+  ChallengesRecommendAnalyzeRoute: typeof ChallengesRecommendAnalyzeRoute
   ChallengesRecommendReportRoute: typeof ChallengesRecommendReportRoute
+  ChallengesRecommendSurveyRoute: typeof ChallengesRecommendSurveyRoute
   MyPageChallengesCertifiedRoute: typeof MyPageChallengesCertifiedRoute
   PostsIdIndexRoute: typeof PostsIdIndexRoute
   ChallengesChallengeIdSubmitIndividualRoute: typeof ChallengesChallengeIdSubmitIndividualRoute
@@ -548,11 +576,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MyPageChallengesCertifiedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/challenges/recommend/survey': {
+      id: '/challenges/recommend/survey'
+      path: '/challenges/recommend/survey'
+      fullPath: '/challenges/recommend/survey'
+      preLoaderRoute: typeof ChallengesRecommendSurveyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/challenges/recommend/report': {
       id: '/challenges/recommend/report'
       path: '/challenges/recommend/report'
       fullPath: '/challenges/recommend/report'
       preLoaderRoute: typeof ChallengesRecommendReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/challenges/recommend/analyze': {
+      id: '/challenges/recommend/analyze'
+      path: '/challenges/recommend/analyze'
+      fullPath: '/challenges/recommend/analyze'
+      preLoaderRoute: typeof ChallengesRecommendAnalyzeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/challenges/$challenge-id/detail': {
@@ -665,7 +707,9 @@ const rootRouteChildren: RootRouteChildren = {
   PostsIndexRoute: PostsIndexRoute,
   TermsIndexRoute: TermsIndexRoute,
   ChallengesChallengeIdDetailRoute: ChallengesChallengeIdDetailRoute,
+  ChallengesRecommendAnalyzeRoute: ChallengesRecommendAnalyzeRoute,
   ChallengesRecommendReportRoute: ChallengesRecommendReportRoute,
+  ChallengesRecommendSurveyRoute: ChallengesRecommendSurveyRoute,
   MyPageChallengesCertifiedRoute: MyPageChallengesCertifiedRoute,
   PostsIdIndexRoute: PostsIdIndexRoute,
   ChallengesChallengeIdSubmitIndividualRoute:

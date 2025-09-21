@@ -83,7 +83,7 @@ const SuggestChallenge = () => {
         `
 
   const handleButtonClick = () => {
-    navigate({ to: '/challenges/recommend/report' })
+    navigate({ to: '/challenges/recommend/analyze' })
   }
 
   return (
