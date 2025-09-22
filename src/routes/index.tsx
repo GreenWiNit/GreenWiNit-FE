@@ -47,14 +47,6 @@ function Home() {
     }
   }, [setAccessToken, navigate, search?.accessToken, search?.refreshToken])
 
-  useEffect(() => {
-    if (window.location.hostname.endsWith('.store')) {
-      const newUrl = `https://greenwinit.com`
-      window.location.replace(newUrl)
-      return
-    }
-  }, [])
-
   if (window.location.hostname.endsWith('.store')) {
     return (
       <PageLayOut.Container>
