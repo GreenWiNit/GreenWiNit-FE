@@ -7,7 +7,6 @@ import Challenges from '@/components/home-screen/challenges'
 import WarnNotLoggedIn from '@/components/common/warn-not-logged-in'
 import { authStore } from '@/store/auth-store'
 import PageLayOut from '@/components/common/page-layout'
-import Loading from '@/components/common/loading'
 
 type HomeSearch =
   | undefined
@@ -61,8 +60,12 @@ function Home() {
       <PageLayOut.Container>
         <PageLayOut.BodySection>
           <div className="h-full items-center justify-center text-center">
-            <Loading text="사이트 이동 중..." />
-            <p className="text-mountain_meadow-500">새 도메인으로 자동 이동됩니다.</p>
+            <p className="text-mountain_meadow-500 font-bold">
+              새 도메인이 개설되었습니다. 새 도메인으로 이동하시겠습니까?
+            </p>
+            <a href="http//greenwinit.com" className="text-mountain_meadow-700">
+              새 도메인으로 가기
+            </a>
           </div>
         </PageLayOut.BodySection>
       </PageLayOut.Container>

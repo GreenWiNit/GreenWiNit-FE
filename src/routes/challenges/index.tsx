@@ -62,7 +62,7 @@ function RouteComponent() {
   }
 
   const handleMyChallenge = () => {
-    navigate({ to: '/my-page/challenges/certified' })
+    navigate({ to: '/challenges/user/me/joined' })
   }
 
   const handleAddChallenge = () => {

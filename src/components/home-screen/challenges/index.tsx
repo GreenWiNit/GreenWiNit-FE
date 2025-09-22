@@ -83,7 +83,7 @@ export const ChallengePreview = ({ category, challenges }: ChallengePreviewProps
 }
 
 const Challenges = () => {
-  const { data: individualChallenges } = useChallenges({ challengeType: 'individual', pageSize: 1 })
+  const { data: individualChallenges } = useChallenges({ challengeType: 'individual', pageSize: 3 })
   const { data: teamChallenges } = useChallenges({ challengeType: 'team', pageSize: 3 })
 
   return (
