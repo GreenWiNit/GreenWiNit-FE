@@ -28,7 +28,7 @@ function RouteComponent() {
               </a>
               <Button
                 className="flex cursor-pointer flex-row justify-baseline gap-2 p-4"
-                onClick={() => (window.location.href = '/')}
+                onClick={() => (window.location.href = '/?skip_navigate=true')}
               >
                 <MoveRight color="#0fba7e" />
                 <span className="text-mountain_meadow-500 font-bold">기존 도메인에 머무르기</span>

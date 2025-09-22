@@ -48,7 +48,10 @@ function Home() {
   }, [setAccessToken, navigate, search?.accessToken, search?.refreshToken])
 
   if (window.location.hostname.endsWith('.store')) {
-    navigate({ to: '/navigate' })
+    const urlParams = new URLSearchParams(window.location.search)
+    if (!urlParams.has('skip_navigate')) {
+      navigate({ to: '/navigate' })
+    }
   }
 
   return (
