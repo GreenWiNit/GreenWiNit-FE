@@ -7,6 +7,7 @@ import Challenges from '@/components/home-screen/challenges'
 import WarnNotLoggedIn from '@/components/common/warn-not-logged-in'
 import { authStore } from '@/store/auth-store'
 import PageLayOut from '@/components/common/page-layout'
+import Loading from '@/components/common/loading'
 
 type HomeSearch =
   | undefined
@@ -46,6 +47,27 @@ function Home() {
       document.cookie = `TokenManager=${refreshToken}; path=/;`
     }
   }, [setAccessToken, navigate, search?.accessToken, search?.refreshToken])
+
+  useEffect(() => {
+    if (window.location.hostname.endsWith('.store')) {
+      const newUrl = `https://greenwinit.com`
+      window.location.replace(newUrl)
+      return
+    }
+  }, [])
+
+  if (window.location.hostname.endsWith('.store')) {
+    return (
+      <PageLayOut.Container>
+        <PageLayOut.BodySection>
+          <div className="h-full items-center justify-center text-center">
+            <Loading text="사이트 이동 중..." />
+            <p className="text-mountain_meadow-500">새 도메인으로 자동 이동됩니다.</p>
+          </div>
+        </PageLayOut.BodySection>
+      </PageLayOut.Container>
+    )
+  }
 
   return (
     <PageLayOut.Container>
