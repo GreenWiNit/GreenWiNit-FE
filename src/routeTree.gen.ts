@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as NavigateRouteImport } from './routes/navigate'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as R500RouteImport } from './routes/500'
 import { Route as R404RouteImport } from './routes/404'
@@ -45,6 +46,11 @@ import { Route as ChallengesChallengeIdSubmitTeamTeamIdRouteImport } from './rou
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NavigateRoute = NavigateRouteImport.update({
+  id: '/navigate',
+  path: '/navigate',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -224,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/404': typeof R404Route
   '/500': typeof R500Route
   '/login': typeof LoginRoute
+  '/navigate': typeof NavigateRoute
   '/signup': typeof SignupRoute
   '/challenges/create': typeof ChallengesCreateRoute
   '/my-page/edit-profile': typeof MyPageEditProfileRoute
@@ -258,6 +265,7 @@ export interface FileRoutesByTo {
   '/404': typeof R404Route
   '/500': typeof R500Route
   '/login': typeof LoginRoute
+  '/navigate': typeof NavigateRoute
   '/signup': typeof SignupRoute
   '/challenges/create': typeof ChallengesCreateRoute
   '/my-page/edit-profile': typeof MyPageEditProfileRoute
@@ -293,6 +301,7 @@ export interface FileRoutesById {
   '/404': typeof R404Route
   '/500': typeof R500Route
   '/login': typeof LoginRoute
+  '/navigate': typeof NavigateRoute
   '/signup': typeof SignupRoute
   '/challenges/create': typeof ChallengesCreateRoute
   '/my-page/edit-profile': typeof MyPageEditProfileRoute
@@ -329,6 +338,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/500'
     | '/login'
+    | '/navigate'
     | '/signup'
     | '/challenges/create'
     | '/my-page/edit-profile'
@@ -363,6 +373,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/500'
     | '/login'
+    | '/navigate'
     | '/signup'
     | '/challenges/create'
     | '/my-page/edit-profile'
@@ -397,6 +408,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/500'
     | '/login'
+    | '/navigate'
     | '/signup'
     | '/challenges/create'
     | '/my-page/edit-profile'
@@ -432,6 +444,7 @@ export interface RootRouteChildren {
   R404Route: typeof R404Route
   R500Route: typeof R500Route
   LoginRoute: typeof LoginRoute
+  NavigateRoute: typeof NavigateRoute
   SignupRoute: typeof SignupRoute
   ChallengesCreateRoute: typeof ChallengesCreateRoute
   MyPageEditProfileRoute: typeof MyPageEditProfileRoute
@@ -469,6 +482,13 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigate': {
+      id: '/navigate'
+      path: '/navigate'
+      fullPath: '/navigate'
+      preLoaderRoute: typeof NavigateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -696,6 +716,7 @@ const rootRouteChildren: RootRouteChildren = {
   R404Route: R404Route,
   R500Route: R500Route,
   LoginRoute: LoginRoute,
+  NavigateRoute: NavigateRoute,
   SignupRoute: SignupRoute,
   ChallengesCreateRoute: ChallengesCreateRoute,
   MyPageEditProfileRoute: MyPageEditProfileRoute,

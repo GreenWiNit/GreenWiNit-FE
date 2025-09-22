@@ -48,20 +48,7 @@ function Home() {
   }, [setAccessToken, navigate, search?.accessToken, search?.refreshToken])
 
   if (window.location.hostname.endsWith('.store')) {
-    return (
-      <PageLayOut.Container>
-        <PageLayOut.BodySection>
-          <div className="h-full items-center justify-center text-center">
-            <p className="text-mountain_meadow-500 font-bold">
-              새 도메인이 개설되었습니다. 새 도메인으로 이동하시겠습니까?
-            </p>
-            <a href="http//greenwinit.com" className="text-mountain_meadow-700">
-              새 도메인으로 가기
-            </a>
-          </div>
-        </PageLayOut.BodySection>
-      </PageLayOut.Container>
-    )
+    navigate({ to: '/navigate' })
   }
 
   return (
