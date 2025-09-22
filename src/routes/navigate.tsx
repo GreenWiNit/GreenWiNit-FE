@@ -1,4 +1,5 @@
 import PageLayOut from '@/components/common/page-layout'
+import { Button } from '@/components/shadcn/button'
 import { createFileRoute } from '@tanstack/react-router'
 import { MoveRight } from 'lucide-react'
 
@@ -16,19 +17,22 @@ function RouteComponent() {
             <p className="text-ring text-sm font-bold">
               그로 인해 기존 도메인과 새로운 도메인이 분리되었습니다.
             </p>
-            <div className="flex flex-col justify-baseline">
-              <div className="flex cursor-pointer flex-row justify-baseline gap-2 p-4">
+            <div className="flex flex-col justify-baseline gap-2">
+              <a href="http://greenwinit.com">
+                <Button className="flex cursor-pointer flex-row justify-baseline gap-2 p-4">
+                  <MoveRight color="#0fba7e" />
+                  <span className="text-mountain_meadow-500 font-bold">
+                    새로운 도메인으로 이동하기
+                  </span>
+                </Button>
+              </a>
+              <Button
+                className="flex cursor-pointer flex-row justify-baseline gap-2 p-4"
+                onClick={() => (window.location.href = '/')}
+              >
                 <MoveRight color="#0fba7e" />
-                <a href="http://greenwinit.com" className="text-mountain_meadow-500 font-bold">
-                  새로운 도메인으로 이동하기
-                </a>
-              </div>
-              <div className="flex cursor-pointer flex-row justify-baseline gap-2 p-4">
-                <MoveRight color="#0fba7e" />
-                <a href="http://greenwinit.store" className="text-mountain_meadow-500 font-bold">
-                  기존 도메인에 머무르기
-                </a>
-              </div>
+                <span className="text-mountain_meadow-500 font-bold">기존 도메인에 머무르기</span>
+              </Button>
             </div>
           </div>
         </div>
