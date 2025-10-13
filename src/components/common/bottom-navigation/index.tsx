@@ -2,9 +2,9 @@ import { MouseEventHandler, useState, useCallback, MouseEvent } from 'react'
 import { useLocation, useNavigate } from '@tanstack/react-router'
 import PostIcon from './post.svg?react'
 import HomeIcon from './home.svg?react'
-import ShopIcon from './shop.svg?react'
 import MyPageIcon from './my-page.svg?react'
 import ChallengeIcon from './challenge.svg?react'
+import { ChartColumnBig } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface BottomNavigationProps {
@@ -114,12 +114,15 @@ const NAV_ITEMS = [
     moveTo: '/posts',
   },
   {
-    icon: ({ isActive, ...rest }: { isActive: boolean }) => (
-      <ShopIcon {...rest} className={cn(isActive ? 'text-mountain_meadow' : 'text-[#737373]')} />
+    icon: (props: { isActive: boolean }) => (
+      <ChartColumnBig
+        {...props}
+        className={cn(props.isActive ? 'text-mountain_meadow' : 'text-[#737373]')}
+      />
     ),
-    label: '포인트상점',
-    moveTo: '/point-shop',
-  },
+    label: '대시보드',
+    moveTo: '/dash-board',
+  } satisfies NavItem,
   {
     icon: ({ isActive, ...rest }: { isActive: boolean }) => (
       <MyPageIcon {...rest} className={cn(isActive ? 'text-mountain_meadow' : 'text-[#737373]')} />
