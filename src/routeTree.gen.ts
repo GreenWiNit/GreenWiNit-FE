@@ -17,9 +17,11 @@ import { Route as R500RouteImport } from './routes/500'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TermsIndexRouteImport } from './routes/terms/index'
+import { Route as RankingIndexRouteImport } from './routes/ranking/index'
 import { Route as PostsIndexRouteImport } from './routes/posts/index'
 import { Route as PointShopIndexRouteImport } from './routes/point-shop/index'
 import { Route as MyPageIndexRouteImport } from './routes/my-page/index'
+import { Route as DashBoardIndexRouteImport } from './routes/dash-board/index'
 import { Route as ChallengesIndexRouteImport } from './routes/challenges/index'
 import { Route as MyPageWithdrawRouteImport } from './routes/my-page/withdraw'
 import { Route as MyPageMyPointsRouteImport } from './routes/my-page/my-points'
@@ -85,6 +87,11 @@ const TermsIndexRoute = TermsIndexRouteImport.update({
   path: '/terms/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RankingIndexRoute = RankingIndexRouteImport.update({
+  id: '/ranking/',
+  path: '/ranking/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PostsIndexRoute = PostsIndexRouteImport.update({
   id: '/posts/',
   path: '/posts/',
@@ -98,6 +105,11 @@ const PointShopIndexRoute = PointShopIndexRouteImport.update({
 const MyPageIndexRoute = MyPageIndexRouteImport.update({
   id: '/my-page/',
   path: '/my-page/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashBoardIndexRoute = DashBoardIndexRouteImport.update({
+  id: '/dash-board/',
+  path: '/dash-board/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChallengesIndexRoute = ChallengesIndexRouteImport.update({
@@ -251,9 +263,11 @@ export interface FileRoutesByFullPath {
   '/my-page/my-points': typeof MyPageMyPointsRoute
   '/my-page/withdraw': typeof MyPageWithdrawRoute
   '/challenges': typeof ChallengesIndexRoute
+  '/dash-board': typeof DashBoardIndexRoute
   '/my-page': typeof MyPageIndexRoute
   '/point-shop': typeof PointShopIndexRoute
   '/posts': typeof PostsIndexRoute
+  '/ranking': typeof RankingIndexRoute
   '/terms': typeof TermsIndexRoute
   '/challenges/$challenge-id/detail': typeof ChallengesChallengeIdDetailRoute
   '/challenges/recommend/analyze': typeof ChallengesRecommendAnalyzeRoute
@@ -288,9 +302,11 @@ export interface FileRoutesByTo {
   '/my-page/my-points': typeof MyPageMyPointsRoute
   '/my-page/withdraw': typeof MyPageWithdrawRoute
   '/challenges': typeof ChallengesIndexRoute
+  '/dash-board': typeof DashBoardIndexRoute
   '/my-page': typeof MyPageIndexRoute
   '/point-shop': typeof PointShopIndexRoute
   '/posts': typeof PostsIndexRoute
+  '/ranking': typeof RankingIndexRoute
   '/terms': typeof TermsIndexRoute
   '/challenges/$challenge-id/detail': typeof ChallengesChallengeIdDetailRoute
   '/challenges/recommend/analyze': typeof ChallengesRecommendAnalyzeRoute
@@ -326,9 +342,11 @@ export interface FileRoutesById {
   '/my-page/my-points': typeof MyPageMyPointsRoute
   '/my-page/withdraw': typeof MyPageWithdrawRoute
   '/challenges/': typeof ChallengesIndexRoute
+  '/dash-board/': typeof DashBoardIndexRoute
   '/my-page/': typeof MyPageIndexRoute
   '/point-shop/': typeof PointShopIndexRoute
   '/posts/': typeof PostsIndexRoute
+  '/ranking/': typeof RankingIndexRoute
   '/terms/': typeof TermsIndexRoute
   '/challenges/$challenge-id/detail': typeof ChallengesChallengeIdDetailRoute
   '/challenges/recommend/analyze': typeof ChallengesRecommendAnalyzeRoute
@@ -365,9 +383,11 @@ export interface FileRouteTypes {
     | '/my-page/my-points'
     | '/my-page/withdraw'
     | '/challenges'
+    | '/dash-board'
     | '/my-page'
     | '/point-shop'
     | '/posts'
+    | '/ranking'
     | '/terms'
     | '/challenges/$challenge-id/detail'
     | '/challenges/recommend/analyze'
@@ -402,9 +422,11 @@ export interface FileRouteTypes {
     | '/my-page/my-points'
     | '/my-page/withdraw'
     | '/challenges'
+    | '/dash-board'
     | '/my-page'
     | '/point-shop'
     | '/posts'
+    | '/ranking'
     | '/terms'
     | '/challenges/$challenge-id/detail'
     | '/challenges/recommend/analyze'
@@ -439,9 +461,11 @@ export interface FileRouteTypes {
     | '/my-page/my-points'
     | '/my-page/withdraw'
     | '/challenges/'
+    | '/dash-board/'
     | '/my-page/'
     | '/point-shop/'
     | '/posts/'
+    | '/ranking/'
     | '/terms/'
     | '/challenges/$challenge-id/detail'
     | '/challenges/recommend/analyze'
@@ -477,9 +501,11 @@ export interface RootRouteChildren {
   MyPageMyPointsRoute: typeof MyPageMyPointsRoute
   MyPageWithdrawRoute: typeof MyPageWithdrawRoute
   ChallengesIndexRoute: typeof ChallengesIndexRoute
+  DashBoardIndexRoute: typeof DashBoardIndexRoute
   MyPageIndexRoute: typeof MyPageIndexRoute
   PointShopIndexRoute: typeof PointShopIndexRoute
   PostsIndexRoute: typeof PostsIndexRoute
+  RankingIndexRoute: typeof RankingIndexRoute
   TermsIndexRoute: typeof TermsIndexRoute
   ChallengesChallengeIdDetailRoute: typeof ChallengesChallengeIdDetailRoute
   ChallengesRecommendAnalyzeRoute: typeof ChallengesRecommendAnalyzeRoute
@@ -560,6 +586,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ranking/': {
+      id: '/ranking/'
+      path: '/ranking'
+      fullPath: '/ranking'
+      preLoaderRoute: typeof RankingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/posts/': {
       id: '/posts/'
       path: '/posts'
@@ -579,6 +612,13 @@ declare module '@tanstack/react-router' {
       path: '/my-page'
       fullPath: '/my-page'
       preLoaderRoute: typeof MyPageIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dash-board/': {
+      id: '/dash-board/'
+      path: '/dash-board'
+      fullPath: '/dash-board'
+      preLoaderRoute: typeof DashBoardIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/challenges/': {
@@ -765,9 +805,11 @@ const rootRouteChildren: RootRouteChildren = {
   MyPageMyPointsRoute: MyPageMyPointsRoute,
   MyPageWithdrawRoute: MyPageWithdrawRoute,
   ChallengesIndexRoute: ChallengesIndexRoute,
+  DashBoardIndexRoute: DashBoardIndexRoute,
   MyPageIndexRoute: MyPageIndexRoute,
   PointShopIndexRoute: PointShopIndexRoute,
   PostsIndexRoute: PostsIndexRoute,
+  RankingIndexRoute: RankingIndexRoute,
   TermsIndexRoute: TermsIndexRoute,
   ChallengesChallengeIdDetailRoute: ChallengesChallengeIdDetailRoute,
   ChallengesRecommendAnalyzeRoute: ChallengesRecommendAnalyzeRoute,
