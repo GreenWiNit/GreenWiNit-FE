@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as NavigateRouteImport } from './routes/navigate'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as R500RouteImport } from './routes/500'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as IndexRouteImport } from './routes/index'
@@ -56,6 +57,11 @@ const NavigateRoute = NavigateRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const R500Route = R500RouteImport.update({
@@ -229,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/500': typeof R500Route
+  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/navigate': typeof NavigateRoute
   '/signup': typeof SignupRoute
@@ -264,6 +271,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/500': typeof R500Route
+  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/navigate': typeof NavigateRoute
   '/signup': typeof SignupRoute
@@ -300,6 +308,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/500': typeof R500Route
+  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/navigate': typeof NavigateRoute
   '/signup': typeof SignupRoute
@@ -337,6 +346,7 @@ export interface FileRouteTypes {
     | '/'
     | '/404'
     | '/500'
+    | '/dashboard'
     | '/login'
     | '/navigate'
     | '/signup'
@@ -372,6 +382,7 @@ export interface FileRouteTypes {
     | '/'
     | '/404'
     | '/500'
+    | '/dashboard'
     | '/login'
     | '/navigate'
     | '/signup'
@@ -407,6 +418,7 @@ export interface FileRouteTypes {
     | '/'
     | '/404'
     | '/500'
+    | '/dashboard'
     | '/login'
     | '/navigate'
     | '/signup'
@@ -443,6 +455,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   R404Route: typeof R404Route
   R500Route: typeof R500Route
+  DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
   NavigateRoute: typeof NavigateRoute
   SignupRoute: typeof SignupRoute
@@ -496,6 +509,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/500': {
@@ -715,6 +735,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R404Route: R404Route,
   R500Route: R500Route,
+  DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
   NavigateRoute: NavigateRoute,
   SignupRoute: SignupRoute,
