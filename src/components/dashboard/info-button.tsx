@@ -1,28 +1,37 @@
-import { useState } from 'react'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../shadcn/tooltip'
+import { useEffect, useRef, useState } from 'react'
 import { Info as InfoOutlineIcon } from 'lucide-react'
+import RoadMap from './roadmap'
 
-interface InfoButtonProps {
-  text: string
-  className?: string
-}
-const InfoButton = ({ text, className }: InfoButtonProps) => {
-  const [showTooltip, setShowTooltip] = useState(false)
+const InfoButton = () => {
+  //툴팁 상태
+  const [isTooltip, setIsTooltip] = useState(false)
 
+  //툴팁 위치 상태
+  const [distanceFromBottom, setDistanceFromBottom] = useState<number | null>(null)
+  const infoRef = useRef<HTMLDivElement | null>(null)
+
+  const handleEnter = () => setIsTooltip(true)
+  const handleLeave = () => setIsTooltip(false)
+
+  //툴팁 위치 계산
+  useEffect(() => {
+    if (isTooltip && infoRef.current) {
+      const rect = infoRef.current.getBoundingClientRect()
+      const distance = window.innerHeight - rect.bottom
+      setDistanceFromBottom(distance)
+    }
+  }, [isTooltip])
   return (
-    <TooltipProvider>
-      <Tooltip onOpenChange={setShowTooltip} open={showTooltip}>
-        <TooltipTrigger asChild className={className}>
-          <InfoOutlineIcon
-            className="text-mountain_meadow size-6"
-            onClick={() => setShowTooltip((prev) => !prev)}
-          />
-        </TooltipTrigger>
-        <TooltipContent className="p-4 shadow-xl">
-          <p className="text-center whitespace-pre-line">{text}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <div className="relative w-4.5">
+      {isTooltip && <RoadMap distanceFromBottom={distanceFromBottom} />}
+      <div ref={infoRef}>
+        <InfoOutlineIcon
+          className="text-mountain_meadow size-4.5 cursor-pointer"
+          onMouseEnter={handleEnter}
+          onMouseLeave={handleLeave}
+        />
+      </div>
+    </div>
   )
 }
 
