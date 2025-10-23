@@ -7,12 +7,9 @@ import TrashIcon from '/public/icons/trash.svg?react'
 import StoreIcon from '/public/icons/store.svg?react'
 import DiskIcon from '/public/icons/disk.svg?react'
 import DashboardStatus from '@/components/dashboard/dashboard-status'
-import Lv1Img from '@/components/dashboard/lv1.svg?react'
-import Lv2Img from '@/components/dashboard/lv2.svg?react'
-import Lv3Img from '@/components/dashboard/lv3.svg?react'
-import Lv4Img from '@/components/dashboard/lv4.svg?react'
 import MyItemModal from '@/components/dashboard/my-item-modal'
 import { useState } from 'react'
+import { levelImgs } from '@/constant/dashboard-level-image'
 
 export const Route = createFileRoute('/dashboard')({
   component: RouteComponent,
@@ -32,7 +29,8 @@ function RouteComponent() {
   //현재 point
   const currentPoint = 250
 
-  //대시보드 상단 오른쪽 아이콘들
+  //대시보드 상단 오른쪽 menu list
+  //TODO: 인벤토리 아이콘 제외 로직 변경 필요
   const icons = [
     { id: 1, Component: BackpackIcon, onClick: toggleItemModal },
     { id: 2, Component: TrashIcon, onClick: toggleItemModal },
@@ -40,8 +38,7 @@ function RouteComponent() {
     { id: 4, Component: DiskIcon, onClick: toggleItemModal },
   ]
 
-  //레벨별 img
-  const levelImgs = [Lv1Img, Lv2Img, Lv3Img, Lv4Img]
+  //현재 레벨에 맞는 이미지
   const CurrentLevelImg = levelImgs[currentLevel - 1]
 
   return (
