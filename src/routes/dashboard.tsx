@@ -8,6 +8,9 @@ import StoreIcon from '/public/icons/store.svg?react'
 import DiskIcon from '/public/icons/disk.svg?react'
 import DashboardStatus from '@/components/dashboard/dashboard-status'
 import Lv1Img from '@/components/dashboard/lv1.svg?react'
+import Lv2Img from '@/components/dashboard/lv2.svg?react'
+import Lv3Img from '@/components/dashboard/lv3.svg?react'
+import Lv4Img from '@/components/dashboard/lv4.svg?react'
 import MyItemModal from '@/components/dashboard/my-item-modal'
 import { useState } from 'react'
 
@@ -37,6 +40,10 @@ function RouteComponent() {
     { id: 4, Component: DiskIcon, onClick: toggleItemModal },
   ]
 
+  //레벨별 img
+  const levelImgs = [Lv1Img, Lv2Img, Lv3Img, Lv4Img]
+  const CurrentLevelImg = levelImgs[currentLevel - 1]
+
   return (
     <PageLayOut.Container>
       <PageLayOut.ScrollableContent>
@@ -61,7 +68,7 @@ function RouteComponent() {
           </div>
 
           {/* 나의 레벨 이미지 영역 */}
-          <Lv1Img />
+          {CurrentLevelImg && <CurrentLevelImg />}
 
           {/* 현재 내 진행상황 영역 level, point, 목표*/}
           <DashboardStatus
