@@ -22,7 +22,7 @@ const RoadMap = ({ distanceFromBottom }: RoadMapProps) => {
         <div key={id} className={'flex flex-col gap-2'}>
           <div
             className={cn(
-              'shadow-[0_10px_15px_-3px_rgba(0, 0, 0, 0.1)] relative flex h-14 w-14 items-center justify-center rounded-full bg-white p-3',
+              'shadow-[0_10px_15px_-3px_rgba(0, 0, 0, 0.1)] relative flex h-14 w-14 items-center justify-center rounded-full bg-white p-3 shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1)]',
               currentLevel === id &&
                 'bg-gradient-to-br from-[#4ADE80] to-[#10B981] shadow-[0_10px_15px_-3px_#BBF7D0]',
             )}
