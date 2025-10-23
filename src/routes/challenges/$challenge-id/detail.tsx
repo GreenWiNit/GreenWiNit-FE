@@ -4,7 +4,6 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { challengesApi, challengesQueryKeys } from '@/api/challenges'
 import BottomNavigation from '@/components/common/bottom-navigation'
-import dayjs from 'dayjs'
 import { Button } from '@/components/common/button'
 import {
   Dialog,
@@ -78,25 +77,9 @@ function ChallengeDetail() {
             />
             <div className="flex flex-col items-start gap-2">
               <h3 className="text-lg font-bold">기본정보</h3>
-              <div className="bg-card w-full items-center justify-center p-4">
-                <p className="text-card-head text-start">
-                  기간
-                  <br />
-                  <span className="text-card-base">
-                    {challenge == null
-                      ? null
-                      : `${dayjs(challenge.beginDate).format('YYYY.MM.DD')} ~ ${dayjs(challenge.endDate).format('YYYY.MM.DD')}`}
-                  </span>
-                </p>
-              </div>
-              <div className="bg-card w-full items-center justify-center p-4">
-                <p className="text-card-head text-start">
-                  참여방법
-                  <br />
-                  <span className="text-card-base whitespace-pre-line">
-                    {challenge?.challengeContent}
-                  </span>
-                </p>
+              <div className="bg-card w-full items-center justify-center p-4 text-start">
+                <h4 className="text-card-head mb-2 font-bold">참여방법</h4>
+                <p className="text-card-base whitespace-pre-line">{challenge?.challengeContent}</p>
               </div>
               <div className="bg-card w-full items-center justify-center p-4">
                 <p className="text-card-head text-start wrap-anywhere whitespace-break-spaces">

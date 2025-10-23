@@ -7,8 +7,7 @@ import { useChallenges } from '@/hooks/challenge/use-challenges'
 import { cn } from '@/lib/utils'
 import { ChallengeTabProps, ChallengeType } from '@/types/challenge'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { PlusCircle, Search } from 'lucide-react'
-import { useState } from 'react'
+import { PlusCircle } from 'lucide-react'
 
 export const Route = createFileRoute('/challenges/')({
   component: RouteComponent,
@@ -49,7 +48,6 @@ const ChallengeTab = ({ onTabChange, activeTab }: ChallengeTabProps) => {
 }
 
 function RouteComponent() {
-  const [searchQuery, setSearchQuery] = useState('')
   const navigate = useNavigate({ from: Route.fullPath })
   const { tab } = Route.useSearch()
   const { data: challenges } = useChallenges({ challengeType: tab as ChallengeType })
@@ -58,7 +56,6 @@ function RouteComponent() {
     navigate({
       search: { tab: newTab },
     })
-    setSearchQuery('')
   }
 
   const handleMyChallenge = () => {
@@ -76,18 +73,7 @@ function RouteComponent() {
           <PageTitle>챌린지</PageTitle>
         </PageLayOut.HeaderSection>
         <ChallengeTab onTabChange={handleTabChange} activeTab={tab} />
-        <div className="m-2 flex justify-between gap-2 rounded-3xl border border-gray-400 py-2 pr-2 pl-4">
-          <input
-            placeholder="검색 기능은 지금 개발중에 있어요!"
-            type="text"
-            className="w-full outline-0"
-            onChange={(e) => setSearchQuery(e.target.value)}
-            value={searchQuery}
-            disabled={true}
-          />
-          <Search color="gray" />
-        </div>
-        <div className="relative mx-2 grid grid-cols-2 gap-4">
+        <div className="relative mx-2 my-4 grid grid-cols-2 gap-4">
           {challenges?.map((challenge) => (
             <Challenge
               key={challenge.id}
