@@ -7,10 +7,10 @@ import TrashIcon from '/public/icons/trash.svg?react'
 import StoreIcon from '/public/icons/store.svg?react'
 import DiskIcon from '/public/icons/disk.svg?react'
 import DashboardStatus from '@/components/dashboard/dashboard-status'
-import Lv1Img from '@/components/dashboard/lv1.svg?react'
-import Lv2Img from '@/components/dashboard/lv2.svg?react'
-import Lv3Img from '@/components/dashboard/lv3.svg?react'
-import Lv4Img from '@/components/dashboard/lv4.svg?react'
+// import Lv1Img from '@/components/dashboard/lv1.svg?react'
+// import Lv2Img from '@/components/dashboard/lv2.svg?react'
+// import Lv3Img from '@/components/dashboard/lv3.svg?react'
+// import Lv4Img from '@/components/dashboard/lv4.svg?react'
 import MyItemModal from '@/components/dashboard/my-item-modal'
 import { useEffect, useRef, useState } from 'react'
 import DecorationItem from '@/components/dashboard/decoration-item'
@@ -47,12 +47,12 @@ function RouteComponent() {
 
   //나의 아이템 리스트
   const [itemList, setItemList] = useState<Item[]>([
-    { id: 546, name: '아이템1', count: 2, img: Lv1Img },
-    { id: 847, name: '아이템2', count: 2, img: Lv2Img },
-    { id: 123, name: '아이템3', count: 1, img: Lv3Img },
-    { id: 111, name: '아이템4', count: 1, img: Lv4Img },
-    { id: 334, name: '아이템5', count: 1, img: Lv4Img },
-    { id: 777, name: '아이템6', count: 1, img: Lv4Img },
+    // { id: 546, name: '아이템1', count: 2, img: Lv1Img },
+    // { id: 847, name: '아이템2', count: 2, img: Lv2Img },
+    // { id: 123, name: '아이템3', count: 1, img: Lv3Img },
+    // { id: 111, name: '아이템4', count: 1, img: Lv4Img },
+    // { id: 334, name: '아이템5', count: 1, img: Lv4Img },
+    // { id: 777, name: '아이템6', count: 1, img: Lv4Img },
   ])
 
   //대시보드 꾸미기 아이템 컨테이너 ref
