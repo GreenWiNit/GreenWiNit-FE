@@ -14,7 +14,7 @@ export interface Item {
 
 /** 실제 배치된 아이템 */
 export interface PlacedItem {
-  id: number
+  id: string
   name: string
   img: React.FC<React.SVGProps<SVGSVGElement>>
   position: Position
