@@ -37,7 +37,8 @@ function RouteComponent() {
   //현재 point
   const currentPoint = 250
 
-  //대시보드 상단 오른쪽 아이콘들
+  //대시보드 상단 오른쪽 menu list
+  //TODO: 인벤토리 아이콘 제외 로직 변경 필요
   const icons = [
     { id: 1, Component: BackpackIcon, onClick: toggleItemModal },
     { id: 2, Component: TrashIcon, onClick: toggleItemModal },
@@ -135,7 +136,7 @@ function RouteComponent() {
     setActiveItemId(id)
   }
 
-  //레벨별 img
+  //현재 레벨에 맞는 이미지
   const CurrentLevelImg = levelImgs[currentLevel - 1]
 
   return (
