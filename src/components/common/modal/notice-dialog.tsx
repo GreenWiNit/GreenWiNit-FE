@@ -7,6 +7,7 @@ import {
 } from '@/components/common/modal/dialog'
 import { Button } from '@/components/common/button'
 import React from 'react'
+import { cn } from '@/lib/utils'
 
 interface NoticeDialogProps {
   isOpen: boolean
@@ -15,6 +16,7 @@ interface NoticeDialogProps {
   paragraph?: string
   setIsOpen: (open: boolean) => void
   onConfirm: () => void
+  className?: string
 }
 
 function NoticeDialog({
@@ -24,10 +26,11 @@ function NoticeDialog({
   paragraph,
   setIsOpen,
   onConfirm,
+  className,
 }: NoticeDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="gap-6 p-10" showCloseButton={false}>
+      <DialogContent className={cn('gap-6 p-10', className)} showCloseButton={false}>
         {title && (
           <DialogTitle className="flex items-center justify-center text-center text-lg leading-3 font-semibold whitespace-pre-line text-black">
             {title}
