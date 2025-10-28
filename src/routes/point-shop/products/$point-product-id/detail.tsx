@@ -80,15 +80,16 @@ function ProductDetail() {
   return (
     <PageLayOut.Container>
       <PageLayOut.ScrollableContent>
-        <PageLayOut.HeaderSection>
-          <PageLayOut.HeaderSection.BackIcon />
-        </PageLayOut.HeaderSection>
         <PageLayOut.BodySection padding="zero" className="m-0">
           <div className="relative w-full">
+            <div className="bg-lighter-gray-border absolute top-4 left-4 flex h-12 w-12 items-center justify-center rounded-full">
+              <PageLayOut.HeaderSection.BackIcon className="static" />
+            </div>
+
             <div className="flex h-75 w-full justify-center bg-gray-100 p-4">
               <img src={product?.thumbnailUrl} alt="Product" />
             </div>
-            <div className="px-4 py-2 text-left font-bold">
+            <div className="p-4 text-left font-bold">
               <p className="text-xl text-black">{product?.name}</p>
               <p className="text-mountain_meadow text-2xl">{product?.price} 포인트</p>
             </div>
