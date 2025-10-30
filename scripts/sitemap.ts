@@ -26,14 +26,20 @@ export const sitemap: Sitemap<TRoutes> = {
       changeFrequency: 'never',
     },
     '/posts/$id': async (_route) => {
-      const postsResponse = await postsApi.getPosts()
-      const posts = postsResponse.result.content
+      try {
+        // 실제 게시글 목록 불러오기 (빌드 실패 시 안전하게 fallback)
+        const postsResponse = await postsApi.getPosts()
+        const posts = postsResponse.result.content
 
-      return posts.map((post) => ({
-        path: `/posts/${post.id}`,
-        priority: 0.8,
-        changeFrequency: 'daily',
-      }))
+        return posts.map((post) => ({
+          path: `/posts/${post.id}`,
+          priority: 0.8,
+          changeFrequency: 'daily',
+        }))
+      } catch {
+        console.warn('⚠️ 게시글 불러오기 실패 — 더미 데이터로 sitemap 생성')
+        return [{ path: '/posts/example', priority: 0.5, changeFrequency: 'monthly' }]
+      }
     },
     '/login': {
       priority: 0.1,
