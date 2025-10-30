@@ -90,51 +90,39 @@ interface NavItem {
 
 const NAV_ITEMS = [
   {
-    icon: (props: { isActive: boolean }) => (
-      <HomeIcon
-        {...props}
-        className={cn(props.isActive ? 'text-mountain_meadow' : 'text-[#737373]')}
-      />
+    icon: ({ isActive, ...rest }: { isActive: boolean }) => (
+      <HomeIcon {...rest} className={cn(isActive ? 'text-mountain_meadow' : 'text-[#737373]')} />
     ),
     label: '홈',
     moveTo: '/',
   } satisfies NavItem,
   {
-    icon: (props: { isActive: boolean }) => (
+    icon: ({ isActive, ...rest }: { isActive: boolean }) => (
       <ChallengeIcon
-        {...props}
-        className={cn(props.isActive ? 'text-mountain_meadow' : 'text-[#737373]')}
+        {...rest}
+        className={cn(isActive ? 'text-mountain_meadow' : 'text-[#737373]')}
       />
     ),
     label: '챌린지',
     moveTo: '/challenges',
   },
   {
-    icon: (props: { isActive: boolean }) => (
-      <PostIcon
-        {...props}
-        className={cn(props.isActive ? 'text-mountain_meadow' : 'text-[#737373]')}
-      />
+    icon: ({ isActive, ...rest }: { isActive: boolean }) => (
+      <PostIcon {...rest} className={cn(isActive ? 'text-mountain_meadow' : 'text-[#737373]')} />
     ),
     label: '정보공유',
     moveTo: '/posts',
-  } satisfies NavItem,
+  },
   {
-    icon: (props: { isActive: boolean }) => (
-      <ShopIcon
-        {...props}
-        className={cn(props.isActive ? 'text-mountain_meadow' : 'text-[#737373]')}
-      />
+    icon: ({ isActive, ...rest }: { isActive: boolean }) => (
+      <ShopIcon {...rest} className={cn(isActive ? 'text-mountain_meadow' : 'text-[#737373]')} />
     ),
     label: '포인트상점',
     moveTo: '/point-shop',
-  } satisfies NavItem,
+  },
   {
-    icon: (props: { isActive: boolean }) => (
-      <MyPageIcon
-        {...props}
-        className={cn(props.isActive ? 'text-mountain_meadow' : 'text-[#737373]')}
-      />
+    icon: ({ isActive, ...rest }: { isActive: boolean }) => (
+      <MyPageIcon {...rest} className={cn(isActive ? 'text-mountain_meadow' : 'text-[#737373]')} />
     ),
     label: '마이페이지',
     moveTo: '/my-page',
