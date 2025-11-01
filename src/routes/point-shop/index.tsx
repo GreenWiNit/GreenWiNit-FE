@@ -21,8 +21,8 @@ function PointShop() {
   const currentPoints = currentBalance
 
   //현재 탭 상태
-  const [currentTab, setCurrentTab] = useState<'아이템' | '배송상품'>('아이템')
-  const tabList: ('아이템' | '배송상품')[] = ['아이템', '배송상품']
+  const tabList = ['아이템', '배송상품'] as const
+  const [currentTab, setCurrentTab] = useState<(typeof tabList)[number]>('아이템')
   const handleTabClick = (tab: '아이템' | '배송상품') => {
     setCurrentTab(tab)
   }
