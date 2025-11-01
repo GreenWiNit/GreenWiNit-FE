@@ -48,7 +48,7 @@ function PointShop() {
               >
                 <span>{tab}</span>
                 {currentTab === tab && (
-                  <div className="bg-mountain_meadow-500 absolute top-full left-0 h-1 w-full"></div>
+                  <div className="bg-mountain_meadow-500 absolute top-full left-0 h-1 w-full -translate-y-1/2"></div>
                 )}
               </div>
             ))}
