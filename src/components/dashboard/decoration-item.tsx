@@ -33,7 +33,7 @@ const DecorationItem = ({
     >
       <div
         ref={nodeRef}
-        className="absolute cursor-grab"
+        className="absolute cursor-grab hover:cursor-[url('/icons/move-cursor.png')_16_16,grab]"
         style={{ zIndex: isActive ? 11 : index + 1 }}
       >
         <Img width={80} height={80} />
