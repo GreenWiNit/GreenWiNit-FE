@@ -7,10 +7,11 @@ import {
 } from '@/components/common/modal/dialog'
 import { Button } from '@/components/common/button'
 import React from 'react'
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 
 interface NoticeDialogProps {
   isOpen: boolean
-  title?: string
+  title?: string | React.ReactNode
   description: string | React.ReactNode
   paragraph?: string
   setIsOpen: (open: boolean) => void
@@ -28,9 +29,13 @@ function NoticeDialog({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="gap-6 p-10" showCloseButton={false}>
-        {title && (
+        {title ? (
           <DialogTitle className="flex items-center justify-center text-center text-lg leading-3 font-semibold whitespace-pre-line text-black">
             {title}
+          </DialogTitle>
+        ) : (
+          <DialogTitle className="flex items-center justify-center text-center text-lg leading-3 font-semibold whitespace-pre-line text-black">
+            <VisuallyHidden>Notice</VisuallyHidden>
           </DialogTitle>
         )}
         <DialogDescription className="text-secondary-foreground flex flex-col items-center justify-center text-center text-base whitespace-pre-line">

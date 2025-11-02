@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from '@/components/common/modal/dialog'
 import { Button } from '@/components/common/button'
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 
 type ConfirmDialogProps = {
   isOpen: boolean
@@ -29,9 +30,13 @@ function ConfirmDialog({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="gap-6 p-8" showCloseButton={false}>
-        {title && (
-          <DialogTitle className="flex items-center justify-center text-center text-lg font-semibold">
+        {title ? (
+          <DialogTitle className="flex items-center justify-center text-center text-lg leading-3 font-semibold whitespace-pre-line text-black">
             {title}
+          </DialogTitle>
+        ) : (
+          <DialogTitle className="flex items-center justify-center text-center text-lg leading-3 font-semibold whitespace-pre-line text-black">
+            <VisuallyHidden>Notice</VisuallyHidden>
           </DialogTitle>
         )}
         <DialogDescription className="text-secondary-foreground text-center text-base whitespace-pre-wrap">
