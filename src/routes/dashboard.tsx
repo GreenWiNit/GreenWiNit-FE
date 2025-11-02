@@ -7,16 +7,17 @@ import TrashIcon from '/public/icons/trash.svg?react'
 import StoreIcon from '/public/icons/store.svg?react'
 import DiskIcon from '/public/icons/disk.svg?react'
 import DashboardStatus from '@/components/dashboard/dashboard-status'
-// import Lv1Img from '@/components/dashboard/lv1.svg?react'
-// import Lv2Img from '@/components/dashboard/lv2.svg?react'
-// import Lv3Img from '@/components/dashboard/lv3.svg?react'
-// import Lv4Img from '@/components/dashboard/lv4.svg?react'
+import Lv1Img from '@/components/dashboard/lv1.svg?react'
+import Lv2Img from '@/components/dashboard/lv2.svg?react'
+import Lv3Img from '@/components/dashboard/lv3.svg?react'
+import Lv4Img from '@/components/dashboard/lv4.svg?react'
 import MyItemModal from '@/components/dashboard/my-item-modal'
 import { useEffect, useRef, useState } from 'react'
 import DecorationItem from '@/components/dashboard/decoration-item'
 import { Item, PlacedItem } from '@/types/dashboard'
 import { levelImgs } from '@/constant/dashboard-level-image'
 import { v4 as uuid } from 'uuid'
+import NoticeDialog from '@/components/common/modal/notice-dialog'
 
 export const Route = createFileRoute('/dashboard')({
   component: RouteComponent,
@@ -48,12 +49,12 @@ function RouteComponent() {
 
   //나의 아이템 리스트
   const [itemList, setItemList] = useState<Item[]>([
-    // { id: 546, name: '아이템1', count: 2, img: Lv1Img },
-    // { id: 847, name: '아이템2', count: 2, img: Lv2Img },
-    // { id: 123, name: '아이템3', count: 1, img: Lv3Img },
-    // { id: 111, name: '아이템4', count: 1, img: Lv4Img },
-    // { id: 334, name: '아이템5', count: 1, img: Lv4Img },
-    // { id: 777, name: '아이템6', count: 1, img: Lv4Img },
+    { id: 546, name: '아이템1', count: 2, img: Lv1Img },
+    { id: 847, name: '아이템2', count: 2, img: Lv2Img },
+    { id: 123, name: '아이템3', count: 1, img: Lv3Img },
+    { id: 111, name: '아이템4', count: 1, img: Lv4Img },
+    { id: 334, name: '아이템5', count: 1, img: Lv4Img },
+    { id: 777, name: '아이템6', count: 1, img: Lv4Img },
   ])
 
   //대시보드 꾸미기 아이템 컨테이너 ref
@@ -139,6 +140,12 @@ function RouteComponent() {
   //현재 레벨에 맞는 이미지
   const CurrentLevelImg = levelImgs[currentLevel - 1]
 
+  const [showNoticeDialog, setShowNoticeDialog] = useState(false)
+  const handleShowNoticeDialog = () => {
+    setShowNoticeDialog(!showNoticeDialog)
+    window.location.reload()
+  }
+
   return (
     <PageLayOut.Container>
       <PageLayOut.ScrollableContent>
@@ -198,6 +205,21 @@ function RouteComponent() {
               toggleItemModal={toggleItemModal}
             />
           )}
+
+          <NoticeDialog
+            isOpen={showNoticeDialog}
+            setIsOpen={setShowNoticeDialog}
+            title={
+              <strong>
+                축하합니다!
+                <br />
+                <br />
+                레벨업 했어요!
+              </strong>
+            }
+            description={<>계속 챌린지에 도전해볼까요?</>}
+            onConfirm={handleShowNoticeDialog}
+          />
         </PageLayOut.BodySection>
       </PageLayOut.ScrollableContent>
       <PageLayOut.FooterSection>
