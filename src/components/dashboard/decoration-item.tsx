@@ -9,6 +9,7 @@ interface DecorationItemProps {
   handleDragStart: () => void
   index: number
   isActive: boolean
+  imgSize?: number
 }
 
 const DecorationItem = ({
@@ -18,6 +19,7 @@ const DecorationItem = ({
   handleDragStart,
   index,
   isActive,
+  imgSize,
 }: DecorationItemProps) => {
   const nodeRef = useRef<HTMLDivElement>(null)
   return (
@@ -36,7 +38,7 @@ const DecorationItem = ({
         className="absolute cursor-grab hover:cursor-[url('/icons/move-cursor.png')_16_16,grab]"
         style={{ zIndex: isActive ? 11 : index + 1 }}
       >
-        <Img width={80} height={80} />
+        <Img width={imgSize} height={imgSize} />
       </div>
     </Draggable>
   )

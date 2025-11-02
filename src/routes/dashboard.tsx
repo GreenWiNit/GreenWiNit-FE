@@ -186,6 +186,7 @@ function RouteComponent() {
                 index={index}
                 handleDragStart={() => handleDragStart(id)}
                 isActive={activeItemId === id}
+                imgSize={80}
               />
             ))}
           </div>
