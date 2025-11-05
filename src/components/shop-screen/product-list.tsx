@@ -35,15 +35,15 @@ const ProductList = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 self-center">
+    <div className="grid grid-cols-2 gap-x-4 gap-y-2 self-center pt-4">
       {products?.map((product) => {
         return (
           <div
             key={product?.id}
-            className="cursor-pointer items-center justify-center rounded-md p-2 text-start"
+            className="cursor-pointer items-center justify-center rounded-md text-start"
             onClick={() => handleProductClick(product?.id)}
           >
-            <div className="mb-2 h-36 w-36 items-center justify-center rounded-md bg-white">
+            <div className="border-lighter-gray-border mb-2 h-40 w-40 items-center justify-center rounded-[12px] border bg-white">
               <img
                 className="h-full w-full items-center justify-center rounded-lg"
                 src={product?.thumbnailUrl}
