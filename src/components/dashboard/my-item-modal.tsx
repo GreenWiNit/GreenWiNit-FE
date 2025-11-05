@@ -1,23 +1,15 @@
-import { XIcon } from 'lucide-react'
-import Lv1 from '@/components/dashboard/lv1.svg?react'
-import Lv2 from '@/components/dashboard/lv2.svg?react'
-import Lv3 from '@/components/dashboard/lv3.svg?react'
-import Lv4 from '@/components/dashboard/lv4.svg?react'
+import { Item } from '@/types/dashboard'
+import { XIcon, Info } from 'lucide-react'
 
 interface MyItemModalProps {
   toggleItemModal: () => void
+  itemList: Item[] | undefined | null
+  /** 배치중인 아이템 list에 추가 함수 */
+  handlePlaceItem: (itemId: number) => void
 }
-const MyItemModal = ({ toggleItemModal }: MyItemModalProps) => {
-  const itemList = [
-    { id: 1, name: '아이템1', count: 2, img: Lv1 },
-    { id: 2, name: '아이템2', count: 2, img: Lv2 },
-    { id: 3, name: '아이템3', count: 1, img: Lv3 },
-    { id: 4, name: '아이템4', count: 1, img: Lv4 },
-    { id: 5, name: '아이템4', count: 1, img: Lv4 },
-    { id: 6, name: '아이템4', count: 1, img: Lv4 },
-  ]
+const MyItemModal = ({ toggleItemModal, itemList, handlePlaceItem }: MyItemModalProps) => {
   return (
-    <div className="absolute inset-x-3.5 inset-y-4 rounded-2xl bg-[rgba(255,255,255,0.9)] p-3.5">
+    <div className="absolute inset-x-3.5 inset-y-4 z-50 rounded-2xl bg-[rgba(255,255,255,0.9)] p-3.5">
       <header className="relative">
         <h2 className="text-[18px] font-semibold text-[#111827]">나의 아이템</h2>
         <XIcon
@@ -26,20 +18,31 @@ const MyItemModal = ({ toggleItemModal }: MyItemModalProps) => {
         />
       </header>
 
-      {/* 아이템 리스트 */}
-      <ul className="grid grid-cols-4 gap-4 pt-5">
-        {itemList.map(({ id, count, img: Img }) => (
-          <li
-            key={id}
-            className="border-lighter-gray-border hover:bg-mountain_meadow relative h-[65px] w-[66px] cursor-pointer rounded-[12px] border bg-white shadow-md"
-          >
-            <div className="flex h-full w-full items-center justify-center">
-              <Img className="w-10" />
-            </div>
-            <span className="absolute right-2 bottom-1 text-[10px] text-[#737373]">{count}</span>
-          </li>
-        ))}
-      </ul>
+      {!itemList || itemList.length === 0 ? (
+        //보유한 아이템 없음
+        <div className="flex h-full w-full items-center justify-center">
+          <p className="items-cetner flex justify-center gap-2 text-[#A0A0A0]">
+            <Info />
+            포인트 상점에서 아이템을 교환해보세요!
+          </p>
+        </div>
+      ) : (
+        //아이템 리스트
+        <ul className="grid grid-cols-4 gap-4 pt-5">
+          {itemList.map(({ id, count, img: Img }) => (
+            <li
+              key={id}
+              onClick={() => handlePlaceItem(id)}
+              className="border-lighter-gray-border hover:bg-mountain_meadow relative h-[65px] w-[66px] cursor-pointer rounded-[12px] border bg-white shadow-md"
+            >
+              <div className="flex h-full w-full items-center justify-center">
+                <Img className="h-full w-full p-2.5" />
+              </div>
+              <span className="absolute right-2 bottom-1 text-[10px] text-[#737373]">{count}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

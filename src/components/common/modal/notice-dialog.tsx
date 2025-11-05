@@ -7,13 +7,14 @@ import {
 } from '@/components/common/modal/dialog'
 import { Button } from '@/components/common/button'
 import React from 'react'
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import { cn } from '@/lib/utils'
 
 interface NoticeDialogProps {
   /** 모달 열림 여부 true면 다이얼로그가 열리고 false면 닫힘 */
   isOpen: boolean
   /** 모달 상단에 표시되는 제목 (선택사항) */
-  title?: string
+  title?: string | React.ReactNode
   /** 모달 본문에 표시될 설명 또는 React 노드 */
   description: string | React.ReactNode
   /** description 아래쪽에 작게 표시할 추가 문장 */
@@ -37,10 +38,14 @@ function NoticeDialog({
 }: NoticeDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className={cn('gap-6 p-10', className)} showCloseButton={false}>
-        {title && (
+      <DialogContent className="gap-6 p-10" showCloseButton={false}>
+        {title ? (
           <DialogTitle className="flex items-center justify-center text-center text-lg leading-3 font-semibold whitespace-pre-line text-black">
             {title}
+          </DialogTitle>
+        ) : (
+          <DialogTitle className="flex items-center justify-center text-center text-lg leading-3 font-semibold whitespace-pre-line text-black">
+            <VisuallyHidden>Notice</VisuallyHidden>
           </DialogTitle>
         )}
         <DialogDescription className="text-secondary-foreground flex flex-col items-center justify-center text-center text-base whitespace-pre-line">
