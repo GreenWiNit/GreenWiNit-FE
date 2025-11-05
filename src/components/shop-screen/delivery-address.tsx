@@ -41,7 +41,7 @@ const DeliveryAddress = ({ pointProductId: propPointProductId }: DeliveryAddress
 
   return (
     <Fragment>
-      <div className="text-xl font-bold">배송지 정보</div>
+      <div className="pt-4 text-xl font-bold">배송지 정보</div>
       {hasAddress ? (
         <div className="text-md m-4 flex flex-col rounded-lg border p-4 text-start md:text-base">
           <div className="flex flex-row justify-between">
