@@ -7,7 +7,7 @@ export interface PostElement {
   infoCategoryName: string
   title: string
   content: string
-  imageurl: string
+  imageUrls: string[]
 }
 
 export const postsApi = {

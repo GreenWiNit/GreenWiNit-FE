@@ -6,7 +6,7 @@ interface PostItemProps {
   categoryName: string
   title: string
   content: string
-  thumbnailUrl: string
+  thumbnailUrl: string | undefined
   onClick?: () => void
 }
 
