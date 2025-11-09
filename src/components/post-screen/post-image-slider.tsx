@@ -20,7 +20,7 @@ const PostImageSlider = ({ imageUrls }: PostImageSliderProps) => {
 
   return (
     <div className="relative w-full">
-      <div className="relative overflow-hidden bg-gray-400 opacity-40">
+      <div className="relative overflow-hidden">
         <img
           src={imageUrls[currentIndex]}
           alt={`Slide ${currentIndex + 1}`}
@@ -29,22 +29,26 @@ const PostImageSlider = ({ imageUrls }: PostImageSliderProps) => {
       </div>
       {imageUrls.length > 1 && (
         <>
-          <button
-            onClick={handlePrev}
-            className="bg-gray/80 absolute top-1/2 left-2 -translate-y-1/2 rounded-full p-2 opacity-50 shadow-sm transition hover:bg-white"
-            aria-label="Previous image"
-            disabled={firstImage}
-          >
-            {!firstImage && <ChevronLeft className="h-6 w-6" />}
-          </button>
-          <button
-            onClick={handleNext}
-            className="bg-gray/80 absolute top-1/2 right-2 -translate-y-1/2 rounded-full p-2 opacity-50 shadow-sm transition hover:bg-white"
-            aria-label="Next image"
-            disabled={lastImage}
-          >
-            {!lastImage && <ChevronRight className="h-6 w-6" />}
-          </button>
+          {!firstImage && (
+            <button
+              onClick={handlePrev}
+              className="absolute top-1/2 left-2 -translate-y-1/2 rounded-full bg-gray-200 p-2 opacity-50 shadow-sm transition hover:bg-gray-400"
+              aria-label="Previous image"
+              disabled={firstImage}
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+          )}
+          {!lastImage && (
+            <button
+              onClick={handleNext}
+              className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full bg-gray-200 p-2 opacity-50 shadow-sm transition hover:bg-gray-400"
+              aria-label="Next image"
+              disabled={lastImage}
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+          )}
         </>
       )}
       {imageUrls.length > 1 && (
@@ -54,7 +58,7 @@ const PostImageSlider = ({ imageUrls }: PostImageSliderProps) => {
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`h-2 w-2 rounded-full transition ${
-                index === currentIndex ? 'w-6 bg-white' : 'bg-white/50'
+                index === currentIndex ? 'w-4 bg-gray-400' : 'bg-gray-100'
               }`}
             />
           ))}
