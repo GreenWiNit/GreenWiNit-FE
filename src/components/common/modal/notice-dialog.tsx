@@ -38,7 +38,7 @@ function NoticeDialog({
 }: NoticeDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="gap-6 p-10" showCloseButton={false}>
+      <DialogContent className={cn('gap-6 p-10', className)} showCloseButton={false}>
         {title ? (
           <DialogTitle className="flex items-center justify-center text-center text-lg leading-3 font-semibold whitespace-pre-line text-black">
             {title}
