@@ -16,7 +16,7 @@ const UserStatusbar = ({ accumulatedPoint, availablePoint }: UserStatusbarProps)
     <div className="flex w-full flex-col items-center">
       <div className="flex w-full items-center justify-between px-4 pt-4">
         <div className="flex flex-col items-baseline">
-          <p className="mb-1 text-xs text-gray-500">나의 포인트</p>
+          <p className="mb-1 text-xs text-gray-500">사용 가능 포인트</p>
           <p className="text-2xl font-semibold text-black">{availablePoint}</p>
         </div>
         <button
@@ -27,7 +27,7 @@ const UserStatusbar = ({ accumulatedPoint, availablePoint }: UserStatusbarProps)
         </button>
       </div>
       <div className="self-start px-4 py-2 text-start">
-        <p className="md:text-md text-xs text-black">사용 가능 포인트: {accumulatedPoint}p</p>
+        <p className="md:text-md text-xs text-black">나의 포인트: {accumulatedPoint}p</p>
       </div>
     </div>
   )

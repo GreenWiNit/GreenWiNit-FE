@@ -6,6 +6,8 @@ import {
 } from '@/components/common/modal/dialog'
 import { Button } from '@/components/common/button'
 import { useNavigate, useRouter } from '@tanstack/react-router'
+import { DialogTitle } from '@radix-ui/react-dialog'
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 
 interface WarnNotLoggedInProps {
   isOpen: boolean
@@ -26,9 +28,15 @@ const WarnNotLoggedIn = ({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent>
-        <DialogDescription className="gap-2 text-center whitespace-pre text-black">
-          <p className="m-4">{`서비스를 이용하기 위해\n 로그인이 필요합니다.`}</p>
-          <p>로그인하시겠습니까?</p>
+        <DialogTitle className="flex items-center justify-center text-center text-lg leading-3 font-semibold whitespace-pre-line text-black">
+          <VisuallyHidden>Title</VisuallyHidden>
+        </DialogTitle>
+
+        <DialogDescription asChild className="gap-2 text-center whitespace-pre text-black">
+          <div>
+            <p className="m-4">{`서비스를 이용하기 위해\n 로그인이 필요합니다.`}</p>
+            <p>로그인하시겠습니까?</p>
+          </div>
         </DialogDescription>
         <DialogFooter className="flex flex-row gap-6 sm:justify-center">
           <Button

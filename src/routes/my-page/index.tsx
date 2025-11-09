@@ -7,7 +7,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { createFileRoute } from '@tanstack/react-router'
 import { queryClient } from '@/constant/globals'
 import useIsLoggedIn from '@/hooks/use-is-logged-in'
-import WarnNotLoggedIn from '@/components/common/warn-not-logged-in'
+import WarnNotLoggedIn from '@/components/common/modal/warn-not-logged-in'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/my-page/')({
