@@ -54,7 +54,7 @@ function Posts() {
                   categoryName={item.infoCategoryName}
                   title={item.title}
                   content={item.content}
-                  thumbnailUrl={item.imageurl}
+                  thumbnailUrl={item.imageUrls[0]}
                   onClick={() => {
                     if (!isLoggedIn) {
                       setIsWarnNotLoggedInDialogOpen(true)

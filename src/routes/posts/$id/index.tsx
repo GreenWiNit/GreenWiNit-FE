@@ -5,6 +5,7 @@ import Loading from '@/components/common/loading'
 import { CircleAlert } from 'lucide-react'
 import CategoryName from '@/components/post-screen/category-name'
 import { createFileRoute } from '@tanstack/react-router'
+import PostImageSlider from '@/components/post-screen/post-image-slider'
 
 export const Route = createFileRoute('/posts/$id/')({
   component: PostDetail,
@@ -36,9 +37,7 @@ function PostDetail() {
           <PageTitle>활동 상세</PageTitle>
         </PageLayOut.HeaderSection>
         <PageLayOut.BodySection padding="zero" className="m-0">
-          <div className="w-full bg-green-50">
-            <img src={post.imageurl} className="w-full" />
-          </div>
+          <PostImageSlider imageUrls={post.imageUrls} />
           <div className="flex flex-row items-center justify-between p-4">
             <div className="text-xl font-bold">{post.title}</div>
             <CategoryName category={post.infoCategoryName} />
