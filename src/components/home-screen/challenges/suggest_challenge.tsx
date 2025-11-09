@@ -4,7 +4,7 @@ import { useChallenges } from '@/hooks/challenge/use-challenges'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import useIsLoggedIn from '@/hooks/use-is-logged-in'
-import WarnNotLoggedIn from '@/components/common/warn-not-logged-in'
+import WarnNotLoggedIn from '@/components/common/modal/warn-not-logged-in'
 
 const Slider = () => {
   const { data: teamChallenges } = useChallenges({ challengeType: 'individual' })

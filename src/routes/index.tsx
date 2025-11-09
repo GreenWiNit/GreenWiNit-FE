@@ -4,7 +4,7 @@ import UserCard from '@/components/common/user-card'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import Challenges from '@/components/home-screen/challenges'
-import WarnNotLoggedIn from '@/components/common/warn-not-logged-in'
+import WarnNotLoggedIn from '@/components/common/modal/warn-not-logged-in'
 import { authStore } from '@/store/auth-store'
 import PageLayOut from '@/components/common/page-layout'
 

@@ -8,7 +8,7 @@ import PageLayOut from '@/components/common/page-layout'
 import PageTitle from '@/components/common/page-title'
 import { CircleAlert } from 'lucide-react'
 import useIsLoggedIn from '@/hooks/use-is-logged-in'
-import WarnNotLoggedIn from '@/components/common/warn-not-logged-in'
+import WarnNotLoggedIn from '@/components/common/modal/warn-not-logged-in'
 import Loading from '@/components/common/loading'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 

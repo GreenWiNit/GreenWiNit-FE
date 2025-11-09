@@ -4,7 +4,7 @@ import { useNavigate } from '@tanstack/react-router'
 import Loading from '../common/loading'
 import useIsLoggedIn from '@/hooks/use-is-logged-in'
 import { useState } from 'react'
-import WarnNotLoggedIn from '../common/warn-not-logged-in'
+import WarnNotLoggedIn from '../common/modal/warn-not-logged-in'
 
 const ProductList = () => {
   const navigate = useNavigate()
