@@ -68,9 +68,9 @@ function RouteComponent() {
         <PageTitle>AI 추천 챌린지 분석</PageTitle>
       </PageLayOut.HeaderSection>
       <PageLayOut.BodySection>
-        <div className="mt-8 mb-12 h-1 w-full bg-gray-200">
+        <div className="mt-8 mb-12 h-1 w-full rounded-[9px] bg-gray-200">
           <div
-            className="h-full bg-green-500 transition-all duration-300"
+            className="bg-mountain_meadow-500 h-full rounded-[9px] transition-all duration-300"
             style={{ width: `${((currentStep + 1) / totalStep) * 100}%` }}
           />
         </div>
