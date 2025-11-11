@@ -27,8 +27,8 @@ const ExchangeProduct = ({
         </p>
       ) : (
         <p className="text-title-smaller px-4 pt-4 text-sm whitespace-pre-line">
-          * 본 리워드는 봉사프로젝트 굿즈로 환불과 교환이 불가합니다. 제품 불량 및 파손 시에는
-          [1:1문의]를 통해 연락주세요.
+          * 본 리워드는 환불과 교환이 불가합니다. 제품 불량 및 파손 시에는 [1:1문의]를 통해
+          연락주세요.
         </p>
       )}
 
