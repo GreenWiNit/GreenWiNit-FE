@@ -10,7 +10,7 @@ const Top3Container = ({ userRank }: Top3ContainerProps) => {
   const rankerIndex = [userRank[1], userRank[0], userRank[2]]
 
   return (
-    <div className="border-ring mx-4 flex flex-row border-b-2 p-2 pb-4">
+    <div className="border-ring mx-2 flex flex-row border-b-2 p-2 pb-4">
       {rankerIndex.map((user, index) => {
         const realRank = index === 1 ? 1 : index === 0 ? 2 : 3
 
