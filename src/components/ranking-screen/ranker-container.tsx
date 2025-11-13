@@ -10,10 +10,11 @@ const RankerContainer = () => {
     <div className="flex w-full flex-col gap-4 p-4">
       {userRank.map((user, index) => {
         const isMe = user.isMe
+        const isExtraMe = isMe && index === userRank.length - 1
 
         return (
           <ul className="flex flex-row items-center justify-center gap-4" key={index}>
-            <p className="text-lg font-bold">{index + 4}</p>
+            <p className="text-lg font-bold">{isExtraMe ? '-' : index + 4}</p>
             <div className="flex flex-1 flex-row items-center gap-2">
               <img src={user.profile} className="h-10 w-10" />
               <span className={cn('font-bold', isMe && 'text-red-600')}>
