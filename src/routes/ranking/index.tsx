@@ -22,7 +22,7 @@ function Ranking() {
             포인트와 인증 수 기준으로 매주 월요일 자정에 순위가 갱신돼요.
           </p>
         </div>
-        <div className="mx-4 flex flex-col items-center justify-center gap-2">
+        <div className="mx-4 flex flex-col items-center justify-center">
           <Top3Container />
           <RankerContainer />
         </div>

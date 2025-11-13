@@ -11,6 +11,7 @@ const Top3Container = () => {
     <div className="border-ring mx-2 flex flex-row border-b-2 p-2 pb-4">
       {rankerIndex.map((user, index) => {
         const realRank = index === 1 ? 1 : index === 0 ? 2 : 3
+        const isMe = user?.isMe
 
         return (
           <div
@@ -30,9 +31,23 @@ const Top3Container = () => {
                 {realRank === 2 && <span>🥈</span>}
                 {realRank === 3 && <span>🥉</span>}
               </div>
-              <p className="font-bold whitespace-nowrap">{user?.name}</p>
+              <p
+                className={cn(
+                  'text-sm font-bold whitespace-nowrap',
+                  isMe === true && 'text-red-600',
+                )}
+              >
+                {isMe ? `나(${user?.name})` : user?.name}
+              </p>
               <p className="text-ring text-sm whitespace-nowrap">인증{user?.certificates} 개</p>
-              <p className="text-mountain_meadow-500 mt-2 text-sm font-bold">{user?.point}P</p>
+              <p
+                className={cn(
+                  'text-mountain_meadow-500 mt-2 text-xs font-bold',
+                  isMe === true && 'text-red-600',
+                )}
+              >
+                {user?.point}P
+              </p>
             </div>
           </div>
         )
