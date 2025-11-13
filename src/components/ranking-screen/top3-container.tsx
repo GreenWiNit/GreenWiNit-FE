@@ -1,12 +1,10 @@
+import { useTopRankers } from '@/hooks/rank/use-top-ranker'
 import ProfileImage from '../common/profile-image'
 import { cn } from '@/lib/utils'
-import { User } from '@/types/ranking'
 
-interface Top3ContainerProps {
-  userRank: User[]
-}
-
-const Top3Container = ({ userRank }: Top3ContainerProps) => {
+const Top3Container = () => {
+  const TOP_RANKER = 3
+  const userRank = useTopRankers({ end: TOP_RANKER })
   const rankerIndex = [userRank[1], userRank[0], userRank[2]]
 
   return (
