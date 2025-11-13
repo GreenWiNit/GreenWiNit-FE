@@ -121,7 +121,7 @@ const NAV_ITEMS = [
       />
     ),
     label: '대시보드',
-    moveTo: '/dash-board',
+    moveTo: '/dashboard',
   } satisfies NavItem,
   {
     icon: ({ isActive, ...rest }: { isActive: boolean }) => (
