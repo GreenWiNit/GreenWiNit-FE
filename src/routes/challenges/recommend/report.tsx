@@ -62,7 +62,7 @@ function RouteComponent() {
                 </span>
               </div>
             </div>
-            <div className="m-2 mx-4 gap-2 border-b pb-3">
+            <div className="m-2 mx-4 mb-3 gap-2 border-b pb-3">
               <p className="mb-2 font-bold">AI 추천 챌린지</p>
               <p className="text-ring text-sm">홈 화면에서 매일 추천 챌린지가 바뀝니다!</p>
               <div className="my-4 overflow-hidden" ref={emblaRef}>
