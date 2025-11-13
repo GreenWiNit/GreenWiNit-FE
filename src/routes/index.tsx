@@ -1,12 +1,12 @@
 import AppTitle from '@/components/common/app-title'
 import BottomNavigation from '@/components/common/bottom-navigation'
-import UserCard from '@/components/common/user-card'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Challenges from '@/components/home-screen/challenges'
-import WarnNotLoggedIn from '@/components/common/modal/warn-not-logged-in'
 import { authStore } from '@/store/auth-store'
 import PageLayOut from '@/components/common/page-layout'
+import { ChevronRight } from 'lucide-react'
+import SuggestChallenge from '@/components/home-screen/challenges/suggest_challenge'
 
 type HomeSearch =
   | undefined
@@ -30,7 +30,6 @@ export const Route = createFileRoute('/')({
 
 function Home() {
   const navigate = useNavigate()
-  const [isWarnNotLoggedInDialogOpen, setIsWarnNotLoggedInDialogOpen] = useState(false)
   const search = Route.useSearch()
   const setAccessToken = authStore((state) => state.setAccessToken)
 
@@ -61,12 +60,18 @@ function Home() {
           <AppTitle className="!text-3xl" />
         </PageLayOut.HeaderSection>
         <PageLayOut.BodySection padding="zero">
-          <div className="flex flex-col gap-4 p-4">
-            <UserCard />
-            <WarnNotLoggedIn
-              isOpen={isWarnNotLoggedInDialogOpen}
-              onOpenChange={setIsWarnNotLoggedInDialogOpen}
-            />
+          <div className="flex flex-col justify-baseline gap-2 p-4">
+            <SuggestChallenge />
+            <div className="flex flex-row justify-between">
+              <h3 className="text-lg font-bold">나의 포인트 순위는?</h3>
+              <a href="/ranking" className="flex flex-row items-center">
+                <span className="text-ring text-sm">전체보기</span>
+                <ChevronRight size={12} className="text-ring" />
+              </a>
+            </div>
+            <span className="text-ring text-start text-xs">
+              주간 누적 포인트와 인증수를 합산해 순위가 정해져요.
+            </span>
           </div>
           <Challenges />
         </PageLayOut.BodySection>
