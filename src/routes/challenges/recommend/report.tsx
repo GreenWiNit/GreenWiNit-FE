@@ -8,6 +8,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { CirclePlus } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
+import useEmblaCarousel from 'embla-carousel-react'
+import AppTitle from '@/components/common/app-title'
 
 export const Route = createFileRoute('/challenges/recommend/report')({
   component: RouteComponent,
@@ -17,6 +19,8 @@ function RouteComponent() {
   const [isLoading, setIsLoading] = useState(true)
   const { data: challenges } = useChallenges({ challengeType: 'team' })
   const recommendedChallenges = challenges?.slice(0, 2)
+
+  const [emblaRef] = useEmblaCarousel({ loop: false, align: 'start' })
 
   const AddRecommandChallenge = () => {
     toast.error('추천 챌린지 생성을 아직은 할 수 없어요!')
@@ -33,7 +37,9 @@ function RouteComponent() {
   return (
     <PageLayOut.Container>
       <PageLayOut.HeaderSection>
-        <PageTitle>AI 추천 챌린지 분석 결과</PageTitle>
+        <PageTitle>
+          <AppTitle className="!text-3xl" />
+        </PageTitle>
       </PageLayOut.HeaderSection>
       <PageLayOut.ScrollableContent>
         {isLoading ? (
@@ -43,29 +49,31 @@ function RouteComponent() {
           />
         ) : (
           <>
-            <div className="m-4 px-4 py-2">
-              <div className="border-mountain_meadow-100 flex flex-col items-center justify-center gap-2 rounded-3xl border-8 px-4 py-2">
+            <div className="m-4 border-b px-4 py-2 pb-4">
+              <div className="flex flex-col items-center justify-center gap-2 rounded-[50px] border-[7px] border-[#E4F0D5] px-2 py-4">
                 <p className="text-ring text-sm">{mockingRecommandData.title}</p>
                 <p className="text-xl font-bold">{mockingRecommandData.type}</p>
-                <img src={mockingRecommandData.thumbnail} className="h-36 w-36" />
+                <img src={mockingRecommandData.thumbnail} className="h-[109px] w-[105px]" />
                 <p className="text-ring text-xs whitespace-pre-line">
                   {mockingRecommandData.description}
                 </p>
-                <span className="bg-mountain_meadow-300 text-mountain_meadow-700 rounded-lg p-2 text-xs font-bold">
+                <span className="text-mountain_meadow-500 rounded-lg bg-[#C6F4DD] p-2 text-xs">
                   # {mockingRecommandData.introduction}
                 </span>
               </div>
             </div>
-            <div className="px-4">
-              <hr className="border-b-2" />
-            </div>
-            <div className="m-2 mx-4 gap-2 border-b-2">
+            <div className="m-2 mx-4 gap-2 border-b pb-3">
               <p className="mb-2 font-bold">AI 추천 챌린지</p>
               <p className="text-ring text-sm">홈 화면에서 매일 추천 챌린지가 바뀝니다!</p>
-              <div className="my-4 flex flex-row items-center gap-2">
-                {recommendedChallenges?.map((challenge) => (
-                  <Challenge challenge={challenge} key={challenge.id} />
-                ))}
+              <div className="my-4 overflow-hidden" ref={emblaRef}>
+                <div className="flex gap-2">
+                  {recommendedChallenges?.map((challenge) => (
+                    <Challenge challenge={challenge} key={challenge.id} className="flex-none" />
+                  ))}
+                  {recommendedChallenges?.map((challenge) => (
+                    <Challenge challenge={challenge} key={challenge.id} className="flex-none" />
+                  ))}
+                </div>
               </div>
             </div>
             <div className="mx-4 gap-2">
@@ -80,7 +88,7 @@ function RouteComponent() {
                     <div className="flex justify-between text-sm font-bold">
                       <span>{challenge.title}</span>
                       <span>
-                        <CirclePlus color="#0fba7e" onClick={AddRecommandChallenge} />
+                        <CirclePlus color="#0fba7e" onClick={AddRecommandChallenge} width={18} />
                       </span>
                     </div>
                     <p className="text-ring text-start text-xs">{challenge.subTitle}</p>
