@@ -20,7 +20,7 @@ const InfoButton = ({ text }: InfoButtonProps) => {
             onClick={() => setShowTooltip((prev) => !prev)}
           />
         </TooltipTrigger>
-        <TooltipContent className="p-4 shadow-xl">
+        <TooltipContent className="rounded-xl p-3 pt-0 shadow-xl">
           <p className="text-center whitespace-pre-line">{text}</p>
         </TooltipContent>
       </Tooltip>
