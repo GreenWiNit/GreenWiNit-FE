@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { AiRecommendationSurvey } from '../../../components/common/serveyConfig'
 import SurveyStep from '@/components/challenge-screen/survey-step'
 import { Button } from '@/components/shadcn/button'
+import TitleImg from '@/../public/img/og-image.png'
 
 export const Route = createFileRoute('/challenges/recommend/survey')({
   component: RouteComponent,
@@ -65,12 +66,14 @@ function RouteComponent() {
   return (
     <PageLayOut.Container>
       <PageLayOut.HeaderSection>
-        <PageTitle>AI 추천 챌린지 분석</PageTitle>
+        <PageTitle>
+          <img src={TitleImg} className="w-[280px]" />
+        </PageTitle>
       </PageLayOut.HeaderSection>
       <PageLayOut.BodySection>
-        <div className="mt-8 mb-12 h-1 w-full bg-gray-200">
+        <div className="mt-8 mb-12 h-1 w-full rounded-[9px] bg-gray-200">
           <div
-            className="h-full bg-green-500 transition-all duration-300"
+            className="bg-mountain_meadow-500 h-full rounded-[9px] transition-all duration-300"
             style={{ width: `${((currentStep + 1) / totalStep) * 100}%` }}
           />
         </div>

@@ -8,6 +8,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { CirclePlus } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
+import TitleImg from '@/../public/img/og-image.png'
 
 export const Route = createFileRoute('/challenges/recommend/report')({
   component: RouteComponent,
@@ -33,7 +34,9 @@ function RouteComponent() {
   return (
     <PageLayOut.Container>
       <PageLayOut.HeaderSection>
-        <PageTitle>AI 추천 챌린지 분석 결과</PageTitle>
+        <PageTitle>
+          <img src={TitleImg} className="w-[280px]" />
+        </PageTitle>
       </PageLayOut.HeaderSection>
       <PageLayOut.ScrollableContent>
         {isLoading ? (
@@ -57,9 +60,9 @@ function RouteComponent() {
               </div>
             </div>
             <div className="px-4">
-              <hr className="border-b-2" />
+              <hr className="border-b" />
             </div>
-            <div className="m-2 mx-4 gap-2 border-b-2">
+            <div className="m-2 mx-4 gap-2 border-b">
               <p className="mb-2 font-bold">AI 추천 챌린지</p>
               <p className="text-ring text-sm">홈 화면에서 매일 추천 챌린지가 바뀝니다!</p>
               <div className="my-4 flex flex-row items-center gap-2">
