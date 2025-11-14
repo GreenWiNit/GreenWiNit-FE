@@ -14,7 +14,7 @@ const RankerContainer = () => {
 
         return (
           <li className="flex w-full flex-row items-center gap-4" key={index}>
-            <RankingCard classname="w-full" user={user} rank={index + 4} unrankME={isExtraMe} />
+            <RankingCard user={user} rank={index + 4} unrankME={isExtraMe} />
           </li>
         )
       })}
