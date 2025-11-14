@@ -21,7 +21,7 @@ const Challenge = ({ challenge, onClick, className }: ChallengeProps) => {
   const view = {
     title: challenge.challengeName,
     image: challenge.challengeImage,
-    subText: 'currentParticipant' in challenge && `${challenge.currentParticipant}명 참여 중`,
+    subText: 'currentParticipant' in challenge && `참여: ${challenge.currentParticipant}명`,
     certifiedStatus: 'certifiedDate' in challenge ? challenge.certificationStatus : null,
   }
 

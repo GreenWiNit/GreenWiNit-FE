@@ -15,6 +15,14 @@ export const SurveyStep: React.FC<SurveyStepProps> = ({ stepConfig, data, onUpda
     onUpdate(updatedData)
   }
 
+  const handleCheckboxChange = (value: number | string): void => {
+    const updatedData = selectedData.includes(value)
+      ? selectedData.filter((v) => v !== value) // 이미 있으면 제거
+      : [...selectedData, value] // 없으면 추가
+    setSelectedData(updatedData)
+    onUpdate(updatedData)
+  }
+
   const renderQuestion = (): JSX.Element | null => {
     switch (stepConfig.type) {
       case 'checkbox':
@@ -28,7 +36,7 @@ export const SurveyStep: React.FC<SurveyStepProps> = ({ stepConfig, data, onUpda
                 <input
                   type="checkbox"
                   checked={selectedData.includes(option.id)}
-                  onChange={() => handleSingleChange(option.id)}
+                  onChange={() => handleCheckboxChange(option.id)}
                   className="mt-1 h-4 w-4 flex-shrink-0"
                 />
                 <span className="text-sm leading-relaxed text-gray-700">{option.text}</span>
