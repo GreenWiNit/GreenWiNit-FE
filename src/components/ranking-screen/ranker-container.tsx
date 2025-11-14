@@ -1,5 +1,5 @@
 import { useTopRankers } from '@/hooks/rank/use-top-ranker'
-import { cn } from '@/lib/utils'
+import RankingCard from './ranking-card'
 
 const RankerContainer = () => {
   const EXTRA_RANKER = 3
@@ -13,21 +13,9 @@ const RankerContainer = () => {
         const isExtraMe = isMe && index === userRank.length - 1
 
         return (
-          <ul className="flex flex-row items-center justify-center gap-4" key={index}>
-            <p className="text-lg font-bold">{isExtraMe ? '-' : index + 4}</p>
-            <div className="flex flex-1 flex-row items-center gap-2">
-              <img src={user.profile} className="h-10 w-10" />
-              <span className={cn('font-bold', isMe && 'text-red-600')}>
-                {isMe ? `나(${user.name})` : user.name}
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className={cn('text-mountain_meadow-500 font-bold', isMe && 'text-red-600')}>
-                {user.point}P
-              </span>
-              <span className="text-ring text-xs">인증 {user.certificates}개</span>
-            </div>
-          </ul>
+          <li className="flex w-full flex-row items-center gap-4" key={index}>
+            <RankingCard classname="w-full" user={user} rank={index + 4} unrankME={isExtraMe} />
+          </li>
         )
       })}
     </div>

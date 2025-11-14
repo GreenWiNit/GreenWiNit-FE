@@ -22,7 +22,11 @@ const Top3Container = () => {
             )}
           >
             <ProfileImage
-              imageUrl={user?.profile === undefined ? '/profile.png' : user.profile}
+              imageUrl={
+                user?.profile === undefined || user?.profile === null
+                  ? '/profile.png'
+                  : user.profile
+              }
               size={60}
             />
             <div className="bg-mountain_meadow-100 h-40 w-20 items-center rounded-md px-2 py-4">

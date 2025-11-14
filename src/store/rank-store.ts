@@ -3,9 +3,10 @@ import { create } from 'zustand'
 
 interface RankStore {
   users: User[]
+  findMe: () => User | undefined
 }
 
-export const useRankStore = create<RankStore>(() => ({
+export const useRankStore = create<RankStore>((_, get) => ({
   users: [
     { name: '사용자1', profile: '/img/profile.png', certificates: 20, point: 2640, isMe: true },
     { name: '사용자2', profile: '/img/profile.png', certificates: 26, point: 2920, isMe: false },
@@ -17,4 +18,8 @@ export const useRankStore = create<RankStore>(() => ({
     { name: '사용자8', profile: '/img/profile.png', certificates: 28, point: 2925, isMe: true },
     { name: '사용자8', profile: '/img/profile.png', certificates: 28, point: 2920, isMe: false },
   ],
+
+  findMe: () => {
+    return get().users.find((user) => user.isMe)
+  },
 }))
