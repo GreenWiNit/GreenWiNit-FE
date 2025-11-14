@@ -1,6 +1,14 @@
-function ProfileImage({ imageUrl }: { imageUrl: string }) {
+interface ProfileImageProps {
+  imageUrl: string
+  size?: number
+}
+
+function ProfileImage({ imageUrl, size = 92 }: ProfileImageProps) {
   return (
-    <div className="h-[92px] w-[92px] overflow-hidden rounded-full border-2 border-gray-300 bg-cover bg-no-repeat">
+    <div
+      className="overflow-hidden rounded-full border-2 border-gray-300 bg-cover bg-no-repeat"
+      style={{ width: `${size}px`, height: `${size}px` }}
+    >
       <img src={imageUrl} alt="프로필 이미지" className="h-full w-full object-scale-down" />
     </div>
   )

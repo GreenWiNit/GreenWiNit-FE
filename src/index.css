@@ -162,6 +162,7 @@ button {
   --color-lighter-gray: #808080;
   --color-lighter-gray-border: #e0e0e0;
   --color-notify-gray: #8c8c8c;
+  --color-disabled: #c0c0c0;
 }
 
 :root {
