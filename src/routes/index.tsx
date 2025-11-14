@@ -60,8 +60,8 @@ function Home() {
           <AppTitle className="!text-3xl" />
         </PageLayOut.HeaderSection>
         <PageLayOut.BodySection padding="zero">
+          <SuggestChallenge />
           <div className="flex flex-col justify-baseline gap-2 p-4">
-            <SuggestChallenge />
             <div className="flex flex-row justify-between">
               <h3 className="text-lg font-bold">나의 포인트 순위는?</h3>
               <a href="/ranking" className="flex flex-row items-center">

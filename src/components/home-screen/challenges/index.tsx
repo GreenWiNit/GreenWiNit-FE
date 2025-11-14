@@ -7,7 +7,6 @@ import useIsLoggedIn from '@/hooks/use-is-logged-in'
 import WarnNotLoggedIn from '../../common/modal/warn-not-logged-in'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/shadcn/carousel'
 import { cn } from '@/lib/utils'
-import SuggestChallenge from './suggest_challenge'
 import { ChevronRight } from 'lucide-react'
 import { Button } from '@/components/shadcn/button'
 
@@ -87,12 +86,9 @@ const Challenges = () => {
   const { data: teamChallenges } = useChallenges({ challengeType: 'team', pageSize: 3 })
 
   return (
-    <div className="flex h-full flex-col">
-      <SuggestChallenge />
-      <div className="flex w-full flex-[1_1_auto] flex-col px-4 py-0">
-        <ChallengePreview category="individual" challenges={individualChallenges} />
-        <ChallengePreview category="team" challenges={teamChallenges} />
-      </div>
+    <div className="flex w-full flex-[1_1_auto] flex-col px-4 py-0">
+      <ChallengePreview category="individual" challenges={individualChallenges} />
+      <ChallengePreview category="team" challenges={teamChallenges} />
     </div>
   )
 }
