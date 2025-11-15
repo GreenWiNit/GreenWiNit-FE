@@ -1,7 +1,7 @@
 import BottomNavigation from '@/components/common/bottom-navigation'
 import PageLayOut from '@/components/common/page-layout'
 import PageTitle from '@/components/common/page-title'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import BackpackIcon from '/public/icons/backpack.svg?react'
 import TrashIcon from '/public/icons/trash.svg?react'
 import StoreIcon from '/public/icons/store.svg?react'
@@ -24,6 +24,8 @@ export const Route = createFileRoute('/dashboard')({
 })
 
 function RouteComponent() {
+  const navigate = useNavigate()
+
   //나의 아이템 모달 상태
   const [isItemModal, setIsItemModal] = useState<boolean>(false)
   const toggleItemModal = () => {
@@ -43,7 +45,7 @@ function RouteComponent() {
   const icons = [
     { id: 1, Component: BackpackIcon, onClick: toggleItemModal },
     { id: 2, Component: TrashIcon, onClick: toggleItemModal },
-    { id: 3, Component: StoreIcon, onClick: toggleItemModal },
+    { id: 3, Component: StoreIcon, onClick: () => navigate({ to: '/point-shop' }) },
     { id: 4, Component: DiskIcon, onClick: toggleItemModal },
   ]
 
