@@ -7,6 +7,8 @@ import UserStatusbar from '@/components/shop-screen/user-statusbar'
 import { useUserPoints } from '@/hooks/use-user-points'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
+import useItems from '@/hooks/item/use-items'
+import useProducts from '@/hooks/product/use-products'
 
 export const Route = createFileRoute('/point-shop/')({
   component: PointShop,
@@ -26,6 +28,19 @@ function PointShop() {
   const handleTabClick = (tab: '아이템' | '배송상품') => {
     setCurrentTab(tab)
   }
+
+  const { data: products, isLoading: productsIsLoading } = useProducts()
+
+  const { data: items, isLoading: itemsIsLoading } = useItems()
+  // 추후 sellingStatus값 처리예정
+  const mappedItems = items?.pages[0]?.result?.content?.map((i) => ({
+    id: i.pointItemId,
+    name: i.pointItemName,
+    thumbnailUrl: i.thumbnailUrl,
+    price: i.pointPrice,
+  }))
+
+  const currentProducts = currentTab === '배송상품' ? products : mappedItems
   return (
     <PageLayOut.Container>
       <PageLayOut.ScrollableContent>
@@ -54,7 +69,10 @@ function PointShop() {
             ))}
           </div>
 
-          <ProductList />
+          <ProductList
+            products={currentProducts ?? []}
+            isLoading={currentTab === '배송상품' ? productsIsLoading : itemsIsLoading}
+          />
         </PageLayOut.BodySection>
       </PageLayOut.ScrollableContent>
       <PageLayOut.FooterSection>

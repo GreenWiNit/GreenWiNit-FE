@@ -1,4 +1,3 @@
-import useProducts from '@/hooks/product/use-products'
 import { CircleAlert } from 'lucide-react'
 import { useNavigate } from '@tanstack/react-router'
 import Loading from '../common/loading'
@@ -6,7 +5,18 @@ import useIsLoggedIn from '@/hooks/use-is-logged-in'
 import { useState } from 'react'
 import WarnNotLoggedIn from '../common/modal/warn-not-logged-in'
 
-const ProductList = () => {
+interface ProductListProps {
+  products: {
+    id: number
+    name: string
+    thumbnailUrl: string
+    price: number
+    sellingStatus?: string
+  }[]
+  isLoading: boolean
+}
+
+const ProductList = ({ products, isLoading }: ProductListProps) => {
   const navigate = useNavigate()
   const isLoggedIn = useIsLoggedIn()
   const [isWarnNotLoggedInDialogOpen, setIsWarnNotLoggedInDialogOpen] = useState(false)
@@ -18,8 +28,6 @@ const ProductList = () => {
     }
     navigate({ to: `/point-shop/products/${productId}/detail` })
   }
-
-  const { data: products, isLoading } = useProducts()
 
   if (isLoading) {
     return <Loading />
@@ -51,7 +59,9 @@ const ProductList = () => {
               />
             </div>
             <p className="text-sm font-bold whitespace-nowrap text-black">{product?.name}</p>
-            <p className="text-xs text-gray-500">{product?.sellingStatus}</p>
+            <p className="text-xs text-gray-500">
+              {product?.sellingStatus ? product.sellingStatus : '교환가능'}
+            </p>
             <p className="text-mountain_meadow font-bold">{product?.price}p</p>
           </div>
         )
