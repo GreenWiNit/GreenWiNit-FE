@@ -3,7 +3,7 @@ import { throwResponseStatusThenChaining } from '@/lib/network'
 import { createQueryKeys } from '@lukemorales/query-key-factory'
 
 export const itemsApi = {
-  getItems: async (cursorId?: number | null) => {
+  getItems: async (cursorId?: string | number | null) => {
     const url = cursorId ? `${API_URL}/point-items?cursor=${cursorId}` : `${API_URL}/point-items`
 
     return await fetch(url)

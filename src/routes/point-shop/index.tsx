@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import useItems from '@/hooks/item/use-items'
 import useProducts from '@/hooks/product/use-products'
+import { useInfiniteScroll } from '@/hooks/use-infinite-scroll'
 
 export const Route = createFileRoute('/point-shop/')({
   component: PointShop,
@@ -31,9 +32,17 @@ function PointShop() {
 
   const { data: products, isLoading: productsIsLoading } = useProducts()
 
-  const { data: items, isLoading: itemsIsLoading } = useItems()
+  const {
+    data: items,
+    isLoading: itemsIsLoading,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useItems()
+  const allItems = items?.pages.flatMap((page) => page.result.content) ?? []
+
   // 추후 sellingStatus값 처리예정
-  const mappedItems = items?.pages[0]?.result?.content?.map((i) => ({
+  const mappedItems = allItems.map((i) => ({
     id: i.pointItemId,
     name: i.pointItemName,
     thumbnailUrl: i.thumbnailUrl,
@@ -41,6 +50,12 @@ function PointShop() {
   }))
 
   const currentProducts = currentTab === '배송상품' ? products : mappedItems
+
+  const bottomRef = useInfiniteScroll({
+    enabled: hasNextPage,
+    onLoadMore: () => fetchNextPage?.(),
+    isLoading: isFetchingNextPage,
+  })
   return (
     <PageLayOut.Container>
       <PageLayOut.ScrollableContent>
@@ -72,6 +87,7 @@ function PointShop() {
           <ProductList
             products={currentProducts ?? []}
             isLoading={currentTab === '배송상품' ? productsIsLoading : itemsIsLoading}
+            bottomRef={bottomRef}
           />
         </PageLayOut.BodySection>
       </PageLayOut.ScrollableContent>

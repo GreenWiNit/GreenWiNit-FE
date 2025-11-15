@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { itemsApi, itemsKey } from '@/api/items'
 
-const useItems = (cursorId?: number | null) => {
+const useItems = (cursorId?: string | number | null) => {
   return useInfiniteQuery({
     queryKey: itemsKey.infinite().queryKey,
     queryFn: ({ pageParam = cursorId }) => itemsApi.getItems(pageParam),

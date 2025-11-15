@@ -2,7 +2,7 @@ import { CircleAlert } from 'lucide-react'
 import { useNavigate } from '@tanstack/react-router'
 import Loading from '../common/loading'
 import useIsLoggedIn from '@/hooks/use-is-logged-in'
-import { useState } from 'react'
+import { RefObject, useState } from 'react'
 import WarnNotLoggedIn from '../common/modal/warn-not-logged-in'
 
 interface ProductListProps {
@@ -14,9 +14,10 @@ interface ProductListProps {
     sellingStatus?: string
   }[]
   isLoading: boolean
+  bottomRef?: RefObject<HTMLDivElement | null>
 }
 
-const ProductList = ({ products, isLoading }: ProductListProps) => {
+const ProductList = ({ products, isLoading, bottomRef }: ProductListProps) => {
   const navigate = useNavigate()
   const isLoggedIn = useIsLoggedIn()
   const [isWarnNotLoggedInDialogOpen, setIsWarnNotLoggedInDialogOpen] = useState(false)
@@ -66,6 +67,9 @@ const ProductList = ({ products, isLoading }: ProductListProps) => {
           </div>
         )
       })}
+
+      {/* 바닥 감지 요소 */}
+      <div ref={bottomRef} className="h-1 w-full"></div>
       <WarnNotLoggedIn
         isOpen={isWarnNotLoggedInDialogOpen}
         onOpenChange={setIsWarnNotLoggedInDialogOpen}
