@@ -5,7 +5,7 @@ import NoticeDialog from '@/components/common/modal/notice-dialog'
 import PageLayOut from '@/components/common/page-layout'
 import ExchangeProduct from '@/components/shop-screen/exchange-product'
 import PointDescription from '@/components/shop-screen/point-description'
-import useProduct from '@/hooks/product/use-product'
+import useItem from '@/hooks/item/use-item'
 import { useUserStatus } from '@/hooks/use-user-status'
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
@@ -31,7 +31,7 @@ function RouteComponent() {
     window.location.reload()
   }
 
-  const { data: product, isLoading: productLoading } = useProduct(pointProductId)
+  const { data: product, isLoading: productLoading } = useItem(pointProductId)
   const { data: userStatus, isLoading: userLoading } = useUserStatus()
 
   const isLoading = productLoading || userLoading
@@ -55,12 +55,12 @@ function RouteComponent() {
             </div>
 
             <div className="flex w-full justify-center bg-gray-100 p-4">
-              <img src={product?.thumbnailUrl} alt="Product" />
+              <img src={product?.thumbnail} alt="Product" />
             </div>
           </div>
 
           <div className="p-4 text-left font-bold">
-            <p className="text-2xl text-black">{product?.name}</p>
+            <p className="text-2xl text-black">{product?.itemName}</p>
             <p className="text-mountain_meadow text-3xl">{product?.price} 포인트</p>
           </div>
 
@@ -69,7 +69,7 @@ function RouteComponent() {
           <PointDescription
             description={product?.description}
             price={product?.price}
-            remainingQuantity={product?.stockQuantity}
+            // remainingQuantity={product?.stockQuantity}
             selectedQuantity={selectedQuantity}
             onQuantityChange={handleQuantityChange}
             availablePoint={availablePoint}
@@ -81,7 +81,7 @@ function RouteComponent() {
             availablePoint={availablePoint}
             deductPoint={deductPoint}
             handleClick={handleConfirmDialog}
-            remainingQuantity={product?.stockQuantity}
+            // remainingQuantity={product?.stockQuantity}
             isItem={true}
           />
 

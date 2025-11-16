@@ -4,7 +4,7 @@ import { Button } from '@/components/common/button'
 interface ExchangeProductProps {
   availablePoint: number
   deductPoint: number
-  remainingQuantity: number | undefined
+  remainingQuantity?: number | undefined
   handleClick: () => void
   /** 꾸미기 아이템 전용 상세페이지인지 */
   isItem?: boolean

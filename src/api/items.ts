@@ -21,6 +21,24 @@ export const itemsApi = {
           }>,
       )
   },
+  getItemDetail: async (itemProductId: string | undefined) => {
+    const response = await fetch(`${API_URL}/point-items/${itemProductId}`)
+      .then(throwResponseStatusThenChaining)
+      .then(
+        (res) =>
+          res.json() as Promise<{
+            success: true
+            message: string
+            result: ServerItem
+          }>,
+      )
+      .catch((error) => {
+        console.error('Error fetching item detail:', error)
+        throw error // Re-throw the error after logging it
+      })
+
+    return response.result
+  },
 }
 
 export const itemsKey = createQueryKeys('items', {
@@ -34,4 +52,14 @@ export type ServerItems = {
   pointItemName: string
   thumbnailUrl: string
   pointPrice: number
+}
+
+export type ServerItem = {
+  itemName: string
+  description: string
+  thumbnail: string
+  price: number
+  enablePoint: number
+  decreasePoint: number
+  remainPoint: number
 }
