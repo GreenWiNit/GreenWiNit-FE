@@ -14,10 +14,11 @@ interface ProductListProps {
     sellingStatus?: string
   }[]
   isLoading: boolean
-  bottomRef?: RefObject<HTMLDivElement | null>
+  bottomRef: RefObject<HTMLDivElement | null>
+  currentTab: '아이템' | '배송상품'
 }
 
-const ProductList = ({ products, isLoading, bottomRef }: ProductListProps) => {
+const ProductList = ({ products, isLoading, bottomRef, currentTab }: ProductListProps) => {
   const navigate = useNavigate()
   const isLoggedIn = useIsLoggedIn()
   const [isWarnNotLoggedInDialogOpen, setIsWarnNotLoggedInDialogOpen] = useState(false)
@@ -27,7 +28,9 @@ const ProductList = ({ products, isLoading, bottomRef }: ProductListProps) => {
       setIsWarnNotLoggedInDialogOpen(true)
       return
     }
-    navigate({ to: `/point-shop/products/${productId}/detail` })
+    navigate({
+      to: `/point-shop/${currentTab === '배송상품' ? 'products' : 'items'}/${productId}/detail`,
+    })
   }
 
   if (isLoading) {

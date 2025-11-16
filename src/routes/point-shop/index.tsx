@@ -40,7 +40,6 @@ function PointShop() {
     isFetchingNextPage,
   } = useItems()
   const allItems = items?.pages.flatMap((page) => page.result.content) ?? []
-
   // 추후 sellingStatus값 처리예정
   const mappedItems = allItems.map((i) => ({
     id: i.pointItemId,
@@ -88,6 +87,7 @@ function PointShop() {
             products={currentProducts ?? []}
             isLoading={currentTab === '배송상품' ? productsIsLoading : itemsIsLoading}
             bottomRef={bottomRef}
+            currentTab={currentTab}
           />
         </PageLayOut.BodySection>
       </PageLayOut.ScrollableContent>
