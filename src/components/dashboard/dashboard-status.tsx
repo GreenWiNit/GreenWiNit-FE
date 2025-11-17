@@ -27,7 +27,7 @@ const DashboardStatus = ({ currentExp, currentPoint, currentLevel }: DashboardSt
         </div>
       </div>
       <span className="pt-1.5 text-[12px] text-[#4B5563]">
-        {currentExp}% 완료 • 목표: {levelsInfo[currentLevel]?.name}
+        다음 레벨까지 {currentExp}% 완료 • 목표: {levelsInfo[currentLevel]?.name}
       </span>
     </div>
   )
