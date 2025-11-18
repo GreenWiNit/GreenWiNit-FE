@@ -39,6 +39,21 @@ export const itemsApi = {
 
     return response.result
   },
+  postItemOrder: async (itemProductId: string) => {
+    const idempotencyKey = crypto.randomUUID()
+
+    return await fetch(`${API_URL}/point-items/order/${itemProductId}`, {
+      method: 'POST',
+      headers: {
+        'Idempotency-Key': idempotencyKey,
+      },
+    })
+      .then(throwResponseStatusThenChaining)
+      .then((res) => res.json())
+      .catch((error) => {
+        throw error
+      })
+  },
 }
 
 export const itemsKey = createQueryKeys('items', {
