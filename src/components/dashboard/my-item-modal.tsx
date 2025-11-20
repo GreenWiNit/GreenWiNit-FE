@@ -5,7 +5,7 @@ interface MyItemModalProps {
   toggleItemModal: () => void
   itemList: UserItem[]
   /** 배치중인 아이템 list에 추가 함수 */
-  handlePlaceItem: (itemName: string) => void
+  handlePlaceItem: (itemId: number) => void
 }
 const MyItemModal = ({ toggleItemModal, itemList, handlePlaceItem }: MyItemModalProps) => {
   return (
@@ -29,10 +29,10 @@ const MyItemModal = ({ toggleItemModal, itemList, handlePlaceItem }: MyItemModal
       ) : (
         //아이템 리스트
         <ul className="grid grid-cols-4 gap-4 pt-5">
-          {itemList.map(({ itemName, id, itemImgUrl: Img }) => (
+          {itemList.map(({ id, itemImgUrl: Img }) => (
             <li
               key={id + Img}
-              onClick={() => handlePlaceItem(itemName)}
+              onClick={() => handlePlaceItem(id)}
               className="border-lighter-gray-border hover:bg-mountain_meadow relative h-[65px] w-[66px] cursor-pointer rounded-[12px] border bg-white shadow-md"
             >
               <div className="flex h-full w-full items-center justify-center">

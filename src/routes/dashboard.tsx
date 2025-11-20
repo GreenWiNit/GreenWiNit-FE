@@ -51,6 +51,8 @@ function RouteComponent() {
 
   //나의 아이템 리스트
   const [itemList, setItemList] = useState<UserItem[]>([])
+  //현재 배치중인 아이템 리스트
+  const [placedItemList, setPlacedItemList] = useState<UserItem[]>([])
 
   //대시보드 꾸미기 아이템 컨테이너 ref
   const decorationContainerRef = useRef<HTMLDivElement>(null)
@@ -69,11 +71,11 @@ function RouteComponent() {
   }, [])
 
   /** 배치하고 싶은 아이템 클릭 함수 */
-  const handlePlaceItem = (itemName: string) => {
+  const handlePlaceItem = (itemId: number) => {
     toggleItemModal() //모달 닫기
 
     //아이템 리스트에서 클릭한 아이템 찾기
-    const selectedItem = itemList?.find((item) => item.itemName === itemName)
+    const selectedItem = itemList?.find((item) => item.id === itemId)
     if (!selectedItem) return //아이템이 없으면 종료
 
     // 아이템 초기 위치 (컨테이너 정중앙) 계산
@@ -93,17 +95,16 @@ function RouteComponent() {
         positionY: y,
       },
     ])
+
+    // 원본 리스트(itemList)에서 클릭한 아이템 제거
+    setItemList((prev) => prev.filter((item) => item.id !== itemId))
   }
 
-  //현재 배치중인 아이템 리스트
-  //구성은 추후 백엔드 api 따라
-  const [placedItemList, setPlacedItemList] = useState<UserItem[]>([])
-
   /** 아이템 드래그 종료 시 위치 업데이트 */
-  const handlePlacedItemList = (name: string, x: number, y: number) => {
+  const handlePlacedItemList = (id: number, x: number, y: number) => {
     setPlacedItemList((prev) =>
       prev.map((item) =>
-        item.itemName === name
+        item.id === id
           ? {
               ...item,
               x,
@@ -115,10 +116,11 @@ function RouteComponent() {
   }
 
   //드래그 중인 아이템 id
-  const [activeItemName, setActiveItemName] = useState<string | null>(null)
+  const [activeItemId, setActiveItemId] = useState<number | null>(null)
+  console.log(activeItemId)
   /** 아이템 드래그 시작 시 맨 위로 올리기 */
-  const handleDragStart = (name: string) => {
-    setActiveItemName(name)
+  const handleDragStart = (id: number) => {
+    setActiveItemId(id)
   }
 
   const [showNoticeDialog, setShowNoticeDialog] = useState(false)
@@ -131,7 +133,10 @@ function RouteComponent() {
   const { data: items } = useUserItems()
 
   useEffect(() => {
-    if (items?.result) setItemList(items?.result)
+    if (items?.result) {
+      setItemList(items?.result.filter((item) => !item.applicability))
+      setPlacedItemList(items?.result.filter((item) => item.applicability))
+    }
   }, [items])
 
   return (
@@ -165,21 +170,19 @@ function RouteComponent() {
             </div>
 
             {/* 배치중인 아이템들 */}
-            {placedItemList.map(
-              ({ itemName, id, itemImgUrl: Img, positionX, positionY }, index) => (
-                <DecorationItem
-                  handlePlacedItemList={(x, y) => handlePlacedItemList(itemName, x, y)}
-                  key={`${id}-${positionX}-${positionY}`}
-                  Img={Img}
-                  x={positionX}
-                  y={positionY}
-                  index={index}
-                  handleDragStart={() => handleDragStart(itemName)}
-                  isActive={activeItemName === itemName}
-                  imgSize={80}
-                />
-              ),
-            )}
+            {placedItemList.map(({ id, itemImgUrl: Img, positionX, positionY }, index) => (
+              <DecorationItem
+                handlePlacedItemList={(x, y) => handlePlacedItemList(id, x, y)}
+                key={`${id}-${positionX}-${positionY}`}
+                Img={Img}
+                x={positionX}
+                y={positionY}
+                index={index}
+                handleDragStart={() => handleDragStart(id)}
+                isActive={activeItemId === id}
+                imgSize={80}
+              />
+            ))}
           </div>
 
           {/* 현재 내 진행상황 영역 level, point, 목표*/}
