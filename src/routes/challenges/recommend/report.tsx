@@ -49,7 +49,7 @@ function RouteComponent() {
           />
         ) : (
           <>
-            <div className="mx-4 mb-2 border-b px-4 py-2">
+            <div className="mx-4 mb-4 px-4 py-2">
               <div className="flex flex-col items-center justify-center gap-2 rounded-[50px] border-[7px] border-[#E4F0D5] px-2 py-4">
                 <p className="text-ring text-sm">{mockingRecommandData.title}</p>
                 <p className="text-xl font-bold">{mockingRecommandData.type}</p>
@@ -63,7 +63,9 @@ function RouteComponent() {
               </div>
             </div>
 
-            <div className="m-2 mx-4 gap-2 border-b">
+            <hr />
+
+            <div className="m-2 mx-4 mt-2 gap-2 border-b pt-2">
               <p className="mb-2 font-bold">AI 추천 챌린지</p>
               <p className="text-ring text-sm">홈 화면에서 매일 추천 챌린지가 바뀝니다!</p>
               <div className="my-4 overflow-hidden" ref={emblaRef}>
