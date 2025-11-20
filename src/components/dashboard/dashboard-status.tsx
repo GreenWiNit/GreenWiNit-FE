@@ -2,17 +2,25 @@ import levelsInfo from '@/constant/roadmap-level-info'
 import InfoButton from './info-button'
 
 interface DashboardStatusProps {
-  currentExp: number
+  nextLevelPercent: number
   currentPoint: number
-  currentLevel: number
+  currentLevel: string
 }
-const DashboardStatus = ({ currentExp, currentPoint, currentLevel }: DashboardStatusProps) => {
+const DashboardStatus = ({
+  nextLevelPercent,
+  currentPoint,
+  currentLevel,
+}: DashboardStatusProps) => {
+  const currentLevelInfo = levelsInfo.find((level) => level.engName === currentLevel)
+
+  const currentIndex = levelsInfo.findIndex((level) => level.engName === currentLevel)
+  const nextLevelInfo = levelsInfo[currentIndex + 1]
   return (
     <div className="mt-[22px] mb-[30px] flex w-[284px] flex-col gap-1.5 rounded-2xl bg-white px-2 py-[17px]">
       <div className="flex justify-between">
         <div className="flex items-center gap-[7px]">
           <h3 className="text-title-smaller font-bold">
-            Lv.{currentLevel} {levelsInfo[currentLevel - 1]?.name}
+            Lv.{currentLevelInfo?.id} {currentLevelInfo?.name}
           </h3>
           <InfoButton />
         </div>
@@ -22,12 +30,12 @@ const DashboardStatus = ({ currentExp, currentPoint, currentLevel }: DashboardSt
         <div className="relative h-3 w-full rounded-full bg-[#E5E7EB]">
           <div
             className={`bg-pink absolute top-0 h-full rounded-full bg-pink-200 bg-gradient-to-l from-[#0FBA7E] to-[#E4F1B6]`}
-            style={{ width: `${currentExp}%` }}
+            style={{ width: `${nextLevelPercent}%` }}
           ></div>
         </div>
       </div>
       <span className="pt-1.5 text-[12px] text-[#4B5563]">
-        다음 레벨까지 {currentExp}% 완료 • 목표: {levelsInfo[currentLevel]?.name}
+        다음 레벨까지 {nextLevelPercent}% 완료 • 목표: {nextLevelInfo?.name ?? '최고 레벨'}
       </span>
     </div>
   )

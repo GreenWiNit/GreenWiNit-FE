@@ -113,6 +113,45 @@ export const usersApi = {
         }
     >
   },
+  getUserGrowth: async () => {
+    return await fetch(`${API_URL}/dashboard/growth`)
+      .then(throwResponseStatusThenChaining)
+      .then(
+        (res) =>
+          res.json() as Promise<{
+            success: true
+            message: string
+            result: {
+              currentLevel: string
+              goalLevel: string
+              memberId: number
+              nextLevelPercent: number
+              nextLevelPoint: number
+            }
+          }>,
+      )
+      .catch((error) => {
+        throw error
+      })
+  },
+  getUserItems: async () => {
+    return await fetch(`${API_URL}/dashboard/growth/items`)
+      .then(throwResponseStatusThenChaining)
+      .then((res) => res.json() as Promise<GetUserItemsResponse>)
+      .catch((error) => {
+        throw error
+      })
+  },
+}
+
+export type GetUserItemsResponse = ApiResponse<UserItem[]>
+export type UserItem = {
+  id: number
+  itemName: string
+  itemImgUrl: string
+  applicability: boolean
+  positionX: number
+  positionY: number
 }
 
 type GetMyInfoResponse = ApiResponse<{
