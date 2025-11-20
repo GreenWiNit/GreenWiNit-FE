@@ -74,7 +74,6 @@ function RouteComponent() {
           <PointDescription
             description={product?.description}
             price={product?.price}
-            // remainingQuantity={product?.stockQuantity}
             selectedQuantity={selectedQuantity}
             onQuantityChange={handleQuantityChange}
             availablePoint={availablePoint}
@@ -86,7 +85,6 @@ function RouteComponent() {
             availablePoint={availablePoint}
             deductPoint={deductPoint}
             handleClick={handleConfirmDialog}
-            // remainingQuantity={product?.stockQuantity}
             isItem={true}
           />
 
