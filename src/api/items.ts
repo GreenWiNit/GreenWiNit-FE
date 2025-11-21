@@ -39,7 +39,10 @@ export const itemsApi = {
 
     return response.result
   },
-  postItemOrder: async (itemProductId: string) => {
+  postItemOrder: async ({
+    itemProductId,
+    // , selectedQuantity
+  }: postItemOrderParams) => {
     const idempotencyKey = crypto.randomUUID()
 
     return await fetch(`${API_URL}/point-items/order/${itemProductId}`, {
@@ -61,6 +64,11 @@ export const itemsKey = createQueryKeys('items', {
   detail: (id: string | undefined) => ['detail', id] as const,
   infinite: () => ['infinite'] as const,
 })
+
+export type postItemOrderParams = {
+  itemProductId: string
+  selectedQuantity: number
+}
 
 export type ServerItems = {
   pointItemId: number
