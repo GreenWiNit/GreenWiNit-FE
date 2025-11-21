@@ -64,7 +64,7 @@ const ProductList = ({ products, isLoading, bottomRef, currentTab }: ProductList
             </div>
             <p className="text-sm font-bold whitespace-nowrap text-black">{product?.name}</p>
             <p className="text-xs text-gray-500">
-              {product?.sellingStatus ? product.sellingStatus : '교환가능'}
+              {currentTab === '배송상품' ? product.sellingStatus : ''}
             </p>
             <p className="text-mountain_meadow font-bold">{product?.price}p</p>
           </div>
