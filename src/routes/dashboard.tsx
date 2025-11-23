@@ -17,6 +17,8 @@ import useUserGrowth from '@/hooks/use-user-growth'
 import { UserItem } from '@/api/users'
 import { useUserPoints } from '@/hooks/use-user-points'
 import levelsInfo from '@/constant/roadmap-level-info'
+import useUserItemPosition from '@/hooks/use-user-item-position'
+import useUserItemApplicatbility from '@/hooks/use-user-item-applicatbility'
 
 export const Route = createFileRoute('/dashboard')({
   component: RouteComponent,
@@ -24,6 +26,13 @@ export const Route = createFileRoute('/dashboard')({
 
 function RouteComponent() {
   const navigate = useNavigate()
+
+  //나의 아이템 list
+  const { data: items } = useUserItems()
+
+  const { mutate: itemPositionSave } = useUserItemPosition()
+  const { mutate: itemApplicatbilitySave } = useUserItemApplicatbility()
+
   const { data: growthData } = useUserGrowth()
   const growthDataResult = growthData?.result
 
@@ -44,9 +53,33 @@ function RouteComponent() {
   //TODO: 인벤토리 아이콘 제외 로직 변경 필요
   const icons = [
     { id: 1, Component: BackpackIcon, onClick: toggleItemModal },
-    { id: 2, Component: TrashIcon, onClick: () => {} },
+    {
+      id: 2,
+      Component: TrashIcon,
+      onClick: () => itemApplicatbilitySave(activeItemId),
+    },
     { id: 3, Component: StoreIcon, onClick: () => navigate({ to: '/point-shop' }) },
-    { id: 4, Component: DiskIcon, onClick: () => {} },
+    {
+      id: 4,
+      Component: DiskIcon,
+      onClick: () =>
+        itemPositionSave(
+          {
+            positionX: placedItemList.find((item) => item.id === activeItemId)?.positionX || 0,
+            positionY: placedItemList.find((item) => item.id === activeItemId)?.positionY || 0,
+            itemId: activeItemId,
+          },
+          {
+            onSuccess: () => {
+              const activeItem = placedItemList.find((item) => item.id === activeItemId)
+
+              if (!activeItem?.applicability) {
+                itemApplicatbilitySave(activeItemId)
+              }
+            },
+          },
+        ),
+    },
   ]
 
   //나의 아이템 리스트
@@ -107,8 +140,8 @@ function RouteComponent() {
         item.id === id
           ? {
               ...item,
-              x,
-              y,
+              positionX: x,
+              positionY: y,
             }
           : item,
       ),
@@ -116,8 +149,7 @@ function RouteComponent() {
   }
 
   //드래그 중인 아이템 id
-  const [activeItemId, setActiveItemId] = useState<number | null>(null)
-  console.log(activeItemId)
+  const [activeItemId, setActiveItemId] = useState<number>(0)
   /** 아이템 드래그 시작 시 맨 위로 올리기 */
   const handleDragStart = (id: number) => {
     setActiveItemId(id)
@@ -128,9 +160,6 @@ function RouteComponent() {
     setShowNoticeDialog(!showNoticeDialog)
     window.location.reload()
   }
-
-  //나의 아이템 list
-  const { data: items } = useUserItems()
 
   useEffect(() => {
     if (items?.result) {
@@ -165,7 +194,7 @@ function RouteComponent() {
           {/* 꾸미기 아이템 영역 */}
           <div ref={decorationContainerRef} className="relative h-full w-full max-w-full">
             {/* 나의 레벨 이미지 영역 */}
-            <div className="absolute bottom-0 left-1/2 z-50 -translate-x-1/2">
+            <div className="absolute bottom-0 left-1/2 z-10 -translate-x-1/2">
               {CurrentLevelImg && <CurrentLevelImg />}
             </div>
 
