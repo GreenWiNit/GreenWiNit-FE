@@ -40,7 +40,7 @@ function ConfirmDialog({
 }: ConfirmDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="gap-6 p-8" showCloseButton={false}>
+      <DialogContent className={cn('gap-6 p-8', className)} showCloseButton={false}>
         {title ? (
           <DialogTitle className="flex items-center justify-center text-center text-lg leading-3 font-semibold whitespace-pre-line text-black">
             {title}
@@ -50,9 +50,14 @@ function ConfirmDialog({
             <VisuallyHidden>Notice</VisuallyHidden>
           </DialogTitle>
         )}
-        <DialogDescription className="text-secondary-foreground text-center text-base whitespace-pre-wrap">
-          {description}
-          {paragraph && <p className="text-lighter-gray text-xs">{paragraph}</p>}
+        <DialogDescription
+          asChild
+          className="text-secondary-foreground text-center text-base whitespace-pre-wrap"
+        >
+          <div>
+            {description}
+            {paragraph && <p className="text-lighter-gray text-xs">{paragraph}</p>}
+          </div>
         </DialogDescription>
         <DialogFooter className="flex flex-row items-center gap-4 sm:justify-center">
           <Button

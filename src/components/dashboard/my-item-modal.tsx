@@ -1,9 +1,9 @@
-import { Item } from '@/types/dashboard'
+import { UserItem } from '@/api/users'
 import { XIcon, Info } from 'lucide-react'
 
 interface MyItemModalProps {
   toggleItemModal: () => void
-  itemList: Item[] | undefined | null
+  itemList: UserItem[]
   /** 배치중인 아이템 list에 추가 함수 */
   handlePlaceItem: (itemId: number) => void
 }
@@ -29,16 +29,15 @@ const MyItemModal = ({ toggleItemModal, itemList, handlePlaceItem }: MyItemModal
       ) : (
         //아이템 리스트
         <ul className="grid grid-cols-4 gap-4 pt-5">
-          {itemList.map(({ id, count, img: Img }) => (
+          {itemList.map(({ id, itemImgUrl: Img }) => (
             <li
-              key={id}
+              key={id + Img}
               onClick={() => handlePlaceItem(id)}
               className="border-lighter-gray-border hover:bg-mountain_meadow relative h-[65px] w-[66px] cursor-pointer rounded-[12px] border bg-white shadow-md"
             >
               <div className="flex h-full w-full items-center justify-center">
-                <Img className="h-full w-full p-2.5" />
+                <img src={Img} className="h-full w-full p-2.5" />
               </div>
-              <span className="absolute right-2 bottom-1 text-[10px] text-[#737373]">{count}</span>
             </li>
           ))}
         </ul>

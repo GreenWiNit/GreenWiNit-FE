@@ -6,6 +6,7 @@ import { PointFilterType, PointHistory } from '@/types/points'
 import { createQueryKeys, mergeQueryKeys } from '@lukemorales/query-key-factory'
 import { throwResponseStatusThenChaining } from '@/lib/network'
 import { showMessageIfExists } from '@/lib/error'
+import { PatchUserItemPositionProps } from '@/types/user'
 
 export const usersApi = {
   getUserStatus: async () => {
@@ -113,6 +114,68 @@ export const usersApi = {
         }
     >
   },
+  getUserGrowth: async () => {
+    return await fetch(`${API_URL}/dashboard/growth`)
+      .then(throwResponseStatusThenChaining)
+      .then(
+        (res) =>
+          res.json() as Promise<{
+            success: true
+            message: string
+            result: {
+              currentLevel: string
+              goalLevel: string
+              memberId: number
+              nextLevelPercent: number
+              nextLevelPoint: number
+            }
+          }>,
+      )
+      .catch((error) => {
+        throw error
+      })
+  },
+  getUserItems: async () => {
+    return await fetch(`${API_URL}/dashboard/growth/items`)
+      .then(throwResponseStatusThenChaining)
+      .then((res) => res.json() as Promise<GetUserItemsResponse>)
+      .catch((error) => {
+        throw error
+      })
+  },
+  patchUserItemApplicability: async (itemId: number) => {
+    return await fetch(`${API_URL}/dashboard/growth/${itemId}/applicability`, {
+      method: 'PATCH',
+    })
+      .then(throwResponseStatusThenChaining)
+      .catch((error) => {
+        throw error
+      })
+  },
+  patchUserItemPosition: async ({ positionX, positionY, itemId }: PatchUserItemPositionProps) => {
+    console.log(positionX, positionY, itemId)
+    return await fetch(`${API_URL}/dashboard/growth/${itemId}/position`, {
+      method: 'PATCH',
+      body: JSON.stringify({ positionX, positionY }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(throwResponseStatusThenChaining)
+      .catch((error) => {
+        throw error
+      })
+  },
+}
+
+export type GetUserItemsResponse = ApiResponse<UserItem[]>
+export type UserItem = {
+  id: number
+  itemName: string
+  itemImgUrl: string
+  applicability: boolean
+  positionX: number
+  positionY: number
 }
 
 type GetMyInfoResponse = ApiResponse<{

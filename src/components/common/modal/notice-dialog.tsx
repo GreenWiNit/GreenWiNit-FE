@@ -48,9 +48,14 @@ function NoticeDialog({
             <VisuallyHidden>Notice</VisuallyHidden>
           </DialogTitle>
         )}
-        <DialogDescription className="text-secondary-foreground flex flex-col items-center justify-center text-center text-base whitespace-pre-line">
-          {description}
-          {paragraph && <p className="text-lighter-gray text-xs">{paragraph}</p>}
+        <DialogDescription
+          asChild
+          className="text-secondary-foreground flex flex-col items-center justify-center text-center text-base whitespace-pre-line"
+        >
+          <div>
+            {description}
+            {paragraph && <p className="text-lighter-gray text-xs">{paragraph}</p>}
+          </div>
         </DialogDescription>
         <DialogFooter className="flex flex-row items-center gap-4 sm:justify-center">
           <Button size="flex" onClick={onConfirm} className="mx-16 h-10 px-4 py-2.5">
