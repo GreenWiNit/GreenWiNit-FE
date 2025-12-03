@@ -1,5 +1,6 @@
 import { API_URL } from '@/constant/network'
 import { throwResponseStatusThenChaining } from '@/lib/network'
+import { ServerItem, ServerItems } from '@/types/item'
 import { createQueryKeys } from '@lukemorales/query-key-factory'
 
 export const itemsApi = {
@@ -61,20 +62,3 @@ export const itemsKey = createQueryKeys('items', {
   detail: (id: string | undefined) => ['detail', id] as const,
   infinite: () => ['infinite'] as const,
 })
-
-export type ServerItems = {
-  pointItemId: number
-  pointItemName: string
-  thumbnailUrl: string
-  pointPrice: number
-}
-
-export type ServerItem = {
-  itemName: string
-  description: string
-  thumbnail: string
-  price: number
-  enablePoint: number
-  decreasePoint: number
-  remainPoint: number
-}
