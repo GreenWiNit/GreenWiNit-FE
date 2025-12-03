@@ -41,11 +41,11 @@ function PointShop() {
   } = useItems()
   const allItems = items?.pages.flatMap((page) => page.result.content) ?? []
   // 추후 sellingStatus값 처리예정
-  const mappedItems = allItems.map((i) => ({
-    id: i.pointItemId,
-    name: i.pointItemName,
-    thumbnailUrl: i.thumbnailUrl,
-    price: i.pointPrice,
+  const mappedItems = allItems.map((item) => ({
+    id: item.pointItemId,
+    name: item.pointItemName,
+    thumbnailUrl: item.thumbnailUrl,
+    price: item.pointPrice,
   }))
 
   const currentProducts = currentTab === '배송상품' ? products : mappedItems
