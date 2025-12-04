@@ -5,9 +5,10 @@ import NoticeDialog from '@/components/common/modal/notice-dialog'
 import PageLayOut from '@/components/common/page-layout'
 import ExchangeProduct from '@/components/shop-screen/exchange-product'
 import PointDescription from '@/components/shop-screen/point-description'
-import useProduct from '@/hooks/product/use-product'
+import useItem from '@/hooks/item/use-item'
+import useItemOrder from '@/hooks/item/use-item-order'
 import { useUserStatus } from '@/hooks/use-user-status'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/point-shop/items/$item-product-id/detail')({
@@ -15,23 +16,27 @@ export const Route = createFileRoute('/point-shop/items/$item-product-id/detail'
 })
 
 function RouteComponent() {
+  const navigate = useNavigate()
   const pointProductId = Route.useParams()['item-product-id']
+
+  const { mutate: itemOrder } = useItemOrder(pointProductId, () => {
+    setShowNoticeDialog(true)
+  })
 
   const [selectedQuantity, setSelectedQuantity] = useState(1)
   //교환 확인 다이얼로그
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
   const handleConfirmDialog = async () => {
     setShowConfirmDialog(!showConfirmDialog)
-    setShowNoticeDialog(!showNoticeDialog)
   }
   //교환 완료 다이얼로그
   const [showNoticeDialog, setShowNoticeDialog] = useState(false)
   const handleExchange = async () => {
     setShowNoticeDialog(!showNoticeDialog)
-    window.location.reload()
+    navigate({ to: '/point-shop' })
   }
 
-  const { data: product, isLoading: productLoading } = useProduct(pointProductId)
+  const { data: product, isLoading: productLoading } = useItem(pointProductId)
   const { data: userStatus, isLoading: userLoading } = useUserStatus()
 
   const isLoading = productLoading || userLoading
@@ -55,12 +60,12 @@ function RouteComponent() {
             </div>
 
             <div className="flex w-full justify-center bg-gray-100 p-4">
-              <img src={product?.thumbnailUrl} alt="Product" />
+              <img src={product?.thumbnail} alt="Product" />
             </div>
           </div>
 
           <div className="p-4 text-left font-bold">
-            <p className="text-2xl text-black">{product?.name}</p>
+            <p className="text-2xl text-black">{product?.itemName}</p>
             <p className="text-mountain_meadow text-3xl">{product?.price} 포인트</p>
           </div>
 
@@ -69,7 +74,6 @@ function RouteComponent() {
           <PointDescription
             description={product?.description}
             price={product?.price}
-            remainingQuantity={product?.stockQuantity}
             selectedQuantity={selectedQuantity}
             onQuantityChange={handleQuantityChange}
             availablePoint={availablePoint}
@@ -81,7 +85,6 @@ function RouteComponent() {
             availablePoint={availablePoint}
             deductPoint={deductPoint}
             handleClick={handleConfirmDialog}
-            remainingQuantity={product?.stockQuantity}
             isItem={true}
           />
 
@@ -93,14 +96,13 @@ function RouteComponent() {
             description={
               <div className="text-nowrap">
                 <p>
-                  <strong>맑은 뭉게 구름</strong> 아이템을
+                  <strong>{product?.itemName}</strong> 아이템을
                   <br />
                   교환하시겠습니까?
                 </p>
               </div>
             }
-            //포인트 교환 api로 추가 예정
-            onConfirm={handleConfirmDialog}
+            onConfirm={itemOrder}
           />
 
           {/* 아이템 교환 완료 다이얼로그 */}

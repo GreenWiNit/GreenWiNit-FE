@@ -15,7 +15,7 @@ const RoadMap = ({ distanceFromBottom }: RoadMapProps) => {
   if (distanceFromBottom === null) return null
   return (
     <div
-      className="fixed bottom-0 left-1/2 flex -translate-x-1/2 gap-6 rounded-2xl bg-[rgba(255,255,255,0.8)] p-6"
+      className="fixed bottom-0 left-1/2 z-20 flex -translate-x-1/2 gap-6 rounded-2xl bg-[rgba(255,255,255,0.8)] p-6"
       style={{ transform: `translateY(-${distanceFromBottom + 30}px)` }}
     >
       {levelListInfo.map(({ id, img, point, name }) => (
@@ -32,7 +32,7 @@ const RoadMap = ({ distanceFromBottom }: RoadMapProps) => {
             {levelListInfo.length !== id && (
               <div
                 className={cn(
-                  'absolute top-1/2 right-0 h-1 w-6 translate-x-full bg-[#D1D5DB]',
+                  'absolute top-1/2 right-0 z-20 h-1 w-6 translate-x-full bg-[#D1D5DB]',
                   currentLevel >= id && 'bg-gradient-to-r from-[#4ADE80] to-[#10B981]',
                 )}
               ></div>

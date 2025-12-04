@@ -4,7 +4,7 @@ import PointOverview from './point-overview'
 interface PointDescriptionProps {
   description: string | undefined
   price: number | undefined
-  remainingQuantity: number | undefined
+  remainingQuantity?: number | undefined
   selectedQuantity: number
   onQuantityChange: (quantity: number) => void
   availablePoint: number
