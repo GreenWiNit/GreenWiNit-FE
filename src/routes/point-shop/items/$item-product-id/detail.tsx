@@ -19,11 +19,11 @@ function RouteComponent() {
   const navigate = useNavigate()
   const pointProductId = Route.useParams()['item-product-id']
 
+  const [selectedQuantity, setSelectedQuantity] = useState(1)
   const { mutate: itemOrder } = useItemOrder(pointProductId, () => {
     setShowNoticeDialog(true)
   })
 
-  const [selectedQuantity, setSelectedQuantity] = useState(1)
   //교환 확인 다이얼로그
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
   const handleConfirmDialog = async () => {
@@ -102,7 +102,7 @@ function RouteComponent() {
                 </p>
               </div>
             }
-            onConfirm={itemOrder}
+            onConfirm={() => itemOrder(selectedQuantity)}
           />
 
           {/* 아이템 교환 완료 다이얼로그 */}
