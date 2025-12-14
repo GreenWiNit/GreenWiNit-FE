@@ -7,7 +7,7 @@ interface PointOverviewProps {
   point: string | number | undefined
   valueClassName?: string
   isButton?: boolean
-  remainingQuantity?: number
+  remainingQuantity?: number | undefined
   onQuantityChange?: (quantity: number) => void
   selectedQuantity?: number
 }
@@ -17,7 +17,7 @@ const PointOverview = ({
   point,
   valueClassName = '',
   isButton = false,
-  remainingQuantity = 0,
+  remainingQuantity,
   onQuantityChange,
   selectedQuantity = 1,
 }: PointOverviewProps) => {
@@ -29,7 +29,7 @@ const PointOverview = ({
   }, [selectedQuantity])
 
   const handleDownClick = () => {
-    if (remainingQuantity > 0) {
+    if (maxCount > 0) {
       setIsOpen((prev) => !prev)
     }
   }
@@ -40,8 +40,9 @@ const PointOverview = ({
     onQuantityChange?.(quantity)
   }
 
-  const quantityOptions = Array.from({ length: remainingQuantity }, (_, i) => i + 1)
-
+  const isLimited = typeof remainingQuantity === 'number'
+  const maxCount = isLimited ? remainingQuantity : 5
+  const quantityOptions = Array.from({ length: maxCount }, (_, i) => i + 1)
   return (
     <div className="text-md relative flex flex-row justify-between p-4">
       <p className="text-black">{label}</p>
@@ -50,15 +51,15 @@ const PointOverview = ({
           <button
             className={cn('roudned-[5px] flex items-center gap-5 px-[10px] py-[5px]', {
               'cursor-not-allowed bg-gray-100 text-gray-400': remainingQuantity === 0,
-              'bg-gray-200 hover:bg-gray-300': remainingQuantity > 0,
+              'bg-gray-200 hover:bg-gray-300': !isLimited || remainingQuantity > 0,
             })}
             onClick={handleDownClick}
-            disabled={remainingQuantity === 0}
+            disabled={isLimited && remainingQuantity === 0}
           >
-            {remainingQuantity === 0 ? '품절' : selectedCount}
+            {isLimited && remainingQuantity === 0 ? '품절' : selectedCount}
             <ChevronDown size={16} />
           </button>
-          {isOpen && remainingQuantity > 0 && (
+          {isOpen && maxCount > 0 && (
             <>
               <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
               <div className="absolute top-full right-0 z-20 mt-1 overflow-y-auto bg-gray-500 font-bold text-black">

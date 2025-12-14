@@ -34,27 +34,26 @@ export const itemsApi = {
           }>,
       )
       .catch((error) => {
-        console.error('Error fetching item detail:', error)
         throw error
       })
 
     return response.result
   },
-  postItemOrder: async ({
-    itemProductId,
-    // , selectedQuantity
-  }: postItemOrderParams) => {
+  postItemOrder: async ({ itemProductId, selectedQuantity }: postItemOrderParams) => {
     const idempotencyKey = crypto.randomUUID()
-
     return await fetch(`${API_URL}/point-items/order/${itemProductId}`, {
       method: 'POST',
       headers: {
         'Idempotency-Key': idempotencyKey,
       },
+      body: JSON.stringify({
+        amount: selectedQuantity,
+      }),
     })
       .then(throwResponseStatusThenChaining)
       .then((res) => res.json())
       .catch((error) => {
+        console.log('error', error)
         throw error
       })
   },

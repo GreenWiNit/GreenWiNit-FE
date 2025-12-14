@@ -50,7 +50,7 @@ const PointDescription = ({
         point={availablePoint}
         valueClassName="text-green-500"
         isButton={true}
-        remainingQuantity={finalCount}
+        remainingQuantity={remainingQuantity === undefined ? undefined : finalCount}
         onQuantityChange={onQuantityChange}
         selectedQuantity={selectedQuantity}
       />
