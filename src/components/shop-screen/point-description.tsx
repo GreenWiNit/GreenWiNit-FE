@@ -44,17 +44,17 @@ const PointDescription = ({
         point={`${availablePoint}p`}
         valueClassName="text-mountain_meadow"
       />
-      {!isItem && (
-        <PointOverview
-          label="수량 선택"
-          point={availablePoint}
-          valueClassName="text-green-500"
-          isButton={true}
-          remainingQuantity={finalCount}
-          onQuantityChange={onQuantityChange}
-          selectedQuantity={selectedQuantity}
-        />
-      )}
+
+      <PointOverview
+        label="수량 선택"
+        point={availablePoint}
+        valueClassName="text-green-500"
+        isButton={true}
+        remainingQuantity={remainingQuantity === undefined ? undefined : finalCount}
+        onQuantityChange={onQuantityChange}
+        selectedQuantity={selectedQuantity}
+      />
+
       <PointOverview label="차감 포인트" point={`${deductPoint}p`} valueClassName="text-red-500" />
       <PointOverview
         label="남은 포인트"

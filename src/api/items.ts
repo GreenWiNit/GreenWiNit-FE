@@ -34,24 +34,26 @@ export const itemsApi = {
           }>,
       )
       .catch((error) => {
-        console.error('Error fetching item detail:', error)
-        throw error // Re-throw the error after logging it
+        throw error
       })
 
     return response.result
   },
-  postItemOrder: async (itemProductId: string) => {
+  postItemOrder: async ({ itemProductId, selectedQuantity }: postItemOrderParams) => {
     const idempotencyKey = crypto.randomUUID()
-
     return await fetch(`${API_URL}/point-items/order/${itemProductId}`, {
       method: 'POST',
       headers: {
         'Idempotency-Key': idempotencyKey,
       },
+      body: JSON.stringify({
+        amount: selectedQuantity,
+      }),
     })
       .then(throwResponseStatusThenChaining)
       .then((res) => res.json())
       .catch((error) => {
+        console.log('error', error)
         throw error
       })
   },
@@ -62,3 +64,8 @@ export const itemsKey = createQueryKeys('items', {
   detail: (id: string | undefined) => ['detail', id] as const,
   infinite: () => ['infinite'] as const,
 })
+
+export type postItemOrderParams = {
+  itemProductId: string
+  selectedQuantity: number
+}
